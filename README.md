@@ -1,5 +1,5 @@
 # News-Feed
-This is a simple app (very simple) that fetches data from the News API in JSON format and parses the response.
+This is a simple app (very simple) that fetches data from the News API in JSON format and parses the response. (I will be migrating from News API to Guardian API soon.)
 
 I will update the code to make the app better and the code base cleaner. Now I have intergrated https://github.com/square/retrofit in my app and made use of caching.
 
