@@ -30,7 +30,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.edoubletech.newsfeed.adapter.NewsAdapter;
+import com.edoubletech.newsfeed.NewsAdapter;
 import com.edoubletech.newsfeed.model.Article;
 import com.edoubletech.newsfeed.model.NewsResponse;
 import com.edoubletech.newsfeed.networking.CacheInterceptor;
