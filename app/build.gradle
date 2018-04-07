@@ -1,11 +1,31 @@
+/*
+ *  Copyright (C) 2018 Eton Otieno Oboch
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 26
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.edoubletech.newsfeed"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -17,7 +37,7 @@ android {
         }
     }
     buildTypes.each {
-        it.buildConfigField 'String', 'NEWS_API_TOKEN', MyApiToken
+        it.buildConfigField 'String', 'GUARDIAN_API_KEY', MyApiKey
     }
 
     compileOptions {
@@ -28,20 +48,50 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation 'com.android.support:design:27.0.2'
-    implementation 'com.android.support:cardview-v7:27.0.2'
-    implementation 'com.android.support:preference-v7:27.0.2'
-    implementation 'com.android.support:recyclerview-v7:27.0.2'
 
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.2.30"
+
+    // Support Libraries
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:customtabs:26.1.0'
+    implementation 'com.android.support:preference-v7:26.1.0'
+
+    // ConstraintLayout
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+
+    implementation "android.arch.lifecycle:common-java8:1.1.1"
+
+    // Room
+    implementation "android.arch.persistence.room:runtime:1.0.0"
+    implementation 'com.android.support:support-v4:26.1.0'
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+
+    // Firebase
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
+    implementation 'com.google.firebase:firebase-auth:12.0.1'
+
+    // Glide for image viewing
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
 
+    // Timber for logging events
+    implementation 'com.jakewharton.timber:timber:4.6.0'
 
+    // Retrofit for making the network calls
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    // Logging interceptor for the network calls
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
+    // Joda Time
+    implementation 'net.danlew:android.joda:2.9.9.3'
 }
+apply plugin: 'com.google.gms.google-services'

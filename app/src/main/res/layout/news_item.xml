@@ -1,103 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2018 Eton Otieno Oboch
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
+<!--
+  ~  Copyright (C) 2018 Eton Otieno Oboch
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
 
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
+    android:theme="@style/AppTheme"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="2dp">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_view"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/card_margin"
-        android:elevation="3dp"
-        card_view:cardCornerRadius="@dimen/card_radius">
+        android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/article_image_view"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/article_image_description"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/placeholder_image" />
+
+        <TextView
+            android:id="@+id/headline_text_view"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:theme="@style/AppTheme">
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintBottom_toTopOf="@+id/trailtext_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/article_image_view"
+            app:layout_constraintTop_toTopOf="@+id/article_image_view"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Eton headteacher to face MPs' questions over exam malpractice. This is also a placeholder to see how the Ui will change according to the amount of text that the API has sent back." />
+
+        <TextView
+            android:id="@+id/trailtext_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/article_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/article_image_view"
+            tools:text="Simon Henderson to appear before education committee after Guardian reported exam questions had been leaked. This is a placeholder text to know how the UI will change according to the change in text." />
+
+        <TextView
+            android:id="@+id/time_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintEnd_toStartOf="@+id/section_text_view"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trailtext_text_view"
+            tools:text="22 Hours ago" />
+
+        <TextView
+            android:id="@+id/section_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/time_text_view"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Technology" />
+
+    </android.support.constraint.ConstraintLayout>
 
 
-            <ImageView
-                tools:src="@drawable/placeholder_image"
-                android:id="@+id/article_image_view"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:contentDescription="@string/article_image_description"
-                android:scaleType="centerCrop"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+</android.support.v7.widget.CardView>
 
-            <View
-                android:id="@+id/scrim"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="@drawable/scrim_gradient"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toEndOf="parent" />
-
-            <TextView
-                android:id="@+id/title_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                card_view:layout_constraintBottom_toBottomOf="@+id/article_image_view"
-                card_view:layout_constraintLeft_toLeftOf="parent"
-                card_view:layout_constraintStart_toStartOf="@+id/article_image_view"
-                tools:text="Stocks turn higher; bank shares lead early gains." />
-
-            <TextView
-                android:id="@+id/description_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                card_view:layout_constraintTop_toBottomOf="@+id/article_image_view"
-                tools:text="U.S. stocks shook off an early decline Wednesday and turned higher. Banks rose along with bond yields after the government said consumer prices climbed at a faster than expected rate in January. There were few signs of the worries about inflation that sent st..." />
-
-            <TextView
-                android:id="@+id/news_source_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:textColor="@color/secondary_text"
-                card_view:layout_constraintBottom_toBottomOf="@id/description_text_view"
-                card_view:layout_constraintTop_toBottomOf="@id/description_text_view"
-                tools:text="Latimes.com" />
-
-            <TextView
-                android:id="@+id/author_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:textColor="@color/secondary_text"
-                android:textSize="14sp"
-                card_view:layout_constraintBottom_toBottomOf="@id/description_text_view"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@id/description_text_view"
-                tools:text="Eton Otieno" />
-
-        </android.support.constraint.ConstraintLayout>
-
-    </android.support.v7.widget.CardView>
-
-</android.support.constraint.ConstraintLayout>

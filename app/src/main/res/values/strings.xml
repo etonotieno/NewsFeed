@@ -1,20 +1,31 @@
+<!--
+  ~  Copyright (C) 2018 Eton Otieno Oboch
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
 <resources>
-    <!-- Copyright (C) 2018 Eton Otieno Oboch
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
-    -->
     <string name="app_name">NewsFeed</string>
     <string name="article_image_description">This is an image associated with the News Article</string>
-    <string name="attribution">Powered by News API.</string>
+    <string name="attribution">Powered by Guardian API.</string>
     <string name="about_app">About App</string>
+    <string name="seconds">%d seconds elapsed</string>
+    <string name="empty_results_error">No Articles Found. Try again later.</string>
+    <string name="error_loading_results">There was an error loading the reults.</string>
+    <string name="no_internet_error">No Internet Connection</string>
+    <string name="settings">Settings</string>
+    <string name="no_internet_image">No Internet Image</string>
+
 </resources>
