@@ -30,7 +30,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.edoubletech.newsfeed.adapter.NewsAdapter;
+import com.edoubletech.newsfeed.NewsAdapter;
 import com.edoubletech.newsfeed.model.Article;
 import com.edoubletech.newsfeed.model.NewsResponse;
 import com.edoubletech.newsfeed.networking.CacheInterceptor;
@@ -57,9 +57,7 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public class MainActivity extends AppCompatActivity {
     
-    private static final String LIST_STATE_KEY = "recycler_list_state";
-    
-    private Parcelable mListState;
+   
     private NewsAdapter mNewsAdapter;
     private RecyclerView mRecyclerView;
     private List<Article> mArticles = new ArrayList<>();
@@ -67,15 +65,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        if (savedInstanceState != null) {
-            mListState = savedInstanceState.getParcelable(LIST_STATE_KEY);
-        }
-        
-        if (mListState != null) {
-            mRecyclerView.getLayoutManager().onRestoreInstanceState(mListState);
-        }
-        
         setContentView(R.layout.activity_main);
         
         mRecyclerView = findViewById(R.id.main_activity_recycler_view);
@@ -137,23 +126,7 @@ public class MainActivity extends AppCompatActivity {
         Context context = this;
         return (Activity) context;
     }
-    
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        
-        // Add the parcelable object to the bundle
-        outState.putParcelable(LIST_STATE_KEY, mListState);
-    }
-    
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        
-        if (savedInstanceState != null) {
-            mListState = savedInstanceState.getParcelable(LIST_STATE_KEY);
-        }
-    }
+  
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -161,22 +134,6 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         
         return true;
-    }
-    
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mListState != null) {
-            mRecyclerView.getLayoutManager().onRestoreInstanceState(mListState);
-        }
-    }
-    
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mListState != null) {
-            mRecyclerView.getLayoutManager().onRestoreInstanceState(mListState);
-        }
     }
     
     @Override
