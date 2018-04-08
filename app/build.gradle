@@ -17,7 +17,6 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 26
@@ -63,20 +62,6 @@ dependencies {
     // ConstraintLayout
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    // ViewModel and LiveData
-    implementation "android.arch.lifecycle:extensions:1.1.1"
-
-    implementation "android.arch.lifecycle:common-java8:1.1.1"
-
-    // Room
-    implementation "android.arch.persistence.room:runtime:1.0.0"
-    implementation 'com.android.support:support-v4:26.1.0'
-    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
-
-    // Firebase
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
-    implementation 'com.google.firebase:firebase-auth:12.0.1'
-
     // Glide for image viewing
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
@@ -94,4 +79,3 @@ dependencies {
     // Joda Time
     implementation 'net.danlew:android.joda:2.9.9.3'
 }
-apply plugin: 'com.google.gms.google-services'
