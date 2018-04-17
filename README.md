@@ -12,7 +12,8 @@ This app was made using videos from
 [Android Basics: Networking](https://classroom.udacity.com/courses/ud843)
 It's a motivator ahead of
 [Nairobi Tech Week](https://nairobitechweek.com)
-and thus my final submission will be made before April 19th hopefully.
+and thus my submissions will become minimal after April 19th.
+I'll be building and refining features when I learn something new.
 
 The final update will hopefully make use of
 [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html).
