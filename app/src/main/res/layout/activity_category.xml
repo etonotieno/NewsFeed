@@ -38,6 +38,7 @@
     <!-- Empty view is only visible when the list has no items. -->
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/main_fragment_empty_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,6 +51,7 @@
         tools:text="@string/no_internet_error" />
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/no_internet_image_main_fragment"
         android:layout_width="72dp"
         android:layout_height="72dp"
@@ -63,6 +65,7 @@
 
     <!-- Loading indicator for user feedback between queries to Guardian API -->
     <ProgressBar
+        android:visibility="gone"
         android:id="@+id/category_loading_indicator"
         style="@style/Widget.AppCompat.ProgressBar"
         android:layout_width="wrap_content"

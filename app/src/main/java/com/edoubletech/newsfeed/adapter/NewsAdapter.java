@@ -44,9 +44,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     private Context mContext;
     private List<News> mNewsList;
     
-    public NewsAdapter(Context context, List<News> newsResponse, ListItemClickListener listener) {
+    public NewsAdapter(Context context, ListItemClickListener listener) {
         this.mContext = context;
-        this.mNewsList = newsResponse;
         this.mOnClickListener = listener;
     }
     
@@ -60,19 +59,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-        holder.mHeadlineTextView.setText(mNewsList.get(position).getTitle());
+        News currentNews = mNewsList.get(position);
+        holder.mHeadlineTextView.setText(currentNews.getTitle());
         
-        holder.mTrailTextTextView.setText(mNewsList.get(position).getTrailText());
+        holder.mTrailTextTextView.setText(currentNews.getTrailText());
         
-        holder.mSectionTextView.setText(mNewsList.get(position).getSectionName());
+        holder.mSectionTextView.setText(currentNews.getSectionName());
         
-        String dateString = mNewsList.get(position).getPublicationDate();
+        String dateString = currentNews.getPublicationDate();
         long secondsPassedBetweenDates = DateUtilsKt.getTimeDifferenceInSeconds(dateString);
         String correctTimeString = DateUtilsKt.getPrettifiedTimeString(secondsPassedBetweenDates);
         
         holder.mPublicationTime.setText(correctTimeString);
         
-        String imageUrl = mNewsList.get(position).getImageUrl();
+        String imageUrl = currentNews.getImageUrl();
         if (imageUrl == null) {
             holder.mArticleImageView.setVisibility(View.GONE);
         } else {
@@ -85,7 +85,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     
     @Override
     public int getItemCount() {
-        return mNewsList.size();
+        return (mNewsList != null) ? mNewsList.size() : 0;
+    }
+    
+    public void setNews(List<News> newListOfNews) {
+        mNewsList = newListOfNews;
+        notifyDataSetChanged();
     }
     
     public interface ListItemClickListener {

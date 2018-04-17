@@ -36,33 +36,27 @@
 
         <ImageView
             android:id="@+id/article_image_view"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="150dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             android:contentDescription="@string/article_image_description"
             android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/placeholder_image" />
+
 
         <TextView
             android:id="@+id/headline_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
+            android:background="@drawable/scrim_gradient"
             android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/secondary_text"
-            app:layout_constraintBottom_toTopOf="@+id/trailtext_text_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/article_image_view"
-            app:layout_constraintTop_toTopOf="@+id/article_image_view"
-            app:layout_constraintVertical_bias="0.0"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/article_image_view"
+            app:layout_constraintEnd_toEndOf="@+id/article_image_view"
+            app:layout_constraintStart_toStartOf="@+id/article_image_view"
             tools:text="Eton headteacher to face MPs' questions over exam malpractice. This is also a placeholder to see how the Ui will change according to the amount of text that the API has sent back." />
 
         <TextView
