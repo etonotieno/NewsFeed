@@ -17,74 +17,42 @@
 
 package com.edoubletech.newsfeed;
 
+import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
+import android.util.Log;
 
-import com.edoubletech.newsfeed.guardian.GuardianMain;
-import com.edoubletech.newsfeed.guardian.GuardianResponse;
-import com.edoubletech.newsfeed.guardian.GuardianResult;
 import com.edoubletech.newsfeed.model.News;
-import com.edoubletech.newsfeed.networking.Injector;
-import com.edoubletech.newsfeed.networking.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import timber.log.Timber;
 
 public class MainViewModel extends ViewModel {
     
-    private MutableLiveData<List<News>> mNewsList;
+    public LiveData<List<News>> mNewsList;
+    private MutableLiveData<String> categoryName;
+    private Repository mRepository;
     
-    public MainViewModel(String categoryName) {
-        mNewsList = new MutableLiveData<>();
-        Service service = Injector.provideRetrofit().create(Service.class);
-        Call<GuardianMain> call = service.getNews("50", BuildConfig.GUARDIAN_API_KEY,
-                categoryName, "all", "json");
-        
-        // Make the actual call. This is an asynchronous call.
-        call.enqueue(new Callback<GuardianMain>() {
+    public MainViewModel() {
+        categoryName = new MutableLiveData<>();
+        mRepository = Repository.getInstance();
+        mNewsList = Transformations.switchMap(categoryName, new Function<String, LiveData<List<News>>>() {
             @Override
-            public void onResponse(Call<GuardianMain> call, Response<GuardianMain> response) {
-                if (response.isSuccessful()) {
-                    Timber.d(" NewsResponse is successful");
-                    GuardianResponse res = response.body().getResponse();
-                    List<GuardianResult> apiResults = res.getResults();
-                    List<News> mArticles = new ArrayList<>();
-                    for (GuardianResult apiResult : apiResults) {
-                        mArticles.add(new News(
-                                apiResult.getFields().getThumbnail(), /* Thumbnail for the news */
-                                apiResult.getWebUrl(), /* Website url*/
-                                apiResult.getSectionName(), /* Section name*/
-                                apiResult.getWebTitle(), /* Web Title of Article*/
-                                apiResult.getFields().getTrailText(), /* Trail Text*/
-                                apiResult.getFields().getBodyText(), /* Description */
-                                apiResult.getWebPublicationDate())); /* Publication Date*/
-                    }
-                    mNewsList.postValue(mArticles);
-                } else {
-                    int statusCode = response.code();
-                    ResponseBody errorBody = response.errorBody();
-                    Timber.i("Network Error: " + errorBody.toString()
-                            + "\nStatus Code: " + statusCode);
-                    
-                }
-            }
-            
-            @Override
-            public void onFailure(Call<GuardianMain> call1, Throwable throwable) {
-                Timber.e(throwable);
+            public LiveData<List<News>> apply(String input) {
+                Log.v("CATEGORY NAME", input);
+                return mRepository.search(input);
             }
         });
         
     }
     
-    public LiveData<List<News>> getNews() {
-        return mNewsList;
+    public String getCategoryName() {
+        return categoryName.getValue();
     }
+    
+    public void search(String categoryName) {
+        if (categoryName != null) this.categoryName.setValue(categoryName);
+    }
+    
 }

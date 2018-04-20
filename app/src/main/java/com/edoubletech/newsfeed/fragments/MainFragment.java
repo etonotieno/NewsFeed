@@ -31,7 +31,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.edoubletech.newsfeed.MainFactory;
 import com.edoubletech.newsfeed.MainViewModel;
 import com.edoubletech.newsfeed.R;
 import com.edoubletech.newsfeed.activities.DetailActivity;
@@ -78,14 +77,14 @@ public class MainFragment extends Fragment implements NewsAdapter.ListItemClickL
         
         mNewsAdapter = new NewsAdapter(getActivity(), this);
         mRecyclerView.setAdapter(mNewsAdapter);
-        
-        MainFactory factory = new MainFactory("technology");
-        MainViewModel viewModel = ViewModelProviders.of(this, factory).get(MainViewModel.class);
-        viewModel.getNews().observe(this, news -> {
+        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.search("technology");
+    
+        viewModel.mNewsList.observe(this, news -> {
             mArticles = new ArrayList<>(news);
             mNewsAdapter.setNews(news);
         });
-        
+    
         return rootView;
     }
     

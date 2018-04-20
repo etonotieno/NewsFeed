@@ -27,7 +27,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.edoubletech.newsfeed.MainFactory;
 import com.edoubletech.newsfeed.MainViewModel;
 import com.edoubletech.newsfeed.R;
 import com.edoubletech.newsfeed.adapter.NewsAdapter;
@@ -74,14 +73,13 @@ public class CategoryActivity extends AppCompatActivity implements
         mNewsAdapter = new NewsAdapter(this, this);
         mRecyclerView.setAdapter(mNewsAdapter);
         
-        MainFactory factory = new MainFactory(getSectionId(categoryName));
-        MainViewModel viewModel = ViewModelProviders.of(this, factory).get(MainViewModel.class);
-        viewModel.getNews().observe(this, news -> {
+        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.search(getSectionId(categoryName));
+     
+        viewModel.mNewsList.observe(this, news -> {
             mArticles = new ArrayList<>(news);
             mNewsAdapter.setNews(news);
         });
-
-
     }
     
     public String getSectionId(String categoryName) {

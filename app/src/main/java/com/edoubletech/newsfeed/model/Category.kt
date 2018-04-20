@@ -54,8 +54,8 @@ class CategoryAdapter(private val categories: List<Category>,
     }
 
     inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        var categoryName: TextView = itemView.findViewById(R.id.grid_name)
-        var categoryImage: ImageView = itemView.findViewById(R.id.grid_image)
+        val categoryName: TextView = itemView.findViewById(R.id.grid_name)
+        val categoryImage: ImageView = itemView.findViewById(R.id.grid_image)
 
         init {
             itemView.setOnClickListener(this)
