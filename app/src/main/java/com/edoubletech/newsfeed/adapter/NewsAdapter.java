@@ -28,7 +28,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.edoubletech.newsfeed.R;
-import com.edoubletech.newsfeed.guardian.GuardianResult;
 import com.edoubletech.newsfeed.model.News;
 import com.edoubletech.newsfeed.utilities.DateUtilsKt;
 
@@ -80,7 +79,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                     .load(imageUrl)
                     .into(holder.mArticleImageView);
         }
-        holder.itemView.setTag(GuardianResult.getId());
+        holder.itemView.setTag(currentNews);
     }
     
     @Override
@@ -91,6 +90,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     public void setNews(List<News> newListOfNews) {
         mNewsList = newListOfNews;
         notifyDataSetChanged();
+        
     }
     
     public interface ListItemClickListener {

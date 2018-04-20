@@ -17,12 +17,10 @@
 
 package com.edoubletech.newsfeed;
 
-import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
-import android.util.Log;
 
 import com.edoubletech.newsfeed.model.News;
 
@@ -37,18 +35,7 @@ public class MainViewModel extends ViewModel {
     public MainViewModel() {
         categoryName = new MutableLiveData<>();
         mRepository = Repository.getInstance();
-        mNewsList = Transformations.switchMap(categoryName, new Function<String, LiveData<List<News>>>() {
-            @Override
-            public LiveData<List<News>> apply(String input) {
-                Log.v("CATEGORY NAME", input);
-                return mRepository.search(input);
-            }
-        });
-        
-    }
-    
-    public String getCategoryName() {
-        return categoryName.getValue();
+        mNewsList = Transformations.switchMap(categoryName, mRepository::search);
     }
     
     public void search(String categoryName) {

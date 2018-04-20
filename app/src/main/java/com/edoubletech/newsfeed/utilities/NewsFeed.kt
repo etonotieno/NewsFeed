@@ -39,8 +39,6 @@ class NewsFeed : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-
-        Timber.i("Creating our Application")
     }
 
     fun checkIfHasNetwork(): Boolean {

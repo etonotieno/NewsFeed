@@ -37,6 +37,8 @@ public class News implements Parcelable {
             return new News[size];
         }
     };
+    
+    private String mId;
     private String mImageUrl;
     private String mWebUrl;
     private String mSectionName;
@@ -45,8 +47,9 @@ public class News implements Parcelable {
     private String mBodyText;
     private String mPublicationDate;
     
-    public News(String imageUrl, String webUrl, String sectionName, String title, String trailText,
-                String bodyText, String publicationDate) {
+    public News(String id, String imageUrl, String webUrl, String sectionName, String title,
+                String trailText, String bodyText, String publicationDate) {
+        this.mId = id;
         this.mImageUrl = imageUrl;
         this.mWebUrl = webUrl;
         this.mSectionName = sectionName;
@@ -57,6 +60,7 @@ public class News implements Parcelable {
     }
     
     private News(Parcel in) {
+        mId = in.readString();
         mImageUrl = in.readString();
         mWebUrl = in.readString();
         mSectionName = in.readString();
@@ -64,6 +68,10 @@ public class News implements Parcelable {
         mTrailText = in.readString();
         mBodyText = in.readString();
         mPublicationDate = in.readString();
+    }
+    
+    public String getId() {
+        return mId;
     }
     
     public String getImageUrl() {
@@ -101,6 +109,7 @@ public class News implements Parcelable {
     
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
         dest.writeString(mImageUrl);
         dest.writeString(mWebUrl);
         dest.writeString(mSectionName);

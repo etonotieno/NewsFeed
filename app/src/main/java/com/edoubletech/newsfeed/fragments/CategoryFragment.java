@@ -69,9 +69,9 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ListIt
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            layoutManager.setSpanCount(3);
+            layoutManager.setSpanCount(4);
         } else {
-            layoutManager.setSpanCount(2);
+            layoutManager.setSpanCount(3);
         }
         
         mRecyclerView.setLayoutManager(layoutManager);
@@ -102,7 +102,6 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ListIt
     @Override
     public void onListItemClick(int clickedItemIndex) {
         Category category = mCategories.get(clickedItemIndex);
-        
         Intent intent = new Intent(getActivity(), CategoryActivity.class);
         intent.putExtra(EXTRA_CATEGORY_NAME, category.getName());
         startActivity(intent);

@@ -43,9 +43,9 @@ class CategoryAdapter(private val categories: List<Category>,
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-
-        holder.categoryName.text = categories[position].name
-        holder.categoryImage.setImageResource(categories[position].image)
+        val currentCategory = categories[position]
+        holder.categoryName.text = currentCategory.name
+        holder.categoryImage.setImageResource(currentCategory.image)
 
     }
 

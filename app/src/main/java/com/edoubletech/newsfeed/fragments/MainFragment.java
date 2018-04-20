@@ -70,7 +70,6 @@ public class MainFragment extends Fragment implements NewsAdapter.ListItemClickL
         mEmptyStateTextView.setVisibility(View.GONE);
         mRecyclerView.setVisibility(View.VISIBLE);
         
-        
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);

@@ -68,6 +68,7 @@ public class Repository {
                     List<News> mArticles = new ArrayList<>();
                     for (GuardianResult apiResult : apiResults) {
                         mArticles.add(new News(
+                                apiResult.getId(),
                                 apiResult.getFields().getThumbnail(), /* Thumbnail for the news */
                                 apiResult.getWebUrl(), /* Website url*/
                                 apiResult.getSectionName(), /* Section name*/

@@ -37,7 +37,7 @@ public class GuardianResult implements Parcelable {
     };
     @SerializedName("id")
     @Expose
-    private static String id;
+    private String id;
     @SerializedName("type")
     @Expose
     private String type;
@@ -75,7 +75,7 @@ public class GuardianResult implements Parcelable {
         sectionName = in.readString();
     }
     
-    public static String getId() {
+    public String getId() {
         return id;
     }
     
@@ -118,7 +118,6 @@ public class GuardianResult implements Parcelable {
     
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        
         dest.writeString(type);
         dest.writeString(sectionId);
         dest.writeString(webTitle);
