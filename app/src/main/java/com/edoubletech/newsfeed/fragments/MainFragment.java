@@ -79,7 +79,7 @@ public class MainFragment extends Fragment implements NewsAdapter.ListItemClickL
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         viewModel.search("technology");
     
-        viewModel.mNewsList.observe(this, news -> {
+        viewModel.getNewsList().observe(this, news -> {
             mArticles = new ArrayList<>(news);
             mNewsAdapter.setNews(news);
         });

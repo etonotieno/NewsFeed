@@ -38,10 +38,9 @@ import timber.log.Timber;
 
 public class Repository {
     
-    private static Repository sInstance;
     private MutableLiveData<List<News>> mNewsList = new MutableLiveData<>();
     
-    private Repository(String categoryName) {
+    public Repository(String categoryName) {
         Service service = Injector.provideRetrofit().create(Service.class);
         Call<GuardianMain> call = service.getNews("50", BuildConfig.GUARDIAN_API_KEY,
                 categoryName, "all", "json");
@@ -81,17 +80,6 @@ public class Repository {
                 Timber.e(throwable);
             }
         });
-    }
-    
-    public static Repository getInstance(String category) {
-        if (sInstance == null) {
-            synchronized (Repository.class) {
-                if (sInstance == null) {
-                    sInstance = new Repository(category);
-                }
-            }
-        }
-        return sInstance;
     }
     
     public LiveData<List<News>> search() {

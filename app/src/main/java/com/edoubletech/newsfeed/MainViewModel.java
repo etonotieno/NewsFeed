@@ -28,13 +28,10 @@ import java.util.List;
 
 public class MainViewModel extends ViewModel {
     
-    public LiveData<List<News>> mNewsList;
     private MutableLiveData<String> categoryName;
     
     public MainViewModel() {
         categoryName = new MutableLiveData<>();
-        mNewsList = Transformations.switchMap(categoryName, input ->
-                Repository.getInstance(input).search());
     }
     
     public void search(String categoryName) {
@@ -42,4 +39,10 @@ public class MainViewModel extends ViewModel {
             this.categoryName.setValue(categoryName);
     }
     
+    public LiveData<List<News>> getNewsList() {
+        return Transformations.switchMap(this.categoryName, input -> {
+            Repository repository = new Repository(input);
+            return repository.search();
+        });
+    }
 }
