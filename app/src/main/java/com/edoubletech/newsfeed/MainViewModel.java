@@ -30,16 +30,16 @@ public class MainViewModel extends ViewModel {
     
     public LiveData<List<News>> mNewsList;
     private MutableLiveData<String> categoryName;
-    private Repository mRepository;
     
     public MainViewModel() {
         categoryName = new MutableLiveData<>();
-        mRepository = Repository.getInstance();
-        mNewsList = Transformations.switchMap(categoryName, mRepository::search);
+        mNewsList = Transformations.switchMap(categoryName, input ->
+                Repository.getInstance(input).search());
     }
     
     public void search(String categoryName) {
-        if (categoryName != null) this.categoryName.setValue(categoryName);
+        if (categoryName != null)
+            this.categoryName.setValue(categoryName);
     }
     
 }
