@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.model
+package com.edoubletech.newsfeed.data.model
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

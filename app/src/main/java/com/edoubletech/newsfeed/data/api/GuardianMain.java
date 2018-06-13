@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.guardian;
+package com.edoubletech.newsfeed.data.api;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -24,38 +24,38 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class GuardianMain implements Parcelable {
-    
-    public static final Creator<GuardianMain> CREATOR = new Creator<GuardianMain>() {
-        @Override
-        public GuardianMain createFromParcel(Parcel in) {
-            return new GuardianMain(in);
-        }
-        
-        @Override
-        public GuardianMain[] newArray(int size) {
-            return new GuardianMain[size];
-        }
-    };
+
     @SerializedName("response")
     @Expose
     private GuardianResponse response;
-    
-    private GuardianMain(Parcel in) {
+
+    protected GuardianMain(Parcel in) {
         response = in.readParcelable(GuardianResponse.class.getClassLoader());
     }
-    
+
+    public static final Creator< GuardianMain> CREATOR = new Creator< GuardianMain>() {
+        @Override
+        public  GuardianMain createFromParcel(Parcel in) {
+            return new  GuardianMain(in);
+        }
+
+        @Override
+        public  GuardianMain[] newArray(int size) {
+            return new  GuardianMain[size];
+        }
+    };
+
     public GuardianResponse getResponse() {
         return response;
     }
-    
+
     @Override
     public int describeContents() {
         return 0;
     }
-    
+
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        
-        dest.writeParcelable(response, flags);
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeParcelable(response, i);
     }
 }

@@ -17,14 +17,15 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.edoubletech.newsfeed"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -39,6 +40,10 @@ android {
         it.buildConfigField 'String', 'GUARDIAN_API_KEY', MyApiKey
     }
 
+    dataBinding{
+        enabled = true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -49,27 +54,36 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.2.31"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.2.41"
 
     // Support Libraries
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:cardview-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
-    implementation 'com.android.support:customtabs:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:customtabs:27.1.1'
 
     // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:1.1.1"
 
     // Room
-    implementation "android.arch.persistence.room:runtime:1.0.0"
-    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+    implementation "android.arch.persistence.room:runtime:1.1.0"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.0"
+
+    //Paging
+    implementation "android.arch.paging:runtime:1.0.0"
+
+    // Work Manager and Navigation
+    implementation "android.arch.navigation:navigation-fragment:1.0.0-alpha02"
+    implementation "android.arch.navigation:navigation-ui:1.0.0-alpha02"
+    implementation "android.arch.work:work-runtime:1.0.0-alpha02"
+
 
     // ConstraintLayout
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
     // Glide for image viewing
-    implementation 'com.github.bumptech.glide:glide:4.6.1'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
 
     // Timber for logging events
@@ -80,7 +94,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     // Logging interceptor for the network calls
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
 
     // Joda Time
     implementation 'net.danlew:android.joda:2.9.9.3'

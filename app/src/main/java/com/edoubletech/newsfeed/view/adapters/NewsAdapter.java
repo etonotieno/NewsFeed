@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.adapter;
+package com.edoubletech.newsfeed.view.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -28,8 +28,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.edoubletech.newsfeed.R;
-import com.edoubletech.newsfeed.model.News;
-import com.edoubletech.newsfeed.utilities.DateUtilsKt;
+import com.edoubletech.newsfeed.data.model.News;
+import com.edoubletech.newsfeed.utils.DateUtilsKt;
 
 import java.util.List;
 

@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.activities;
+package com.edoubletech.newsfeed.view;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,9 +37,6 @@ public class AboutActivity extends AppCompatActivity {
         TextView attributionTextView = findViewById(R.id.attribution_text_view);
         
         attributionTextView.setOnClickListener(v -> {
-            // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
-            // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
-            // and launch the desired Url with CustomTabsIntent.launchUrl()
             String url = "http://open-platform.theguardian.com/";
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder()
                     .setToolbarColor(getResources().getColor(R.color.primary))

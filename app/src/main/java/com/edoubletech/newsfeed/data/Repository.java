@@ -15,17 +15,17 @@
  *
  */
 
-package com.edoubletech.newsfeed;
+package com.edoubletech.newsfeed.data;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.edoubletech.newsfeed.guardian.GuardianMain;
-import com.edoubletech.newsfeed.guardian.GuardianResponse;
-import com.edoubletech.newsfeed.guardian.GuardianResult;
-import com.edoubletech.newsfeed.model.News;
-import com.edoubletech.newsfeed.networking.Injector;
-import com.edoubletech.newsfeed.networking.Service;
+import com.edoubletech.newsfeed.BuildConfig;
+import com.edoubletech.newsfeed.Injector;
+import com.edoubletech.newsfeed.data.api.GuardianMain;
+import com.edoubletech.newsfeed.data.api.GuardianResponse;
+import com.edoubletech.newsfeed.data.api.GuardianResult;
+import com.edoubletech.newsfeed.data.model.News;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +39,12 @@ import timber.log.Timber;
 public class Repository {
     
     private MutableLiveData<List<News>> mNewsList = new MutableLiveData<>();
-    
-    public Repository(String categoryName) {
+
+    public LiveData<List<News>> getNewsList(String categoryName) {
         Service service = Injector.provideRetrofit().create(Service.class);
         Call<GuardianMain> call = service.getNews("50", BuildConfig.GUARDIAN_API_KEY,
                 categoryName, "all", "json");
-        
+
         // Make the actual call. This is an asynchronous call.
         call.enqueue(new Callback<GuardianMain>() {
             @Override
@@ -71,18 +71,15 @@ public class Repository {
                     ResponseBody errorBody = response.errorBody();
                     Timber.i("Network Error: " + errorBody.toString()
                             + "\nStatus Code: " + statusCode);
-                    
+
                 }
             }
-            
+
             @Override
             public void onFailure(Call<GuardianMain> call1, Throwable throwable) {
                 Timber.e(throwable);
             }
         });
-    }
-    
-    public LiveData<List<News>> search() {
         return mNewsList;
     }
 }

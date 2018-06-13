@@ -15,10 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.networking;
-
-import com.edoubletech.newsfeed.BuildConfig;
-import com.edoubletech.newsfeed.utilities.NewsFeed;
+package com.edoubletech.newsfeed;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -102,7 +99,6 @@ public class Injector {
     private static Interceptor provideOfflineCacheInterceptor() {
         return chain -> {
             Request request = chain.request();
-            
             if (!NewsFeed.Companion.hasNetwork()) {
                 CacheControl cacheControl = new CacheControl.Builder()
                         .maxStale(7, TimeUnit.DAYS)

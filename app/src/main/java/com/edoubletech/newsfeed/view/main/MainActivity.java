@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.activities;
+package com.edoubletech.newsfeed.view.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,44 +27,44 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.edoubletech.newsfeed.R;
-import com.edoubletech.newsfeed.adapter.SectionsPagerAdapter;
+import com.edoubletech.newsfeed.view.AboutActivity;
+import com.edoubletech.newsfeed.view.adapters.SectionsPagerAdapter;
 
 /**
  * @author EtonOtieno
  */
 
 public class MainActivity extends AppCompatActivity {
-    
+
     public SectionsPagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         Toolbar mToolbar = findViewById(R.id.main_activity_toolbar);
         setSupportActionBar(mToolbar);
-        
+
         mPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = findViewById(R.id.view_pager);
-        
+
         TabLayout tabLayout = findViewById(R.id.tabs);
         mViewPager.setAdapter(mPagerAdapter);
-        
+
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
-    
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        
+
         return true;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

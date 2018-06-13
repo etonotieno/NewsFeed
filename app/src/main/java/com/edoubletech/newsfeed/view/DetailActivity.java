@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.activities;
+package com.edoubletech.newsfeed.view;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -34,13 +34,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.edoubletech.newsfeed.R;
-import com.edoubletech.newsfeed.model.News;
+import com.edoubletech.newsfeed.data.model.News;
 
 import org.joda.time.DateTime;
 
-import static com.edoubletech.newsfeed.fragments.MainFragment.EXTRA_KEY;
-import static com.edoubletech.newsfeed.utilities.DateUtilsKt.getPrettifiedTimeString;
-import static com.edoubletech.newsfeed.utilities.DateUtilsKt.getTimeDifferenceInSeconds;
+import static com.edoubletech.newsfeed.utils.DateUtilsKt.getPrettifiedTimeString;
+import static com.edoubletech.newsfeed.utils.DateUtilsKt.getTimeDifferenceInSeconds;
+import static com.edoubletech.newsfeed.view.main.MainFragment.EXTRA_KEY;
 
 public class DetailActivity extends AppCompatActivity {
     

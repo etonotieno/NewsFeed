@@ -15,84 +15,96 @@
  *
  */
 
-package com.edoubletech.newsfeed.fragments;
+package com.edoubletech.newsfeed.view.category;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.edoubletech.newsfeed.MainViewModel;
 import com.edoubletech.newsfeed.R;
-import com.edoubletech.newsfeed.activities.DetailActivity;
-import com.edoubletech.newsfeed.adapter.NewsAdapter;
-import com.edoubletech.newsfeed.model.News;
+import com.edoubletech.newsfeed.data.model.News;
+import com.edoubletech.newsfeed.view.DetailActivity;
+import com.edoubletech.newsfeed.view.adapters.NewsAdapter;
+import com.edoubletech.newsfeed.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainFragment extends Fragment implements NewsAdapter.ListItemClickListener {
-    
-    public final static String EXTRA_KEY = "com.edoubletech.newsfeed.EXTRA_KEY";
+import static com.edoubletech.newsfeed.view.main.MainFragment.EXTRA_KEY;
+
+public class CategoryActivity extends AppCompatActivity implements
+        NewsAdapter.ListItemClickListener {
+
     private NewsAdapter mNewsAdapter;
     private RecyclerView mRecyclerView;
     private List<News> mArticles;
     private TextView mEmptyStateTextView;
     private ImageView mNoInternetImage;
     private View mLoadingIndicator;
-    
-    public MainFragment() {
-    }
-    
+    private String categoryName;
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        
-        mEmptyStateTextView = rootView.findViewById(R.id.main_fragment_empty_view);
-        mRecyclerView = rootView.findViewById(R.id.category_activity_recycler_view);
-        mLoadingIndicator = rootView.findViewById(R.id.category_loading_indicator);
-        mNoInternetImage = rootView.findViewById(R.id.no_internet_image_main_fragment);
-        
+        setContentView(R.layout.activity_category);
+
+        mEmptyStateTextView = findViewById(R.id.main_fragment_empty_view);
+        mRecyclerView = findViewById(R.id.category_activity_recycler_view);
+        mLoadingIndicator = findViewById(R.id.category_loading_indicator);
+        mNoInternetImage = findViewById(R.id.no_internet_image_main_fragment);
+        categoryName = getIntent().getStringExtra(CategoryFragment.EXTRA_CATEGORY_NAME);
         mLoadingIndicator.setVisibility(View.GONE);
         mNoInternetImage.setVisibility(View.GONE);
         mEmptyStateTextView.setVisibility(View.GONE);
         mRecyclerView.setVisibility(View.VISIBLE);
-        
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
+
+        getSupportActionBar().setTitle(categoryName);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        
-        mNewsAdapter = new NewsAdapter(getActivity(), this);
+
+        mNewsAdapter = new NewsAdapter(this, this);
         mRecyclerView.setAdapter(mNewsAdapter);
+
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        viewModel.search("technology");
-    
+        viewModel.search(getSectionId(categoryName));
+
         viewModel.getNewsList().observe(this, news -> {
             mArticles = new ArrayList<>(news);
             mNewsAdapter.setNews(news);
         });
-    
-        return rootView;
     }
-    
+
+    public String getSectionId(String categoryName) {
+        String formattedSectionName = categoryName.replaceAll("\\s", "")
+                .toLowerCase();
+
+        String[] categoryNames = {"health", "sports", "worldnews"};
+        String[] correctSectionIds = {"healthcare-network", "sport", "world"};
+
+        for (int index = 0; index < categoryNames.length; index++) {
+            if (formattedSectionName.toLowerCase().contains(categoryNames[index])) {
+                return correctSectionIds[index];
+            }
+        }
+
+        return formattedSectionName;
+    }
+
+
     @Override
     public void onListItemClick(int clickedItemIndex) {
         News clickedArticle = mArticles.get(clickedItemIndex);
         Bundle bundle = new Bundle();
         bundle.putParcelable(EXTRA_KEY, clickedArticle);
-        Intent intent = new Intent(getActivity(), DetailActivity.class);
+        Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
     }

@@ -15,12 +15,11 @@
  *
  */
 
-package com.edoubletech.newsfeed.utilities
+package com.edoubletech.newsfeed
 
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
-import com.edoubletech.newsfeed.BuildConfig
 import net.danlew.android.joda.JodaTimeAndroid
 import timber.log.Timber
 

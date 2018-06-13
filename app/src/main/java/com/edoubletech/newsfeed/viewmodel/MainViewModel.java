@@ -15,14 +15,15 @@
  *
  */
 
-package com.edoubletech.newsfeed;
+package com.edoubletech.newsfeed.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 
-import com.edoubletech.newsfeed.model.News;
+import com.edoubletech.newsfeed.data.Repository;
+import com.edoubletech.newsfeed.data.model.News;
 
 import java.util.List;
 
@@ -41,8 +42,8 @@ public class MainViewModel extends ViewModel {
     
     public LiveData<List<News>> getNewsList() {
         return Transformations.switchMap(this.categoryName, input -> {
-            Repository repository = new Repository(input);
-            return repository.search();
+            Repository repository = new Repository();
+            return repository.getNewsList(input);
         });
     }
 }

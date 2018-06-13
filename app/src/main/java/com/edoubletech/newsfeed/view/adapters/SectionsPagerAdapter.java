@@ -15,14 +15,14 @@
  *
  */
 
-package com.edoubletech.newsfeed.adapter;
+package com.edoubletech.newsfeed.view.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.edoubletech.newsfeed.fragments.CategoryFragment;
-import com.edoubletech.newsfeed.fragments.MainFragment;
+import com.edoubletech.newsfeed.view.category.CategoryFragment;
+import com.edoubletech.newsfeed.view.main.MainFragment;
 
 /**
  * Created by EtonOtieno on 3/7/2018

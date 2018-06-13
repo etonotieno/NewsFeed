@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.fragments;
+package com.edoubletech.newsfeed.view.category;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -31,9 +31,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.edoubletech.newsfeed.R;
-import com.edoubletech.newsfeed.activities.CategoryActivity;
-import com.edoubletech.newsfeed.model.Category;
-import com.edoubletech.newsfeed.model.CategoryAdapter;
+import com.edoubletech.newsfeed.data.model.Category;
+import com.edoubletech.newsfeed.data.model.CategoryAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
