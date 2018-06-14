@@ -18,20 +18,17 @@
 package com.edoubletech.newsfeed.di;
 
 import com.edoubletech.newsfeed.NewsFeed;
-import com.edoubletech.newsfeed.view.category.CategoryFragment;
-import com.edoubletech.newsfeed.view.main.MainFragment;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
+import retrofit2.Retrofit;
 
 @Singleton
-@Component(modules = NewsModule.class)
+@Component(modules = {NetworkingModule.class, DatabaseModule.class})
 public interface NewsComponent {
 
-    void inject(NewsFeed application);
+    void inject(NewsFeed app);
 
-    void inject(CategoryFragment categoryFragment);
-
-    void inject(MainFragment mainFragment);
+    Retrofit exposeRetrofit();
 }
