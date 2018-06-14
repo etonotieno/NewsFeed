@@ -19,20 +19,21 @@ package com.edoubletech.newsfeed.view.category;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.edoubletech.newsfeed.R;
 import com.edoubletech.newsfeed.data.model.Category;
-import com.edoubletech.newsfeed.data.model.CategoryAdapter;
+import com.edoubletech.newsfeed.databinding.FragmentCategoryBinding;
+import com.edoubletech.newsfeed.view.adapters.CategoryAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,28 +43,26 @@ import java.util.List;
  */
 
 public class CategoryFragment extends Fragment implements CategoryAdapter.ListItemClickListener {
-    
-    private RecyclerView mRecyclerView;
-    private CategoryAdapter mAdapter;
+
     public List<Category> mCategories = new ArrayList<>();
-    
+    private FragmentCategoryBinding binding;
+
     public final static String EXTRA_CATEGORY_NAME = "com.edoubletech.newsfeed.EXTRA_CATEGORY_NAME";
-    
+
     public CategoryFragment() {
     }
-    
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_category, container, false);
-        
-        mRecyclerView = rootView.findViewById(R.id.category_recycler_view);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_category, container, false);
+
         setUpRecyclerView();
-        
-        return rootView;
+
+        return binding.getRoot();
     }
-    
+
     public void setUpRecyclerView() {
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL);
@@ -72,10 +71,10 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ListIt
         } else {
             layoutManager.setSpanCount(3);
         }
-        
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
-        
+
+        binding.categoryRecyclerView.setLayoutManager(layoutManager);
+        binding.categoryRecyclerView.setHasFixedSize(true);
+
         mCategories.add(new Category(getString(R.string.arts_section), R.drawable.ic_arts));
         mCategories.add(new Category(getString(R.string.books_section), R.drawable.ic_books));
         mCategories.add(new Category(getString(R.string.business_section), R.drawable.ic_business));
@@ -92,12 +91,12 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ListIt
         mCategories.add(new Category(getString(R.string.technology_section), R.drawable.ic_technology));
         mCategories.add(new Category(getString(R.string.travel_section), R.drawable.ic_travel));
         mCategories.add(new Category(getString(R.string.world_section), R.drawable.ic_world_news));
-        
-        mAdapter = new CategoryAdapter(mCategories, this);
-        mRecyclerView.setAdapter(mAdapter);
+
+        CategoryAdapter mAdapter = new CategoryAdapter(mCategories, this);
+        binding.categoryRecyclerView.setAdapter(mAdapter);
     }
-    
-    
+
+
     @Override
     public void onListItemClick(int clickedItemIndex) {
         Category category = mCategories.get(clickedItemIndex);

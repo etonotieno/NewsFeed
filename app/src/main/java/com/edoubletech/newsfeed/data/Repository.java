@@ -18,68 +18,25 @@
 package com.edoubletech.newsfeed.data;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
+import android.arch.paging.DataSource;
+import android.arch.paging.LivePagedListBuilder;
+import android.arch.paging.PagedList;
 
-import com.edoubletech.newsfeed.BuildConfig;
-import com.edoubletech.newsfeed.Injector;
-import com.edoubletech.newsfeed.data.api.GuardianMain;
-import com.edoubletech.newsfeed.data.api.GuardianResponse;
-import com.edoubletech.newsfeed.data.api.GuardianResult;
+import com.edoubletech.newsfeed.NewsFeed;
+import com.edoubletech.newsfeed.data.dao.NewsDao;
 import com.edoubletech.newsfeed.data.model.News;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import timber.log.Timber;
-
 public class Repository {
-    
-    private MutableLiveData<List<News>> mNewsList = new MutableLiveData<>();
 
-    public LiveData<List<News>> getNewsList(String categoryName) {
-        Service service = Injector.provideRetrofit().create(Service.class);
-        Call<GuardianMain> call = service.getNews("50", BuildConfig.GUARDIAN_API_KEY,
-                categoryName, "all", "json");
+    private final int DATABASE_PAGE_SIZE = 20;
 
-        // Make the actual call. This is an asynchronous call.
-        call.enqueue(new Callback<GuardianMain>() {
-            @Override
-            public void onResponse(Call<GuardianMain> call, Response<GuardianMain> response) {
-                if (response.isSuccessful()) {
-                    Timber.d(" NewsResponse is successful");
-                    GuardianResponse res = response.body().getResponse();
-                    List<GuardianResult> apiResults = res.getResults();
-                    List<News> mArticles = new ArrayList<>();
-                    for (GuardianResult apiResult : apiResults) {
-                        mArticles.add(new News(
-                                apiResult.getId(),
-                                apiResult.getFields().getThumbnail(), /* Thumbnail for the news */
-                                apiResult.getWebUrl(), /* Website url*/
-                                apiResult.getSectionName(), /* Section name*/
-                                apiResult.getWebTitle(), /* Web Title of Article*/
-                                apiResult.getFields().getTrailText(), /* Trail Text*/
-                                apiResult.getFields().getBodyText(), /* Description */
-                                apiResult.getWebPublicationDate())); /* Publication Date*/
-                    }
-                    mNewsList.postValue(mArticles);
-                } else {
-                    int statusCode = response.code();
-                    ResponseBody errorBody = response.errorBody();
-                    Timber.i("Network Error: " + errorBody.toString()
-                            + "\nStatus Code: " + statusCode);
+    public LiveData<PagedList<News>> getNewsList(String categoryName) {
+        NewsDao dao = NewsFeed.getNewsComponent().exposeDao();
+        NewsBoundaryCallback callback = new NewsBoundaryCallback(categoryName);
+        DataSource.Factory<Integer, News> dataFactory = dao.getNewsList(categoryName);
+        LivePagedListBuilder<Integer, News> data = new LivePagedListBuilder<>(dataFactory, DATABASE_PAGE_SIZE)
+                .setBoundaryCallback(callback);
+        return data.build();
 
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GuardianMain> call1, Throwable throwable) {
-                Timber.e(throwable);
-            }
-        });
-        return mNewsList;
     }
 }

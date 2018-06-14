@@ -17,9 +17,11 @@
 
 package com.edoubletech.newsfeed.view.adapters;
 
+import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +31,7 @@ import com.bumptech.glide.Glide;
 import com.edoubletech.newsfeed.R;
 import com.edoubletech.newsfeed.data.model.News;
 import com.edoubletech.newsfeed.databinding.NewsItemBinding;
-import com.edoubletech.newsfeed.utils.DateUtilsKt;
+import com.edoubletech.newsfeed.utils.NewsDateUtilsKt;
 
 import java.util.List;
 
@@ -37,13 +39,26 @@ import java.util.List;
  * Created by EtonOtieno on 2/15/2018
  */
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
+public class NewsAdapter extends PagedListAdapter<News, NewsAdapter.NewsViewHolder> {
 
     final private ListItemClickListener mOnClickListener;
     private Context mContext;
     private List<News> mNewsList;
 
+    private static DiffUtil.ItemCallback<News> DIFF_CALLBACK = new DiffUtil.ItemCallback<News>() {
+        @Override
+        public boolean areItemsTheSame(News oldItem, News newItem) {
+            return oldItem.getId().equals(newItem.getId());
+        }
+
+        @Override
+        public boolean areContentsTheSame(News oldItem, News newItem) {
+            return oldItem == newItem;
+        }
+    };
+
     public NewsAdapter(Context context, ListItemClickListener listener) {
+        super(DIFF_CALLBACK);
         this.mContext = context;
         this.mOnClickListener = listener;
     }
@@ -62,8 +77,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         holder.binding.setNewsItem(currentNews);
 
         String dateString = currentNews.getPublicationDate();
-        long secondsPassedBetweenDates = DateUtilsKt.getTimeDifferenceInSeconds(dateString);
-        String correctTimeString = DateUtilsKt.getPrettifiedTimeString(secondsPassedBetweenDates);
+        long secondsPassedBetweenDates = NewsDateUtilsKt.getTimeDifferenceInSeconds(dateString);
+        String correctTimeString = NewsDateUtilsKt.getPrettifiedTimeString(secondsPassedBetweenDates);
 
         holder.binding.setTimeString(correctTimeString);
 
@@ -91,6 +106,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     public interface ListItemClickListener {
         void onListItemClick(int clickedItemIndex);
     }
+
 
     class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

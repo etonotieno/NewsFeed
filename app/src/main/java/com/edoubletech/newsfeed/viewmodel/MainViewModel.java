@@ -21,14 +21,13 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
+import android.arch.paging.PagedList;
 
 import com.edoubletech.newsfeed.data.Repository;
 import com.edoubletech.newsfeed.data.model.News;
 
-import java.util.List;
-
 public class MainViewModel extends ViewModel {
-    
+
     private MutableLiveData<String> categoryName;
     
     public MainViewModel() {
@@ -40,7 +39,7 @@ public class MainViewModel extends ViewModel {
             this.categoryName.setValue(categoryName);
     }
     
-    public LiveData<List<News>> getNewsList() {
+    public LiveData<PagedList<News>> getNewsList() {
         return Transformations.switchMap(this.categoryName, input -> {
             Repository repository = new Repository();
             return repository.getNewsList(input);

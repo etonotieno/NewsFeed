@@ -17,53 +17,6 @@
 
 package com.edoubletech.newsfeed.data.model
 
-import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import com.edoubletech.newsfeed.R
-
-data class Category(val name: String, val image: Int)
-
-class CategoryAdapter(private val categories: List<Category>,
-                      private val mOnClickListener: ListItemClickListener)
-    : RecyclerView.Adapter<CategoryAdapter.NewsViewHolder>() {
-
-    interface ListItemClickListener {
-        fun onListItemClick(clickedItemIndex: Int)
-    }
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.category_item, parent, false)
-        return NewsViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val currentCategory = categories[position]
-        holder.categoryName.text = currentCategory.name
-        holder.categoryImage.setImageResource(currentCategory.image)
-
-    }
-
-    override fun getItemCount(): Int {
-        return categories.size
-    }
-
-    inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        val categoryName: TextView = itemView.findViewById(R.id.grid_name)
-        val categoryImage: ImageView = itemView.findViewById(R.id.grid_image)
-
-        init {
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View) {
-            val clickedPosition = adapterPosition
-            mOnClickListener.onListItemClick(clickedPosition)
-        }
-    }
-}
+data class Category(
+        val name: String,
+        val image: Int)

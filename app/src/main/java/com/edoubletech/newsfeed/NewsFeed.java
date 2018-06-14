@@ -22,8 +22,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.edoubletech.newsfeed.di.DaggerNewsComponent;
+import com.edoubletech.newsfeed.di.DatabaseModule;
+import com.edoubletech.newsfeed.di.NetworkingModule;
 import com.edoubletech.newsfeed.di.NewsComponent;
-import com.edoubletech.newsfeed.di.NewsModule;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -31,25 +33,35 @@ import timber.log.Timber;
 
 public class NewsFeed extends Application {
 
-    NewsComponent newsComponent;
+    private static NewsComponent newsComponent;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
-        JodaTimeAndroid.init(this);
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
-        newsComponent = DaggerNewsComponent.builder().newsModule(new NewsModule())
+
+        newsComponent = DaggerNewsComponent
+                .builder()
+                .databaseModule(new DatabaseModule(this))
+                .networkingModule(new NetworkingModule())
                 .build();
 
-        newsComponent.inject(this);
+
+        JodaTimeAndroid.init(this);
+
+    }
+
+    public static NewsComponent getNewsComponent() {
+        return newsComponent;
     }
 
     public boolean hasNetwork() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        NetworkInfo networkInfo = (cm != null) ? cm.getActiveNetworkInfo() : null;
         return networkInfo != null && networkInfo.isConnected();
     }
 }

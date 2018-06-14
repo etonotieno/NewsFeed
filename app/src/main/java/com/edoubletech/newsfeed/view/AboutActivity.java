@@ -17,26 +17,27 @@
 
 package com.edoubletech.newsfeed.view;
 
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.edoubletech.newsfeed.R;
+import com.edoubletech.newsfeed.databinding.ActivityAboutBinding;
 
 public class AboutActivity extends AppCompatActivity {
-    
+
+    ActivityAboutBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-        
-        TextView attributionTextView = findViewById(R.id.attribution_text_view);
-        
-        attributionTextView.setOnClickListener(v -> {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_about);
+        binding.setAttributionString(getString(R.string.attribution_text));
+        binding.attributionTextView.setOnClickListener(v -> {
             String url = "http://open-platform.theguardian.com/";
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder()
                     .setToolbarColor(getResources().getColor(R.color.primary))
@@ -45,7 +46,7 @@ public class AboutActivity extends AppCompatActivity {
             customTabsIntent.launchUrl(this, Uri.parse(url));
         });
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

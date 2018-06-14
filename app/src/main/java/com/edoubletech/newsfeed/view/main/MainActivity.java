@@ -18,15 +18,15 @@
 package com.edoubletech.newsfeed.view.main;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.edoubletech.newsfeed.R;
+import com.edoubletech.newsfeed.databinding.ActivityMainBinding;
 import com.edoubletech.newsfeed.view.AboutActivity;
 import com.edoubletech.newsfeed.view.adapters.SectionsPagerAdapter;
 
@@ -37,31 +37,27 @@ import com.edoubletech.newsfeed.view.adapters.SectionsPagerAdapter;
 public class MainActivity extends AppCompatActivity {
 
     public SectionsPagerAdapter mPagerAdapter;
-    private ViewPager mViewPager;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        Toolbar mToolbar = findViewById(R.id.main_activity_toolbar);
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(binding.mainActivityToolbar);
 
         mPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = findViewById(R.id.view_pager);
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        mViewPager.setAdapter(mPagerAdapter);
+        binding.viewPager.setAdapter(mPagerAdapter);
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        binding.viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabs));
+        binding.tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(binding.viewPager));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_menu, menu);
-
         return true;
     }
 

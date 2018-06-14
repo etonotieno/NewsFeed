@@ -15,19 +15,16 @@
  *
  */
 
-package com.edoubletech.newsfeed.di;
+package com.edoubletech.newsfeed.data;
+
+import android.arch.persistence.room.Database;
+import android.arch.persistence.room.RoomDatabase;
 
 import com.edoubletech.newsfeed.data.dao.NewsDao;
+import com.edoubletech.newsfeed.data.model.News;
 
-import javax.inject.Singleton;
+@Database(entities = {News.class}, version = 1, exportSchema = false)
+public abstract class NewsDatabase extends RoomDatabase {
 
-import dagger.Component;
-import retrofit2.Retrofit;
-
-@Singleton
-@Component(modules = {NetworkingModule.class, DatabaseModule.class})
-public interface NewsComponent {
-    NewsDao exposeDao();
-
-    Retrofit exposeRetrofit();
+    public abstract NewsDao newsDao();
 }

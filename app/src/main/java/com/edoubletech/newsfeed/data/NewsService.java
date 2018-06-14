@@ -27,9 +27,9 @@ import retrofit2.http.Query;
  * Created by EtonOtieno on 3/2/2018
  */
 
-public interface Service {
+public interface NewsService {
     
-    @GET("getNewsList")
+    @GET("search")
     Call<GuardianMain> getNews(
             @Query("page-size") String pageSize,
             @Query("api-key") String apiKey,

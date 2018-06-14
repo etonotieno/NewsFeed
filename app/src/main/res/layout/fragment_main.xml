@@ -44,11 +44,11 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/no_internet_image_main_fragment"
+            app:layout_constraintTop_toBottomOf="@+id/no_internet_image_fragment"
             tools:text="@string/no_internet_error" />
 
         <ImageView
-            android:id="@+id/no_internet_image_main_fragment"
+            android:id="@+id/no_internet_image_fragment"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:contentDescription="@string/no_internet_image"

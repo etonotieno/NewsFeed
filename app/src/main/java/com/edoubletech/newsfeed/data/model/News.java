@@ -17,27 +17,19 @@
 
 package com.edoubletech.newsfeed.data.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 /**
  * Created by EtonOtieno on 3/21/2018
  */
 
-public class News implements Parcelable {
-    
-    public static final Creator<News> CREATOR = new Creator<News>() {
-        @Override
-        public News createFromParcel(Parcel in) {
-            return new News(in);
-        }
-        
-        @Override
-        public News[] newArray(int size) {
-            return new News[size];
-        }
-    };
-    
+@Entity(tableName = "news_table")
+public class News {
+
+    @PrimaryKey
+    @NonNull
     private String mId;
     private String mImageUrl;
     private String mWebUrl;
@@ -47,7 +39,7 @@ public class News implements Parcelable {
     private String mBodyText;
     private String mPublicationDate;
     
-    public News(String id, String imageUrl, String webUrl, String sectionName, String title,
+    public News(@NonNull String id, String imageUrl, String webUrl, String sectionName, String title,
                 String trailText, String bodyText, String publicationDate) {
         this.mId = id;
         this.mImageUrl = imageUrl;
@@ -57,17 +49,6 @@ public class News implements Parcelable {
         this.mTrailText = trailText;
         this.mBodyText = bodyText;
         this.mPublicationDate = publicationDate;
-    }
-    
-    private News(Parcel in) {
-        mId = in.readString();
-        mImageUrl = in.readString();
-        mWebUrl = in.readString();
-        mSectionName = in.readString();
-        mTitle = in.readString();
-        mTrailText = in.readString();
-        mBodyText = in.readString();
-        mPublicationDate = in.readString();
     }
     
     public String getId() {
@@ -100,22 +81,5 @@ public class News implements Parcelable {
     
     public String getPublicationDate() {
         return mPublicationDate;
-    }
-    
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-    
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mId);
-        dest.writeString(mImageUrl);
-        dest.writeString(mWebUrl);
-        dest.writeString(mSectionName);
-        dest.writeString(mTitle);
-        dest.writeString(mTrailText);
-        dest.writeString(mBodyText);
-        dest.writeString(mPublicationDate);
     }
 }

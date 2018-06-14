@@ -29,21 +29,16 @@ import com.edoubletech.newsfeed.view.main.MainFragment;
  */
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
-    
-    
+
     public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
-    
+
     @Override
     public Fragment getItem(int position) {
-        if (position == 0) {
-            return new MainFragment();
-        } else {
-            return new CategoryFragment();
-        }
+        return (position == 0) ? new MainFragment() : new CategoryFragment();
     }
-    
+
     @Override
     public int getCount() {
         return 2;
