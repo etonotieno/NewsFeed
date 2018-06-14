@@ -21,7 +21,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="timeString"
             type="String" />
@@ -53,7 +52,6 @@
                 android:layout_margin="8dp"
                 android:contentDescription="@string/article_image_description"
                 android:scaleType="centerCrop"
-                android:src=""
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
