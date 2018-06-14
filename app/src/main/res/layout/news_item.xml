@@ -16,93 +16,110 @@
   ~  limitations under the License.
   ~
   -->
-
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="2dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:layout_marginTop="5dp"
-    android:theme="@style/AppTheme"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="2dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.constraint.ConstraintLayout
+    <data>
+
+        <variable
+            name="timeString"
+            type="String" />
+
+        <variable
+            name="newsItem"
+            type="com.edoubletech.newsfeed.data.model.News" />
+    </data>
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:theme="@style/AppTheme"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp">
 
-        <ImageView
-            android:id="@+id/article_image_view"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_margin="8dp"
-            android:contentDescription="@string/article_image_description"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/placeholder_image" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-
-        <TextView
-            android:id="@+id/headline_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/scrim_gradient"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/article_image_view"
-            app:layout_constraintEnd_toEndOf="@+id/article_image_view"
-            app:layout_constraintStart_toStartOf="@+id/article_image_view"
-            tools:text="Eton headteacher to face MPs' questions over exam malpractice. This is also a placeholder to see how the Ui will change according to the amount of text that the API has sent back." />
-
-        <TextView
-            android:id="@+id/trailtext_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/article_image_view"
-            app:layout_constraintTop_toBottomOf="@+id/article_image_view"
-            tools:text="Simon Henderson to appear before education committee after Guardian reported exam questions had been leaked. This is a placeholder text to know how the UI will change according to the change in text." />
-
-        <TextView
-            android:id="@+id/time_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/secondary_text"
-            app:layout_constraintEnd_toStartOf="@+id/section_text_view"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trailtext_text_view"
-            tools:text="22 Hours ago" />
-
-        <TextView
-            android:id="@+id/section_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:textColor="@color/secondary_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/time_text_view"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="Technology" />
-
-    </android.support.constraint.ConstraintLayout>
+            <ImageView
+                android:id="@+id/article_image_view"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_margin="8dp"
+                android:contentDescription="@string/article_image_description"
+                android:scaleType="centerCrop"
+                android:src=""
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/placeholder_image" />
 
 
-</android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/headline_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/scrim_gradient"
+                android:text="@{newsItem.title}"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/article_image_view"
+                app:layout_constraintEnd_toEndOf="@+id/article_image_view"
+                app:layout_constraintStart_toStartOf="@+id/article_image_view"
+                tools:text="Eton headteacher to face MPs' questions over exam malpractice. This is also a placeholder to see how the Ui will change according to the amount of text that the API has sent back." />
 
+            <TextView
+                android:id="@+id/trailtext_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{newsItem.trailText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/article_image_view"
+                app:layout_constraintTop_toBottomOf="@+id/article_image_view"
+                tools:text="Simon Henderson to appear before education committee after Guardian reported exam questions had been leaked. This is a placeholder text to know how the UI will change according to the change in text." />
+
+            <TextView
+                android:id="@+id/time_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{timeString}"
+                android:textColor="@color/secondary_text"
+                app:layout_constraintEnd_toStartOf="@+id/section_text_view"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trailtext_text_view"
+                tools:text="22 Hours ago" />
+
+            <TextView
+                android:id="@+id/section_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="@{newsItem.sectionName}"
+                android:textColor="@color/secondary_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/time_text_view"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="Technology" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.v7.widget.CardView>
+</layout>

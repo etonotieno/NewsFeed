@@ -18,17 +18,17 @@
 package com.edoubletech.newsfeed.view.adapters;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.edoubletech.newsfeed.R;
 import com.edoubletech.newsfeed.data.model.News;
+import com.edoubletech.newsfeed.databinding.NewsItemBinding;
 import com.edoubletech.newsfeed.utils.DateUtilsKt;
 
 import java.util.List;
@@ -38,80 +38,71 @@ import java.util.List;
  */
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
-    
+
     final private ListItemClickListener mOnClickListener;
     private Context mContext;
     private List<News> mNewsList;
-    
+
     public NewsAdapter(Context context, ListItemClickListener listener) {
         this.mContext = context;
         this.mOnClickListener = listener;
     }
-    
+
     @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.news_item, parent, false);
-        return new NewsViewHolder(view);
+        NewsItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.news_item, parent, false);
+        return new NewsViewHolder(binding);
     }
-    
+
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
         News currentNews = mNewsList.get(position);
-        holder.mHeadlineTextView.setText(currentNews.getTitle());
-        
-        holder.mTrailTextTextView.setText(currentNews.getTrailText());
-        
-        holder.mSectionTextView.setText(currentNews.getSectionName());
-        
+        holder.binding.setNewsItem(currentNews);
+
         String dateString = currentNews.getPublicationDate();
         long secondsPassedBetweenDates = DateUtilsKt.getTimeDifferenceInSeconds(dateString);
         String correctTimeString = DateUtilsKt.getPrettifiedTimeString(secondsPassedBetweenDates);
-        
-        holder.mPublicationTime.setText(correctTimeString);
-        
+
+        holder.binding.setTimeString(correctTimeString);
+
         String imageUrl = currentNews.getImageUrl();
         if (imageUrl == null) {
-            holder.mArticleImageView.setVisibility(View.GONE);
+            holder.binding.articleImageView.setVisibility(View.GONE);
         } else {
             Glide.with(mContext)
                     .load(imageUrl)
-                    .into(holder.mArticleImageView);
+                    .into(holder.binding.articleImageView);
         }
         holder.itemView.setTag(currentNews);
     }
-    
+
     @Override
     public int getItemCount() {
         return (mNewsList != null) ? mNewsList.size() : 0;
     }
-    
+
     public void setNews(List<News> newListOfNews) {
         mNewsList = newListOfNews;
         notifyDataSetChanged();
-        
     }
-    
+
     public interface ListItemClickListener {
         void onListItemClick(int clickedItemIndex);
     }
-    
+
     class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView mTrailTextTextView, mHeadlineTextView, mSectionTextView, mPublicationTime;
-        ImageView mArticleImageView;
-        
-        NewsViewHolder(View itemView) {
-            super(itemView);
-            mHeadlineTextView = itemView.findViewById(R.id.headline_text_view);
-            mTrailTextTextView = itemView.findViewById(R.id.trailtext_text_view);
-            mArticleImageView = itemView.findViewById(R.id.article_image_view);
-            mSectionTextView = itemView.findViewById(R.id.section_text_view);
-            mPublicationTime = itemView.findViewById(R.id.time_text_view);
+
+        NewsItemBinding binding;
+
+        NewsViewHolder(NewsItemBinding newsItemBinding) {
+            super(newsItemBinding.getRoot());
             itemView.setOnClickListener(this);
+            binding = newsItemBinding;
         }
-        
-        
+
+
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
