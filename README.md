@@ -8,15 +8,16 @@ it in the  gradle.properties file inside the MyApiKey String.
 
 This app is part of my learning process for Android app development
 through the videos provided by [Udacity](https://www.udacity.com/).
-This app was made using videos from
-[Android Basics: Networking](https://classroom.udacity.com/courses/ud843)
-It's a motivator ahead of
-[Nairobi Tech Week](https://nairobitechweek.com)
-and thus my submissions will become minimal after April 19th.
 I'll be building and refining features when I learn something new.
 
-The final update will hopefully make use of
-[Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html).
+I have intergrated the 
+[Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
+libraries like [Room](https://developer.android.com/topic/libraries/architecture/room), 
+[LiveData](https://developer.android.com/topic/libraries/architecture/livedata), 
+[ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) and 
+[Paging](https://developer.android.com/topic/libraries/architecture/paging/).
+ The app currently does not work as expected but this will be changed very soon. The project builds 
+ successfully though.  
 
 There are many dependencies that have been set up for learning purposes
 and thus unused libraries can be removed if needed.
