@@ -18,7 +18,6 @@
 package com.edoubletech.newsfeed.view.category;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,20 +25,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.edoubletech.newsfeed.R;
-import com.edoubletech.newsfeed.data.model.News;
 import com.edoubletech.newsfeed.databinding.ActivityCategoryBinding;
-import com.edoubletech.newsfeed.view.DetailActivity;
 import com.edoubletech.newsfeed.view.adapters.NewsAdapter;
 import com.edoubletech.newsfeed.viewmodel.MainViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class CategoryActivity extends AppCompatActivity implements
-        NewsAdapter.ListItemClickListener {
+public class CategoryActivity extends AppCompatActivity  {
 
     private NewsAdapter mNewsAdapter;
-    private List<News> mArticles;
     private String categoryName;
 
     private ActivityCategoryBinding binding;
@@ -62,15 +54,14 @@ public class CategoryActivity extends AppCompatActivity implements
                 LinearLayoutManager.VERTICAL, false));
         binding.categoryActivityRecyclerView.setHasFixedSize(true);
 
-        mNewsAdapter = new NewsAdapter(this, this);
+        mNewsAdapter = new NewsAdapter(this);
         binding.categoryActivityRecyclerView.setAdapter(mNewsAdapter);
 
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         viewModel.search(getSectionId(categoryName));
 
         viewModel.getNewsList().observe(this, news -> {
-            mArticles = new ArrayList<>(news);
-            mNewsAdapter.setNews(news);
+            mNewsAdapter.submitList(news);
         });
     }
 
@@ -88,14 +79,5 @@ public class CategoryActivity extends AppCompatActivity implements
         }
 
         return formattedSectionName;
-    }
-
-
-    @Override
-    public void onListItemClick(int clickedItemIndex) {
-        News clickedArticle = mArticles.get(clickedItemIndex);
-        Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra(NEWS_ID_KEY, clickedArticle.getId());
-        startActivity(intent);
     }
 }

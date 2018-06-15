@@ -28,9 +28,9 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "news_table")
 public class News {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
-    private String mId;
+    private int mId;
     private String mImageUrl;
     private String mWebUrl;
     private String mSectionName;
@@ -38,10 +38,9 @@ public class News {
     private String mTrailText;
     private String mBodyText;
     private String mPublicationDate;
-    
-    public News(@NonNull String id, String imageUrl, String webUrl, String sectionName, String title,
+
+    public News(String imageUrl, String webUrl, String sectionName, String title,
                 String trailText, String bodyText, String publicationDate) {
-        this.mId = id;
         this.mImageUrl = imageUrl;
         this.mWebUrl = webUrl;
         this.mSectionName = sectionName;
@@ -50,35 +49,39 @@ public class News {
         this.mBodyText = bodyText;
         this.mPublicationDate = publicationDate;
     }
-    
-    public String getId() {
+
+    public int getId() {
         return mId;
     }
-    
+
+    public void setId(int id) {
+        this.mId = id;
+    }
+
     public String getImageUrl() {
         return mImageUrl;
     }
-    
+
     public String getWebUrl() {
         return mWebUrl;
     }
-    
+
     public String getTitle() {
         return mTitle;
     }
-    
+
     public String getTrailText() {
         return mTrailText;
     }
-    
+
     public String getSectionName() {
         return mSectionName;
     }
-    
+
     public String getBodyText() {
         return mBodyText;
     }
-    
+
     public String getPublicationDate() {
         return mPublicationDate;
     }

@@ -48,10 +48,9 @@ public class DatabaseModule {
     @Singleton
     @Provides
     NewsDatabase provideNewsDb(){
-        return Room.databaseBuilder(mContext.getApplicationContext(),
-                NewsDatabase.class,
+        return Room.databaseBuilder(mContext.getApplicationContext(), NewsDatabase.class,
                 "news.db")
-                .fallbackToDestructiveMigration()
+                .allowMainThreadQueries()
                 .build();
     }
 

@@ -18,7 +18,6 @@
 package com.edoubletech.newsfeed.view.main;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,22 +29,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.edoubletech.newsfeed.R;
-import com.edoubletech.newsfeed.data.model.News;
 import com.edoubletech.newsfeed.databinding.FragmentMainBinding;
-import com.edoubletech.newsfeed.view.DetailActivity;
 import com.edoubletech.newsfeed.view.adapters.NewsAdapter;
 import com.edoubletech.newsfeed.viewmodel.MainViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.edoubletech.newsfeed.view.category.CategoryActivity.NEWS_ID_KEY;
-
-public class MainFragment extends Fragment implements NewsAdapter.ListItemClickListener {
+public class MainFragment extends Fragment {
 
     public final static String EXTRA_KEY = "com.edoubletech.newsfeed.EXTRA_KEY";
     private NewsAdapter mNewsAdapter;
-    private List<News> mArticles;
 
     public MainFragment() {
     }
@@ -68,24 +59,15 @@ public class MainFragment extends Fragment implements NewsAdapter.ListItemClickL
                 LinearLayoutManager.VERTICAL, false));
         binding.categoryActivityRecyclerView.setHasFixedSize(true);
 
-        mNewsAdapter = new NewsAdapter(getActivity(), this);
+        mNewsAdapter = new NewsAdapter(getActivity());
         binding.categoryActivityRecyclerView.setAdapter(mNewsAdapter);
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         viewModel.search("technology");
 
         viewModel.getNewsList().observe(this, news -> {
-            mArticles = new ArrayList<>(news);
-            mNewsAdapter.setNews(news);
+            mNewsAdapter.submitList(news);
         });
 
         return binding.getRoot();
-    }
-
-    @Override
-    public void onListItemClick(int clickedItemIndex) {
-        News clickedArticle = mArticles.get(clickedItemIndex);
-        Intent intent = new Intent(getActivity(), DetailActivity.class);
-        intent.putExtra(NEWS_ID_KEY, clickedArticle.getId());
-        startActivity(intent);
     }
 }

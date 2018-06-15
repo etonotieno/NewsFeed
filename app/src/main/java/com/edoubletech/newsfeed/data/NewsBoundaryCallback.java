@@ -30,7 +30,6 @@ import com.edoubletech.newsfeed.data.model.News;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -75,7 +74,6 @@ public class NewsBoundaryCallback extends PagedList.BoundaryCallback<News> {
                     List<GuardianResult> apiResults = res.getResults();
                     for (GuardianResult apiResult : apiResults) {
                         mNewsList.add(new News(
-                                apiResult.getId(),
                                 apiResult.getFields().getThumbnail(), /* Thumbnail for the news */
                                 apiResult.getWebUrl(), /* Website url*/
                                 apiResult.getSectionName(), /* Section name*/
@@ -98,7 +96,6 @@ public class NewsBoundaryCallback extends PagedList.BoundaryCallback<News> {
                 Timber.e(throwable);
             }
         });
-
-        Executors.newSingleThreadExecutor().execute(() -> mDao.addNews(mNewsList));
+        mDao.addNews(mNewsList);
     }
 }
