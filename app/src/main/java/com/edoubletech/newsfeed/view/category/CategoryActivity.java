@@ -58,9 +58,8 @@ public class CategoryActivity extends AppCompatActivity  {
         binding.categoryActivityRecyclerView.setAdapter(mNewsAdapter);
 
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        viewModel.search(getSectionId(categoryName));
 
-        viewModel.getNewsList().observe(this, news -> {
+        viewModel.getNewsList(getSectionId(categoryName)).observe(this, news -> {
             mNewsAdapter.submitList(news);
         });
     }

@@ -62,11 +62,9 @@ public class MainFragment extends Fragment {
         mNewsAdapter = new NewsAdapter(getActivity());
         binding.categoryActivityRecyclerView.setAdapter(mNewsAdapter);
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        viewModel.search("technology");
 
-        viewModel.getNewsList().observe(this, news -> {
-            mNewsAdapter.submitList(news);
-        });
+        viewModel.getNewsList("technology").observe(this, news ->
+                mNewsAdapter.submitList(news));
 
         return binding.getRoot();
     }

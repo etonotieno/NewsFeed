@@ -21,28 +21,22 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
-import android.arch.paging.PagedList;
 
 import com.edoubletech.newsfeed.data.Repository;
 import com.edoubletech.newsfeed.data.model.News;
 
+import java.util.List;
+
 public class MainViewModel extends ViewModel {
 
-    private MutableLiveData<String> categoryName;
+    private MutableLiveData<String> categoryNameLiveData = new MutableLiveData<>();
     
-    public MainViewModel() {
-        categoryName = new MutableLiveData<>();
-    }
-    
-    public void search(String categoryName) {
-        if (categoryName != null)
-            this.categoryName.setValue(categoryName);
-    }
-    
-    public LiveData<PagedList<News>> getNewsList() {
-        return Transformations.switchMap(this.categoryName, input -> {
-            Repository repository = new Repository();
-            return repository.getNewsList(input);
+    public LiveData<List<News>> getNewsList(String categoryName) {
+        if (categoryName != null) categoryNameLiveData.setValue(categoryName);
+
+        return Transformations.switchMap(categoryNameLiveData, input -> {
+            Repository repository = new Repository(categoryName);
+            return repository.getNewsList();
         });
     }
 }

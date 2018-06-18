@@ -17,10 +17,10 @@
 
 package com.edoubletech.newsfeed.view.adapters;
 
-import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,7 +37,7 @@ import com.edoubletech.newsfeed.utils.NewsDateUtilsKt;
  * Created by EtonOtieno on 2/15/2018
  */
 
-public class NewsAdapter extends PagedListAdapter<News, NewsAdapter.NewsViewHolder> {
+public class NewsAdapter extends ListAdapter<News, NewsAdapter.NewsViewHolder> {
 
     private Context mContext;
 

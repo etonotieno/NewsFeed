@@ -18,25 +18,89 @@
 package com.edoubletech.newsfeed.data;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.paging.DataSource;
-import android.arch.paging.LivePagedListBuilder;
-import android.arch.paging.PagedList;
+import android.arch.lifecycle.MutableLiveData;
 
-import com.edoubletech.newsfeed.NewsFeed;
-import com.edoubletech.newsfeed.data.dao.NewsDao;
+import com.edoubletech.newsfeed.BuildConfig;
+import com.edoubletech.newsfeed.data.api.GuardianMain;
+import com.edoubletech.newsfeed.data.api.GuardianResponse;
+import com.edoubletech.newsfeed.data.api.GuardianResult;
 import com.edoubletech.newsfeed.data.model.News;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 public class Repository {
 
-    private final int DATABASE_PAGE_SIZE = 20;
+    private String BASE_URL = "https://content.guardianapis.com/";
 
-    public LiveData<PagedList<News>> getNewsList(String categoryName) {
-        NewsDao dao = NewsFeed.getNewsComponent().exposeDao();
-        NewsBoundaryCallback callback = new NewsBoundaryCallback(categoryName);
-        DataSource.Factory<Integer, News> dataFactory = dao.getNewsList(categoryName);
-        LivePagedListBuilder<Integer, News> data = new LivePagedListBuilder<>(dataFactory, DATABASE_PAGE_SIZE)
-                .setBoundaryCallback(callback);
-        return data.build();
+    private MutableLiveData<List<News>> newsLiveData = new MutableLiveData<>();
 
+    private HttpLoggingInterceptor interceptor =
+            new HttpLoggingInterceptor(message -> Timber.d(message));
+
+    private OkHttpClient client = new OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build();
+
+    private Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    public Repository(String categoryName) {
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        List<News> news = new ArrayList<>();
+        NewsService newsService = retrofit.create(NewsService.class);
+        Call<GuardianMain> call = newsService.getNews("50", BuildConfig.GUARDIAN_API_KEY,
+                categoryName, "all", "json");
+
+        // Make the actual call. This is an asynchronous call.
+        call.enqueue(new Callback<GuardianMain>() {
+            @Override
+            public void onResponse(Call<GuardianMain> call, Response<GuardianMain> response) {
+                if (response.isSuccessful()) {
+                    Timber.d(" NewsResponse is successful");
+                    GuardianResponse res = response.body().getResponse();
+                    List<GuardianResult> apiResults = res.getResults();
+                    for (GuardianResult apiResult : apiResults) {
+                        news.add(new News(
+                                apiResult.getFields().getThumbnail(), /* Thumbnail for the news */
+                                apiResult.getWebUrl(), /* Website url*/
+                                apiResult.getSectionName(), /* Section name*/
+                                apiResult.getWebTitle(), /* Web Title of Article*/
+                                apiResult.getFields().getTrailText(), /* Trail Text*/
+                                apiResult.getFields().getBodyText(), /* Description */
+                                apiResult.getWebPublicationDate())); /* Publication Date*/
+                    }
+                } else {
+                    int statusCode = response.code();
+                    ResponseBody errorBody = response.errorBody();
+                    Timber.i("Network Error: " + errorBody.toString()
+                            + "\nStatus Code: " + statusCode);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GuardianMain> call1, Throwable throwable) {
+                Timber.e(throwable);
+            }
+        });
+        newsLiveData.setValue(news);
+    }
+
+    public LiveData<List<News>> getNewsList() {
+        return newsLiveData;
     }
 }
