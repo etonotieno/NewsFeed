@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.adapter;
+package com.edoubletech.newsfeed.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

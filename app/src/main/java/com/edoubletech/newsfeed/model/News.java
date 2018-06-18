@@ -17,20 +17,16 @@
 
 package com.edoubletech.newsfeed.model;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by EtonOtieno on 3/21/2018
  */
 
-@Entity(tableName = "news_table")
-public class News {
+public class News implements Parcelable {
 
-    @PrimaryKey(autoGenerate = true)
-    @NonNull
-    private int mId;
+    private String mId;
     private String mImageUrl;
     private String mWebUrl;
     private String mSectionName;
@@ -39,8 +35,9 @@ public class News {
     private String mBodyText;
     private String mPublicationDate;
 
-    public News(String imageUrl, String webUrl, String sectionName, String title,
+    public News(String id, String imageUrl, String webUrl, String sectionName, String title,
                 String trailText, String bodyText, String publicationDate) {
+        this.mId = id;
         this.mImageUrl = imageUrl;
         this.mWebUrl = webUrl;
         this.mSectionName = sectionName;
@@ -50,12 +47,31 @@ public class News {
         this.mPublicationDate = publicationDate;
     }
 
-    public int getId() {
-        return mId;
+    private News(Parcel in) {
+        mId = in.readString();
+        mImageUrl = in.readString();
+        mWebUrl = in.readString();
+        mSectionName = in.readString();
+        mTitle = in.readString();
+        mTrailText = in.readString();
+        mBodyText = in.readString();
+        mPublicationDate = in.readString();
     }
 
-    public void setId(int id) {
-        this.mId = id;
+    public static final Creator<News> CREATOR = new Creator<News>() {
+        @Override
+        public News createFromParcel(Parcel in) {
+            return new News(in);
+        }
+
+        @Override
+        public News[] newArray(int size) {
+            return new News[size];
+        }
+    };
+
+    public String getId() {
+        return mId;
     }
 
     public String getImageUrl() {
@@ -84,5 +100,22 @@ public class News {
 
     public String getPublicationDate() {
         return mPublicationDate;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
+        dest.writeString(mImageUrl);
+        dest.writeString(mWebUrl);
+        dest.writeString(mSectionName);
+        dest.writeString(mTitle);
+        dest.writeString(mTrailText);
+        dest.writeString(mBodyText);
+        dest.writeString(mPublicationDate);
     }
 }

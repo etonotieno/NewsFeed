@@ -29,7 +29,7 @@ import android.widget.TextView;
 
 import com.edoubletech.newsfeed.MainViewModel;
 import com.edoubletech.newsfeed.R;
-import com.edoubletech.newsfeed.adapter.NewsAdapter;
+import com.edoubletech.newsfeed.adapters.NewsAdapter;
 import com.edoubletech.newsfeed.fragments.CategoryFragment;
 import com.edoubletech.newsfeed.model.News;
 

@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.adapter;
+package com.edoubletech.newsfeed.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

@@ -15,16 +15,16 @@
  *
  */
 
-package com.edoubletech.newsfeed.view.adapters
+package com.edoubletech.newsfeed.adapters
 
-import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.edoubletech.newsfeed.R
-import com.edoubletech.newsfeed.data.model.Category
-import com.edoubletech.newsfeed.databinding.CategoryItemBinding
+import com.edoubletech.newsfeed.model.Category
 
 class CategoryAdapter(private val categories: List<Category>,
                       private val mOnClickListener: ListItemClickListener)
@@ -35,22 +35,23 @@ class CategoryAdapter(private val categories: List<Category>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val binding = DataBindingUtil.inflate<CategoryItemBinding>(LayoutInflater.from(parent.context),
-                R.layout.category_item, parent, false)
-        return NewsViewHolder(binding)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
+        return NewsViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.categoryItemBinding.category = categories[position]
-        holder.categoryItemBinding.gridImage.setImageResource(categories[position].image)
+        val currentCategory = categories[position]
+        holder.textView.text = currentCategory.name
+        holder.imageView.setImageResource(categories[position].image)
     }
 
     override fun getItemCount(): Int {
         return categories.size
     }
 
-    inner class NewsViewHolder(val categoryItemBinding: CategoryItemBinding) :
-            RecyclerView.ViewHolder(categoryItemBinding.root), View.OnClickListener {
+    inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        val imageView: ImageView = itemView.findViewById(R.id.grid_image)
+        val textView: TextView = itemView.findViewById(R.id.grid_name)
 
         init {
             itemView.setOnClickListener(this)

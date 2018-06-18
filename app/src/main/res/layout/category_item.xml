@@ -15,49 +15,37 @@
   ~
   -->
 
-<!--Layout for a RecyclerView item in the  CategoryFragment-->
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/grid_item_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@drawable/list_item_selector"
+    android:padding="5dp">
 
-    <data>
-        <variable
-            name="category"
-            type="com.edoubletech.newsfeed.data.model.Category"/>
-    </data>
+    <ImageView
+        android:id="@+id/grid_image"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/ic_media" />
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/grid_item_layout"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/grid_name"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:background="@drawable/list_item_selector"
-        android:padding="5dp">
-
-        <ImageView
-            android:id="@+id/grid_image"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:background="@drawable/ic_media" />
-
-        <TextView
-            android:text="@{category.name}"
-            android:id="@+id/grid_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:lines="2"
-            android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/grid_image"
-            tools:text="Art and Design" />
-
-    </android.support.constraint.ConstraintLayout>
-</layout>
+        android:gravity="center"
+        android:lines="2"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grid_image"
+        tools:text="Art and Design" />
+</android.support.constraint.ConstraintLayout>

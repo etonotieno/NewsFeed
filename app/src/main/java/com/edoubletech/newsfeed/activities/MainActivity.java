@@ -27,7 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.edoubletech.newsfeed.R;
-import com.edoubletech.newsfeed.adapter.SectionsPagerAdapter;
+import com.edoubletech.newsfeed.adapters.SectionsPagerAdapter;
 
 /**
  * @author EtonOtieno

@@ -32,8 +32,8 @@ import android.view.ViewGroup;
 
 import com.edoubletech.newsfeed.R;
 import com.edoubletech.newsfeed.activities.CategoryActivity;
+import com.edoubletech.newsfeed.adapters.CategoryAdapter;
 import com.edoubletech.newsfeed.model.Category;
-import com.edoubletech.newsfeed.model.CategoryAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

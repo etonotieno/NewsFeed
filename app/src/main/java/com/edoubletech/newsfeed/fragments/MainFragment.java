@@ -28,13 +28,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.edoubletech.newsfeed.MainViewModel;
 import com.edoubletech.newsfeed.R;
 import com.edoubletech.newsfeed.activities.DetailActivity;
-import com.edoubletech.newsfeed.adapter.NewsAdapter;
+import com.edoubletech.newsfeed.adapters.NewsAdapter;
 import com.edoubletech.newsfeed.model.News;
 
 import java.util.ArrayList;
@@ -46,9 +44,6 @@ public class MainFragment extends Fragment implements NewsAdapter.ListItemClickL
     private NewsAdapter mNewsAdapter;
     private RecyclerView mRecyclerView;
     private List<News> mArticles;
-    private TextView mEmptyStateTextView;
-    private ImageView mNoInternetImage;
-    private View mLoadingIndicator;
     
     public MainFragment() {
     }
@@ -60,14 +55,8 @@ public class MainFragment extends Fragment implements NewsAdapter.ListItemClickL
         super.onCreate(savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         
-        mEmptyStateTextView = rootView.findViewById(R.id.main_fragment_empty_view);
         mRecyclerView = rootView.findViewById(R.id.category_activity_recycler_view);
-        mLoadingIndicator = rootView.findViewById(R.id.category_loading_indicator);
-        mNoInternetImage = rootView.findViewById(R.id.no_internet_image_main_fragment);
-        
-        mLoadingIndicator.setVisibility(View.GONE);
-        mNoInternetImage.setVisibility(View.GONE);
-        mEmptyStateTextView.setVisibility(View.GONE);
+
         mRecyclerView.setVisibility(View.VISIBLE);
         
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
