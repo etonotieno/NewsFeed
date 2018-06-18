@@ -15,56 +15,36 @@
  *
  */
 
-package com.edoubletech.newsfeed.data;
+package com.edoubletech.newsfeed;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.edoubletech.newsfeed.BuildConfig;
-import com.edoubletech.newsfeed.data.api.GuardianMain;
-import com.edoubletech.newsfeed.data.api.GuardianResponse;
-import com.edoubletech.newsfeed.data.api.GuardianResult;
-import com.edoubletech.newsfeed.data.model.News;
+import com.edoubletech.newsfeed.guardian.GuardianMain;
+import com.edoubletech.newsfeed.guardian.GuardianResponse;
+import com.edoubletech.newsfeed.guardian.GuardianResult;
+import com.edoubletech.newsfeed.model.News;
+import com.edoubletech.newsfeed.networking.Injector;
+import com.edoubletech.newsfeed.networking.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
 public class Repository {
-
-    private String BASE_URL = "https://content.guardianapis.com/";
-
-    private MutableLiveData<List<News>> newsLiveData = new MutableLiveData<>();
-
-    private HttpLoggingInterceptor interceptor =
-            new HttpLoggingInterceptor(message -> Timber.d(message));
-
-    private OkHttpClient client = new OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .build();
-
-    private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
+    
+    private MutableLiveData<List<News>> mNewsList = new MutableLiveData<>();
+    
     public Repository(String categoryName) {
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        List<News> news = new ArrayList<>();
-        NewsService newsService = retrofit.create(NewsService.class);
-        Call<GuardianMain> call = newsService.getNews("50", BuildConfig.GUARDIAN_API_KEY,
+        Service service = Injector.provideRetrofit().create(Service.class);
+        Call<GuardianMain> call = service.getNews("50", BuildConfig.GUARDIAN_API_KEY,
                 categoryName, "all", "json");
-
+        
         // Make the actual call. This is an asynchronous call.
         call.enqueue(new Callback<GuardianMain>() {
             @Override
@@ -73,8 +53,10 @@ public class Repository {
                     Timber.d(" NewsResponse is successful");
                     GuardianResponse res = response.body().getResponse();
                     List<GuardianResult> apiResults = res.getResults();
+                    List<News> mArticles = new ArrayList<>();
                     for (GuardianResult apiResult : apiResults) {
-                        news.add(new News(
+                        mArticles.add(new News(
+                                apiResult.getId(),
                                 apiResult.getFields().getThumbnail(), /* Thumbnail for the news */
                                 apiResult.getWebUrl(), /* Website url*/
                                 apiResult.getSectionName(), /* Section name*/
@@ -83,24 +65,24 @@ public class Repository {
                                 apiResult.getFields().getBodyText(), /* Description */
                                 apiResult.getWebPublicationDate())); /* Publication Date*/
                     }
+                    mNewsList.postValue(mArticles);
                 } else {
                     int statusCode = response.code();
                     ResponseBody errorBody = response.errorBody();
                     Timber.i("Network Error: " + errorBody.toString()
                             + "\nStatus Code: " + statusCode);
-
+                    
                 }
             }
-
+            
             @Override
             public void onFailure(Call<GuardianMain> call1, Throwable throwable) {
                 Timber.e(throwable);
             }
         });
-        newsLiveData.setValue(news);
     }
-
-    public LiveData<List<News>> getNewsList() {
-        return newsLiveData;
+    
+    public LiveData<List<News>> search() {
+        return mNewsList;
     }
 }

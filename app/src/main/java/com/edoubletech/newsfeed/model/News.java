@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.data.model;
+package com.edoubletech.newsfeed.model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;

@@ -15,9 +15,9 @@
  *
  */
 
-package com.edoubletech.newsfeed.data;
+package com.edoubletech.newsfeed.networking;
 
-import com.edoubletech.newsfeed.data.api.GuardianMain;
+import com.edoubletech.newsfeed.guardian.GuardianMain;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -27,7 +27,7 @@ import retrofit2.http.Query;
  * Created by EtonOtieno on 3/2/2018
  */
 
-public interface NewsService {
+public interface Service {
     
     @GET("search")
     Call<GuardianMain> getNews(
