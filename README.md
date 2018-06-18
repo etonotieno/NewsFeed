@@ -10,14 +10,11 @@ This app is part of my learning process for Android app development
 through the videos provided by [Udacity](https://www.udacity.com/).
 I'll be building and refining features when I learn something new.
 
-I have intergrated the 
-[Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
-libraries like [Room](https://developer.android.com/topic/libraries/architecture/room), 
-[LiveData](https://developer.android.com/topic/libraries/architecture/livedata), 
-[ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) and 
-[Paging](https://developer.android.com/topic/libraries/architecture/paging/).
- The app currently does not work as expected but this will be changed very soon. The project builds 
- successfully though.  
+I have integrated 
+[Android Architecture Components Libraries](https://developer.android.com/topic/libraries/architecture/index.html)
+like 
+[LiveData](https://developer.android.com/topic/libraries/architecture/livedata) and
+[ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel).
 
 There are many dependencies that have been set up for learning purposes
 and thus unused libraries can be removed if needed.
