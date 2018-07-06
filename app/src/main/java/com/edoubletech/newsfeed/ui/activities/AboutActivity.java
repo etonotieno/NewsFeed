@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.activities;
+package com.edoubletech.newsfeed.ui.activities;
 
 import android.net.Uri;
 import android.os.Bundle;

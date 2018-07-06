@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.activities;
+package com.edoubletech.newsfeed.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.edoubletech.newsfeed.R;
-import com.edoubletech.newsfeed.adapters.SectionsPagerAdapter;
+import com.edoubletech.newsfeed.ui.adapters.SectionsPagerAdapter;
 
 /**
  * @author EtonOtieno
