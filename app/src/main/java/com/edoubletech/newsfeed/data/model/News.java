@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.model;
+package com.edoubletech.newsfeed.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

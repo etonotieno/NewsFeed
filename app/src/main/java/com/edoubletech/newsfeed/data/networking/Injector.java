@@ -15,10 +15,10 @@
  *
  */
 
-package com.edoubletech.newsfeed.networking;
+package com.edoubletech.newsfeed.data.networking;
 
 import com.edoubletech.newsfeed.BuildConfig;
-import com.edoubletech.newsfeed.utilities.NewsFeed;
+import com.edoubletech.newsfeed.utils.NewsFeed;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;

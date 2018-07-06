@@ -15,9 +15,9 @@
  *
  */
 
-package com.edoubletech.newsfeed.networking;
+package com.edoubletech.newsfeed.data.networking;
 
-import com.edoubletech.newsfeed.guardian.GuardianMain;
+import com.edoubletech.newsfeed.data.guardian.GuardianMain;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

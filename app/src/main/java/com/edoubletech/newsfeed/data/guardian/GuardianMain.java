@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.guardian;
+package com.edoubletech.newsfeed.data.guardian;
 
 import android.os.Parcel;
 import android.os.Parcelable;

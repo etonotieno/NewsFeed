@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.model
+package com.edoubletech.newsfeed.data.model
 
 data class Category(
         val name: String,

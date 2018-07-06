@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.utilities
+package com.edoubletech.newsfeed.utils
 
 import org.joda.time.DateTimeZone
 import org.joda.time.format.ISODateTimeFormat

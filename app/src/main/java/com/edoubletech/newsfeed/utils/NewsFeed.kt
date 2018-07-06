@@ -15,7 +15,7 @@
  *
  */
 
-package com.edoubletech.newsfeed.utilities
+package com.edoubletech.newsfeed.utils
 
 import android.app.Application
 import android.content.Context
