@@ -43,13 +43,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.2.50"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.2.60"
 
     // Support Libraries
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -61,16 +65,21 @@ dependencies {
     // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:1.1.1"
 
+    // Paging
+    implementation "android.arch.paging:runtime:1.0.1"
+
     // Room
-    implementation "android.arch.persistence.room:runtime:1.1.0"
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.0"
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    implementation "android.arch.lifecycle:common-java8:1.1.1"
+
+    // Navigation
+    implementation "android.arch.navigation:navigation-fragment:1.0.0-alpha04"
+    implementation "android.arch.navigation:navigation-ui:1.0.0-alpha04"
 
     // ConstraintLayout
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
-    // Glide for image viewing
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Timber for logging events
     implementation 'com.jakewharton.timber:timber:4.6.1'
@@ -84,4 +93,6 @@ dependencies {
 
     // Joda Time
     implementation 'net.danlew:android.joda:2.9.9.3'
+
+    implementation "com.google.code.gson:gson:2.8.2"
 }

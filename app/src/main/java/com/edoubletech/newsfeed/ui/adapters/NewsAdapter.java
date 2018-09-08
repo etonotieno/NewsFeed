@@ -26,10 +26,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.edoubletech.newsfeed.R;
 import com.edoubletech.newsfeed.data.model.News;
-import com.edoubletech.newsfeed.utils.DateUtilsKt;
+import com.edoubletech.newsfeed.utils.DateUtils;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -66,8 +66,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         holder.mSectionTextView.setText(currentNews.getSectionName());
         
         String dateString = currentNews.getPublicationDate();
-        long secondsPassedBetweenDates = DateUtilsKt.getTimeDifferenceInSeconds(dateString);
-        String correctTimeString = DateUtilsKt.getPrettifiedTimeString(secondsPassedBetweenDates);
+        long secondsPassedBetweenDates = DateUtils.getTimeDifferenceInSeconds(dateString);
+        String correctTimeString = DateUtils.getPrettifiedTimeString(secondsPassedBetweenDates);
         
         holder.mPublicationTime.setText(correctTimeString);
         
@@ -75,9 +75,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         if (imageUrl == null) {
             holder.mArticleImageView.setVisibility(View.GONE);
         } else {
-            Glide.with(mContext)
-                    .load(imageUrl)
-                    .into(holder.mArticleImageView);
+            Picasso.get().load(imageUrl).into(holder.mArticleImageView);
         }
         holder.itemView.setTag(currentNews);
     }

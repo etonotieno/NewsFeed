@@ -32,15 +32,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.edoubletech.newsfeed.R;
 import com.edoubletech.newsfeed.data.model.News;
+import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
 
 import static com.edoubletech.newsfeed.ui.fragments.MainFragment.EXTRA_KEY;
-import static com.edoubletech.newsfeed.utils.DateUtilsKt.getPrettifiedTimeString;
-import static com.edoubletech.newsfeed.utils.DateUtilsKt.getTimeDifferenceInSeconds;
+import static com.edoubletech.newsfeed.utils.DateUtils.getPrettifiedTimeString;
+import static com.edoubletech.newsfeed.utils.DateUtils.getTimeDifferenceInSeconds;
 
 public class DetailActivity extends AppCompatActivity {
     
@@ -92,9 +92,9 @@ public class DetailActivity extends AppCompatActivity {
         mDescriptionTextView.setMovementMethod(LinkMovementMethod.getInstance());
         
         mTitleTextView.setText(clickedNewsItem.getTitle());
-        
-        Glide.with(this).load(clickedNewsItem.getImageUrl()).into(mArticleImageView);
-        
+
+        Picasso.get().load(clickedNewsItem.getImageUrl()).into(mArticleImageView);
+
         mWebButton.setOnClickListener(v -> {
             String url = clickedNewsItem.getWebUrl();
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
