@@ -17,24 +17,11 @@
 
 package com.edoubletech.newsfeed.data.guardian;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GuardianResult implements Parcelable {
-    public static final Creator<GuardianResult> CREATOR = new Creator<GuardianResult>() {
-        @Override
-        public GuardianResult createFromParcel(Parcel in) {
-            return new GuardianResult(in);
-        }
-        
-        @Override
-        public GuardianResult[] newArray(int size) {
-            return new GuardianResult[size];
-        }
-    };
+public class GuardianResult {
+
     @SerializedName("id")
     @Expose
     private String id;
@@ -62,18 +49,6 @@ public class GuardianResult implements Parcelable {
     @SerializedName("sectionName")
     @Expose
     private String sectionName;
-    
-    private GuardianResult(Parcel in) {
-        type = in.readString();
-        sectionId = in.readString();
-        webTitle = in.readString();
-        webPublicationDate = in.readString();
-        id = in.readString();
-        fields = in.readParcelable(GuardianFields.class.getClassLoader());
-        webUrl = in.readString();
-        apiUrl = in.readString();
-        sectionName = in.readString();
-    }
     
     public String getId() {
         return id;
@@ -109,23 +84,5 @@ public class GuardianResult implements Parcelable {
     
     public String getApiUrl() {
         return apiUrl;
-    }
-    
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-    
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(type);
-        dest.writeString(sectionId);
-        dest.writeString(webTitle);
-        dest.writeString(webPublicationDate);
-        dest.writeString(id);
-        dest.writeParcelable(fields, flags);
-        dest.writeString(webUrl);
-        dest.writeString(apiUrl);
-        dest.writeString(sectionName);
     }
 }
