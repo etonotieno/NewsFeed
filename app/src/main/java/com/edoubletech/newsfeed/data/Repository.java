@@ -21,14 +21,12 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.edoubletech.newsfeed.BuildConfig;
+import com.edoubletech.newsfeed.Mapper;
 import com.edoubletech.newsfeed.data.guardian.GuardianMain;
-import com.edoubletech.newsfeed.data.guardian.GuardianResponse;
-import com.edoubletech.newsfeed.data.guardian.GuardianResult;
 import com.edoubletech.newsfeed.data.model.News;
 import com.edoubletech.newsfeed.data.networking.Injector;
 import com.edoubletech.newsfeed.data.networking.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -40,6 +38,7 @@ import timber.log.Timber;
 public class Repository {
 
     private MutableLiveData<List<News>> mNewsList = new MutableLiveData<>();
+    private Mapper articleMapper = new Mapper();
     private static Repository sInstance;
 
     public static Repository getInstance(String categoryName) {
@@ -64,21 +63,7 @@ public class Repository {
             public void onResponse(Call<GuardianMain> call, Response<GuardianMain> response) {
                 if (response.isSuccessful()) {
                     Timber.d(" NewsResponse is successful");
-                    GuardianResponse res = response.body().getResponse();
-                    List<GuardianResult> apiResults = res.getResults();
-                    List<News> mArticles = new ArrayList<>();
-                    for (GuardianResult apiResult : apiResults) {
-                        mArticles.add(new News(
-                                apiResult.getId(),
-                                apiResult.getFields().getThumbnail(), /* Thumbnail for the news */
-                                apiResult.getWebUrl(), /* Website url*/
-                                apiResult.getSectionName(), /* Section name*/
-                                apiResult.getWebTitle(), /* Web Title of Article*/
-                                apiResult.getFields().getTrailText(), /* Trail Text*/
-                                apiResult.getFields().getBodyText(), /* Description */
-                                apiResult.getWebPublicationDate())); /* Publication Date*/
-                    }
-                    mNewsList.postValue(mArticles);
+                    mNewsList.postValue(articleMapper.mapGuardianToNews(response.body()));
                 } else {
                     int statusCode = response.code();
                     ResponseBody errorBody = response.errorBody();
