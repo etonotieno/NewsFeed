@@ -67,7 +67,7 @@ public class Injector {
     private static Cache provideCache() {
         Cache cache = null;
         try {
-            cache = new Cache(new File(NewsFeed.Companion.getInstance().getCacheDir(),
+            cache = new Cache(new File(NewsFeed.getInstance().getCacheDir(),
                     "http-cache"), 10 * 1024 * 1024); // 10 MB
         } catch (Exception e) {
             Timber.e(e, "Could not create Cache!");
@@ -103,7 +103,7 @@ public class Injector {
         return chain -> {
             Request request = chain.request();
             
-            if (!NewsFeed.Companion.hasNetwork()) {
+            if (!NewsFeed.hasNetwork()) {
                 CacheControl cacheControl = new CacheControl.Builder()
                         .maxStale(7, TimeUnit.DAYS)
                         .build();

@@ -48,11 +48,12 @@ class NewsFeed : Application() {
     }
 
     companion object {
-
+        @JvmStatic
         fun hasNetwork(): Boolean {
-            return instance!!.checkIfHasNetwork()
+            return instance.checkIfHasNetwork()
         }
 
-        var instance: NewsFeed? = null
+        @JvmStatic
+        lateinit var instance: NewsFeed
     }
 }

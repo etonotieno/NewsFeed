@@ -21,7 +21,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.edoubletech.newsfeed.BuildConfig;
-import com.edoubletech.newsfeed.Mapper;
 import com.edoubletech.newsfeed.data.guardian.GuardianMain;
 import com.edoubletech.newsfeed.data.model.News;
 import com.edoubletech.newsfeed.data.networking.Injector;
@@ -38,7 +37,7 @@ import timber.log.Timber;
 public class Repository {
 
     private MutableLiveData<List<News>> mNewsList = new MutableLiveData<>();
-    private Mapper articleMapper = new Mapper();
+    private GuardianMapper articleMapper = new GuardianMapper();
     private static Repository sInstance;
 
     public static Repository getInstance(String categoryName) {
@@ -63,7 +62,7 @@ public class Repository {
             public void onResponse(Call<GuardianMain> call, Response<GuardianMain> response) {
                 if (response.isSuccessful()) {
                     Timber.d(" NewsResponse is successful");
-                    mNewsList.postValue(articleMapper.mapGuardianToNews(response.body()));
+                    mNewsList.postValue(articleMapper.mapToModel(response.body()));
                 } else {
                     int statusCode = response.code();
                     ResponseBody errorBody = response.errorBody();
