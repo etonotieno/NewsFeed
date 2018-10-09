@@ -1,0 +1,70 @@
+/*
+ *   Copyright (C) 2018 Eton Otieno Oboch
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ *
+ */
+
+package com.edoubletech.newsfeed.data
+
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+
+import com.edoubletech.newsfeed.BuildConfig
+import com.edoubletech.newsfeed.data.guardian.GuardianMain
+import com.edoubletech.newsfeed.data.guardian.mapToNews
+import com.edoubletech.newsfeed.data.model.News
+import com.edoubletech.newsfeed.data.networking.Injector
+import com.edoubletech.newsfeed.data.networking.Service
+
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import timber.log.Timber
+
+object Repository {
+
+    private val _newsList = MutableLiveData<List<News>>()
+
+    @JvmStatic
+    val newsList: LiveData<List<News>>
+        get() = _newsList
+
+    @JvmStatic
+    fun loadNews(categoryName: String) {
+        val service = Injector.provideRetrofit().create(Service::class.java)
+        val call = service.getNews("50", BuildConfig.GUARDIAN_API_KEY,
+                categoryName, "all", "json")
+
+        // Make the actual call. This is an asynchronous call.
+        call.enqueue(object : Callback<GuardianMain> {
+            override fun onResponse(call: Call<GuardianMain>, response: Response<GuardianMain>) {
+                if (response.isSuccessful) {
+                    Timber.d(" NewsResponse is successful")
+                    _newsList.postValue(response.body()?.mapToNews())
+                } else {
+                    val statusCode = response.code()
+                    val errorBody = response.errorBody()
+                    Timber.i("Network Error: " + errorBody!!.toString()
+                            + "\nStatus Code: " + statusCode)
+
+                }
+            }
+
+            override fun onFailure(call1: Call<GuardianMain>, throwable: Throwable) {
+                Timber.e(throwable)
+            }
+        })
+    }
+}

@@ -15,31 +15,26 @@
  *
  */
 
-package com.edoubletech.newsfeed.data.guardian;
+package com.edoubletech.newsfeed.data.networking
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.edoubletech.newsfeed.data.guardian.GuardianMain
 
-public class GuardianFields {
-    @SerializedName("thumbnail")
-    @Expose
-    private String thumbnail;
-    @SerializedName("body")
-    @Expose
-    private String bodyText;
-    @SerializedName("trailText")
-    @Expose
-    private String trailText;
-    
-    public String getThumbnail() {
-        return thumbnail;
-    }
-    
-    public String getBodyText() {
-        return bodyText;
-    }
-    
-    public String getTrailText() {
-        return trailText;
-    }
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+/**
+ * Created by EtonOtieno on 3/2/2018
+ */
+
+interface Service {
+
+    @GET("search")
+    fun getNews(
+            @Query("page-size") pageSize: String,
+            @Query("api-key") apiKey: String,
+            @Query("section") section: String,
+            @Query("show-fields") fields: String,
+            @Query("format") format: String
+    ): Call<GuardianMain>
 }

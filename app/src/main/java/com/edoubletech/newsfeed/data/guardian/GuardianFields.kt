@@ -15,18 +15,12 @@
  *
  */
 
-package com.edoubletech.newsfeed.data.guardian;
+package com.edoubletech.newsfeed.data.guardian
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-public class GuardianMain{
-
-    @SerializedName("response")
-    @Expose
-    private GuardianResponse response;
-
-    public GuardianResponse getResponse() {
-        return response;
-    }
-}
+class GuardianFields(@SerializedName("thumbnail") @Expose val thumbnail: String,
+                     @SerializedName("body") @Expose val bodyText: String,
+                     @SerializedName("trailText") @Expose val trailText: String
+)

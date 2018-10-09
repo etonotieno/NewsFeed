@@ -15,32 +15,26 @@
  *
  */
 
-package com.edoubletech.newsfeed.ui.adapters;
+package com.edoubletech.newsfeed.ui.adapters
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
 
-import com.edoubletech.newsfeed.ui.fragments.CategoryFragment;
-import com.edoubletech.newsfeed.ui.fragments.MainFragment;
+import com.edoubletech.newsfeed.ui.fragments.CategoryFragment
+import com.edoubletech.newsfeed.ui.fragments.MainFragment
 
 /**
  * Created by EtonOtieno on 3/7/2018
  */
 
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-    public SectionsPagerAdapter(FragmentManager fm) {
-        super(fm);
+    override fun getItem(position: Int): Fragment {
+        return if (position == 0) MainFragment() else CategoryFragment()
     }
 
-    @Override
-    public Fragment getItem(int position) {
-        return (position == 0) ? new MainFragment() : new CategoryFragment();
-    }
-
-    @Override
-    public int getCount() {
-        return 2;
+    override fun getCount(): Int {
+        return 2
     }
 }

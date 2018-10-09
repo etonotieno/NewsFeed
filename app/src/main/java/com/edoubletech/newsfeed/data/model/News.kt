@@ -15,26 +15,12 @@
  *
  */
 
-package com.edoubletech.newsfeed.data.networking;
-
-import com.edoubletech.newsfeed.data.guardian.GuardianMain;
-
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+package com.edoubletech.newsfeed.data.model
 
 /**
- * Created by EtonOtieno on 3/2/2018
+ * Created by EtonOtieno on 3/21/2018
  */
 
-public interface Service {
-    
-    @GET("search")
-    Call<GuardianMain> getNews(
-            @Query("page-size") String pageSize,
-            @Query("api-key") String apiKey,
-            @Query("section") String section,
-            @Query("show-fields") String fields,
-            @Query("format") String format
-    );
-}
+data class News(val id: String, val imageUrl: String?, val webUrl: String,
+                val sectionName: String, val title: String, val trailText: String,
+                val bodyText: String, val publicationDate: String)
