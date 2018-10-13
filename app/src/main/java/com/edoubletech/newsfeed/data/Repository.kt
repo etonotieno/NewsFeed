@@ -27,6 +27,7 @@ import com.edoubletech.newsfeed.data.model.News
 import com.edoubletech.newsfeed.data.networking.Injector
 import com.edoubletech.newsfeed.data.networking.Service
 
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,11 +35,13 @@ import timber.log.Timber
 
 object Repository {
 
-    private val mNewsList = MutableLiveData<List<News>>()
+    private val _newsList = MutableLiveData<List<News>>()
 
+    @JvmStatic
     val newsList: LiveData<List<News>>
-        get() = mNewsList
+        get() = _newsList
 
+    @JvmStatic
     fun loadNews(categoryName: String) {
         val service = Injector.provideRetrofit().create(Service::class.java)
         val call = service.getNews("50", BuildConfig.GUARDIAN_API_KEY,
@@ -49,11 +52,11 @@ object Repository {
             override fun onResponse(call: Call<GuardianMain>, response: Response<GuardianMain>) {
                 if (response.isSuccessful) {
                     Timber.d(" NewsResponse is successful")
-                    mNewsList.postValue(response.body()?.mapToNews())
+                    _newsList.postValue(response.body()?.mapToNews())
                 } else {
                     val statusCode = response.code()
                     val errorBody = response.errorBody()
-                    Timber.i("Network Error: " + errorBody.toString()
+                    Timber.i("Network Error: " + errorBody!!.toString()
                             + "\nStatus Code: " + statusCode)
 
                 }

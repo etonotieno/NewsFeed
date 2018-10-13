@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Injector {
 
-    private const val BASE_URL = "https://content.guardianapis.com/"
+    private const val BASE_URL = " https://content.guardianapis.com/"
 
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)

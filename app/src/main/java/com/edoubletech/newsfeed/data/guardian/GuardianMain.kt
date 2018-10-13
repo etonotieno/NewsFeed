@@ -24,18 +24,19 @@ import com.google.gson.annotations.SerializedName
 class GuardianMain(@SerializedName("response") @Expose val response: GuardianResponse)
 
 fun GuardianMain.mapToNews(): List<News> {
-    val results = this.response.results
+    val response = this.response
+    val results = response.results
     val articles = ArrayList<News>()
-    results.forEach {
+    for (result in results) {
         articles.add(News(
-                it.id,
-                it.fields.thumbnail, /* Thumbnail for the news */
-                it.webUrl, /* Website url*/
-                it.sectionName, /* Section name*/
-                it.webTitle, /* Web Title of Article*/
-                it.fields.trailText, /* Trail Text*/
-                it.fields.bodyText, /* Description */
-                it.webPublicationDate)) /* Publication Date*/
+                result.id,
+                result.fields.thumbnail, /* Thumbnail for the news */
+                result.webUrl, /* Website url*/
+                result.sectionName, /* Section name*/
+                result.webTitle, /* Web Title of Article*/
+                result.fields.trailText, /* Trail Text*/
+                result.fields.bodyText, /* Description */
+                result.webPublicationDate)) /* Publication Date*/
     }
     return articles
 }
