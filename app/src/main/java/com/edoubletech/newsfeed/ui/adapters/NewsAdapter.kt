@@ -33,7 +33,7 @@ import com.squareup.picasso.Picasso
  */
 
 class NewsAdapter : RecyclerView.Adapter<NewsViewHolder>() {
-    private var mNewsList: List<News>? = null
+    private var mNewsList: List<News> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -42,7 +42,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val currentNews = mNewsList!![position]
+        val currentNews = mNewsList[position]
         holder.mHeadlineTextView.text = currentNews.title
 
         holder.mTrailTextTextView.text = currentNews.trailText
@@ -65,21 +65,20 @@ class NewsAdapter : RecyclerView.Adapter<NewsViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return if (mNewsList != null) mNewsList!!.size else 0
+        return mNewsList.size
     }
 
     fun setNews(newListOfNews: List<News>) {
         mNewsList = newListOfNews
         notifyDataSetChanged()
-
     }
 
 }
 
 class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val mTrailTextTextView: TextView = itemView.findViewById(R.id.headline_text_view)
-    val mHeadlineTextView: TextView = itemView.findViewById(R.id.trailtext_text_view)
-    val mSectionTextView: TextView = itemView.findViewById(R.id.article_image_view)
-    val mPublicationTime: TextView = itemView.findViewById(R.id.section_text_view)
-    val mArticleImageView: ImageView = itemView.findViewById(R.id.time_text_view)
+    val mTrailTextTextView: TextView = itemView.findViewById(R.id.trailtext_text_view)
+    val mHeadlineTextView: TextView = itemView.findViewById(R.id.headline_text_view)
+    val mSectionTextView: TextView = itemView.findViewById(R.id.section_text_view)
+    val mPublicationTime: TextView = itemView.findViewById(R.id.time_text_view)
+    val mArticleImageView: ImageView = itemView.findViewById(R.id.article_image_view)
 }

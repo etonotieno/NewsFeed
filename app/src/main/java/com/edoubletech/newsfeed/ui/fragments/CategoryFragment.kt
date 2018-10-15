@@ -42,26 +42,8 @@ import java.util.ArrayList
 class CategoryFragment : Fragment(), CategoryAdapter.ListItemClickListener {
 
     private lateinit var mRecyclerView: RecyclerView
-    private val mCategories = arrayListOf<Category>().apply {
-        add(Category(getString(R.string.arts_section), R.drawable.ic_arts))
-        add(Category(getString(R.string.books_section), R.drawable.ic_books))
-        add(Category(getString(R.string.business_section), R.drawable.ic_business))
-        add(Category(getString(R.string.education_section), R.drawable.ic_education))
-        add(Category(getString(R.string.fashion_section), R.drawable.ic_fashion))
-        add(Category(getString(R.string.film_section), R.drawable.ic_film))
-        add(Category(getString(R.string.health_section), R.drawable.ic_health))
-        add(Category(getString(R.string.lifestyle_section), R.drawable.ic_lifestyle))
-        add(Category(getString(R.string.media_section), R.drawable.ic_media))
-        add(Category(getString(R.string.money_section), R.drawable.ic_money))
-        add(Category(getString(R.string.music_section), R.drawable.ic_music))
-        add(Category(getString(R.string.science_section), R.drawable.ic_science))
-        add(Category(getString(R.string.sports_section), R.drawable.ic_sports))
-        add(Category(getString(R.string.technology_section), R.drawable.ic_technology))
-        add(Category(getString(R.string.travel_section), R.drawable.ic_travel))
-        add(Category(getString(R.string.world_section), R.drawable.ic_world_news))
-
-    }
-    private val mAdapter: CategoryAdapter = CategoryAdapter(mCategories, this)
+    private var mCategories = arrayListOf<Category>()
+    private lateinit var mAdapter: CategoryAdapter
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -69,8 +51,27 @@ class CategoryFragment : Fragment(), CategoryAdapter.ListItemClickListener {
         val rootView = inflater.inflate(R.layout.fragment_category, container, false)
 
         mRecyclerView = rootView.findViewById(R.id.category_recycler_view)
-        setUpRecyclerView()
 
+        mCategories.apply {
+            add(Category(getString(R.string.arts_section), R.drawable.ic_arts))
+            add(Category(getString(R.string.books_section), R.drawable.ic_books))
+            add(Category(getString(R.string.business_section), R.drawable.ic_business))
+            add(Category(getString(R.string.education_section), R.drawable.ic_education))
+            add(Category(getString(R.string.fashion_section), R.drawable.ic_fashion))
+            add(Category(getString(R.string.film_section), R.drawable.ic_film))
+            add(Category(getString(R.string.health_section), R.drawable.ic_health))
+            add(Category(getString(R.string.lifestyle_section), R.drawable.ic_lifestyle))
+            add(Category(getString(R.string.media_section), R.drawable.ic_media))
+            add(Category(getString(R.string.money_section), R.drawable.ic_money))
+            add(Category(getString(R.string.music_section), R.drawable.ic_music))
+            add(Category(getString(R.string.science_section), R.drawable.ic_science))
+            add(Category(getString(R.string.sports_section), R.drawable.ic_sports))
+            add(Category(getString(R.string.technology_section), R.drawable.ic_technology))
+            add(Category(getString(R.string.travel_section), R.drawable.ic_travel))
+            add(Category(getString(R.string.world_section), R.drawable.ic_world_news))
+        }
+        mAdapter = CategoryAdapter(mCategories, this)
+        setUpRecyclerView()
         return rootView
     }
 
@@ -78,9 +79,9 @@ class CategoryFragment : Fragment(), CategoryAdapter.ListItemClickListener {
         val layoutManager = GridLayoutManager(activity,
                 LinearLayoutManager.VERTICAL)
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            layoutManager.spanCount = 4
-        } else {
             layoutManager.spanCount = 3
+        } else {
+            layoutManager.spanCount = 2
         }
 
         mRecyclerView.apply {

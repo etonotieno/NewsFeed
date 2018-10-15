@@ -45,7 +45,7 @@ class CategoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-        mError = findViewById(R.id.category_recycler_view)
+        mError = findViewById(R.id.category_activity_empty_view)
         mRecyclerView = findViewById(R.id.category_activity_recycler_view)
         mLoadingIndicator = findViewById(R.id.category_loading_indicator)
         val categoryName = intent.getStringExtra(CategoryFragment.EXTRA_CATEGORY_NAME)
