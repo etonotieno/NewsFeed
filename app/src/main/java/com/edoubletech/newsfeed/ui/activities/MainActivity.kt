@@ -35,7 +35,6 @@ import com.edoubletech.newsfeed.ui.adapters.SectionsPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 
-    private val mPagerAdapter: SectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
     private lateinit var mViewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         mViewPager = findViewById(R.id.view_pager)
 
         val tabLayout = findViewById<TabLayout>(R.id.tabs)
-        mViewPager.adapter = mPagerAdapter
+        mViewPager.adapter = SectionsPagerAdapter(supportFragmentManager)
 
         mViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
         tabLayout.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(mViewPager))
@@ -58,7 +57,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main_menu, menu)
-
         return true
     }
 

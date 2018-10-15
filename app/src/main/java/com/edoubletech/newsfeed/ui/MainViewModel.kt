@@ -18,26 +18,17 @@
 package com.edoubletech.newsfeed.ui
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
-
 import com.edoubletech.newsfeed.data.Repository
-import com.edoubletech.newsfeed.data.model.News
 
 class MainViewModel : ViewModel() {
 
-    private val categoryName: MutableLiveData<String> = MutableLiveData()
-    private val repository = Repository
-
-    val newsList: LiveData<List<News>>
-        get() = Transformations.switchMap(this.categoryName) { input ->
-            Repository.loadNews(input)
-            repository.newsList
-        }
-
     fun search(categoryName: String?) {
-        if (categoryName != null)
-            this.categoryName.value = categoryName
+        categoryName?.let { Repository.loadNews(it) }
     }
+
+    fun getNews(): LiveData<NewsState> {
+        return Repository.news
+    }
+
 }

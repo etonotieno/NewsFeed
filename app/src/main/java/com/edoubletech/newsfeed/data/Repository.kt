@@ -26,8 +26,8 @@ import com.edoubletech.newsfeed.data.guardian.mapToNews
 import com.edoubletech.newsfeed.data.model.News
 import com.edoubletech.newsfeed.data.networking.Injector
 import com.edoubletech.newsfeed.data.networking.Service
+import com.edoubletech.newsfeed.ui.NewsState
 
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,14 +35,14 @@ import timber.log.Timber
 
 object Repository {
 
-    private val _newsList = MutableLiveData<List<News>>()
+    private val newsLiveData = MutableLiveData<NewsState>()
 
-    @JvmStatic
-    val newsList: LiveData<List<News>>
-        get() = _newsList
+    val news: LiveData<NewsState>
+        get() = newsLiveData
 
-    @JvmStatic
     fun loadNews(categoryName: String) {
+        newsLiveData.postValue(NewsState.Loading)
+
         val service = Injector.provideRetrofit().create(Service::class.java)
         val call = service.getNews("50", BuildConfig.GUARDIAN_API_KEY,
                 categoryName, "all", "json")
@@ -52,18 +52,21 @@ object Repository {
             override fun onResponse(call: Call<GuardianMain>, response: Response<GuardianMain>) {
                 if (response.isSuccessful) {
                     Timber.d(" NewsResponse is successful")
-                    _newsList.postValue(response.body()?.mapToNews())
+                    response.body()?.mapToNews()?.let {
+                        newsLiveData.postValue(NewsState.Success(it))
+                    }
                 } else {
                     val statusCode = response.code()
                     val errorBody = response.errorBody()
-                    Timber.i("Network Error: " + errorBody!!.toString()
+                    Timber.i("Network Error: " + errorBody.toString()
                             + "\nStatus Code: " + statusCode)
+                    newsLiveData.postValue(NewsState.Error(errorBody.toString()))
 
                 }
             }
 
             override fun onFailure(call1: Call<GuardianMain>, throwable: Throwable) {
-                Timber.e(throwable)
+                newsLiveData.postValue(NewsState.Error(throwable.message))
             }
         })
     }
