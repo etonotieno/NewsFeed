@@ -24,7 +24,7 @@ import com.edoubletech.newsfeed.data.Repository
 class MainViewModel : ViewModel() {
 
     fun search(categoryName: String?) {
-        categoryName?.let { Repository.loadNews(it) }
+        categoryName?.let { Repository.search(it) }
     }
 
     fun getNews(): LiveData<NewsState> {

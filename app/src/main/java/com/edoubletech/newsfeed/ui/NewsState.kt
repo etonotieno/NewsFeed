@@ -10,7 +10,7 @@ sealed class NewsState(val resourceState: ResourceState,
     data class Success(private val newsList: List<News>) : NewsState(ResourceState.SUCCESS,
             newsList)
 
-    data class Error(private val message: String? = null) : NewsState(ResourceState.SUCCESS,
+    data class Error(private val message: String? = null) : NewsState(ResourceState.ERROR,
             errorMessage = message)
 
     object Loading : NewsState(ResourceState.LOADING)

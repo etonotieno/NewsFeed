@@ -19,15 +19,13 @@ package com.edoubletech.newsfeed.data
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-
+import android.arch.lifecycle.Transformations
 import com.edoubletech.newsfeed.BuildConfig
 import com.edoubletech.newsfeed.data.guardian.GuardianMain
 import com.edoubletech.newsfeed.data.guardian.mapToNews
-import com.edoubletech.newsfeed.data.model.News
 import com.edoubletech.newsfeed.data.networking.Injector
 import com.edoubletech.newsfeed.data.networking.Service
 import com.edoubletech.newsfeed.ui.NewsState
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,11 +34,17 @@ import timber.log.Timber
 object Repository {
 
     private val newsLiveData = MutableLiveData<NewsState>()
+    private val categoryLiveData = MutableLiveData<String>()
 
-    val news: LiveData<NewsState>
-        get() = newsLiveData
+    val news: LiveData<NewsState> = Transformations.switchMap(categoryLiveData) {
+        getNewsData(it)
+    }
 
-    fun loadNews(categoryName: String) {
+    fun search(categoryName: String) {
+        categoryLiveData.value = categoryName
+    }
+
+    private fun getNewsData(categoryName: String): LiveData<NewsState> {
         newsLiveData.postValue(NewsState.Loading)
 
         val service = Injector.provideRetrofit().create(Service::class.java)
@@ -69,5 +73,6 @@ object Repository {
                 newsLiveData.postValue(NewsState.Error(throwable.message))
             }
         })
+        return newsLiveData
     }
 }
