@@ -25,7 +25,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.News
-import com.edoubletech.newsfeed.utils.DateUtils
+import com.edoubletech.newsfeed.utils.getPrettifiedTimeString
 import com.squareup.picasso.Picasso
 
 /**
@@ -50,10 +50,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsViewHolder>() {
         holder.mSectionTextView.text = currentNews.sectionName
 
         val dateString = currentNews.publicationDate
-        val secondsPassedBetweenDates = DateUtils.getTimeDifferenceInSeconds(dateString)
-        val correctTimeString = DateUtils.getPrettifiedTimeString(secondsPassedBetweenDates)
-
-        holder.mPublicationTime.text = correctTimeString
+        holder.mPublicationTime.text = dateString.getPrettifiedTimeString()
 
         val imageUrl = currentNews.imageUrl
         if (imageUrl == null) {
