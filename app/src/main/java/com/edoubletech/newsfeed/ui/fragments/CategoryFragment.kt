@@ -32,6 +32,7 @@ import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.Category
 import com.edoubletech.newsfeed.ui.activities.CategoryActivity
 import com.edoubletech.newsfeed.ui.adapters.CategoryAdapter
+import kotlinx.android.synthetic.main.fragment_category.*
 
 import java.util.ArrayList
 
@@ -41,7 +42,6 @@ import java.util.ArrayList
 
 class CategoryFragment : Fragment(), CategoryAdapter.ListItemClickListener {
 
-    private lateinit var mRecyclerView: RecyclerView
     private var mCategories = arrayListOf<Category>()
     private lateinit var mAdapter: CategoryAdapter
 
@@ -49,8 +49,6 @@ class CategoryFragment : Fragment(), CategoryAdapter.ListItemClickListener {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_category, container, false)
-
-        mRecyclerView = rootView.findViewById(R.id.category_recycler_view)
 
         mCategories.apply {
             add(Category(getString(R.string.arts_section), R.drawable.ic_arts))
@@ -70,7 +68,8 @@ class CategoryFragment : Fragment(), CategoryAdapter.ListItemClickListener {
             add(Category(getString(R.string.travel_section), R.drawable.ic_travel))
             add(Category(getString(R.string.world_section), R.drawable.ic_world_news))
         }
-        mAdapter = CategoryAdapter(mCategories, this)
+        mAdapter.submitList(mCategories)
+        mAdapter = CategoryAdapter(this)
         setUpRecyclerView()
         return rootView
     }
@@ -84,7 +83,7 @@ class CategoryFragment : Fragment(), CategoryAdapter.ListItemClickListener {
             layoutManager.spanCount = 2
         }
 
-        mRecyclerView.apply {
+        category_recycler_view.apply {
             setLayoutManager(layoutManager)
             setHasFixedSize(true)
             adapter = mAdapter

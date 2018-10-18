@@ -22,37 +22,30 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.News
 import com.edoubletech.newsfeed.ui.MainViewModel
 import com.edoubletech.newsfeed.ui.NewsState
 import com.edoubletech.newsfeed.ui.adapters.NewsAdapter
 import com.edoubletech.newsfeed.ui.fragments.CategoryFragment
+import kotlinx.android.synthetic.main.activity_category.category_activity_empty_view as emptyView
+import kotlinx.android.synthetic.main.activity_category.category_activity_recycler_view as recyclerView
+import kotlinx.android.synthetic.main.activity_category.category_loading_indicator as progressBar
 
 class CategoryActivity : AppCompatActivity() {
 
     private val mNewsAdapter: NewsAdapter = NewsAdapter()
-    private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mError: TextView
-    private lateinit var mLoadingIndicator: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-        mError = findViewById(R.id.category_activity_empty_view)
-        mRecyclerView = findViewById(R.id.category_activity_recycler_view)
-        mLoadingIndicator = findViewById(R.id.category_loading_indicator)
         val categoryName = intent.getStringExtra(CategoryFragment.EXTRA_CATEGORY_NAME)
 
         supportActionBar?.title = categoryName
 
-        mRecyclerView.apply {
+        recyclerView.apply {
             layoutManager = LinearLayoutManager(this@CategoryActivity,
                     LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
@@ -78,33 +71,33 @@ class CategoryActivity : AppCompatActivity() {
     }
 
     private fun setUpScreenForError(errorMessage: String?) {
-        // Show the Error View and Hide the loading, Empty and Recycler Views
-        mLoadingIndicator.visibility = View.GONE
-        mRecyclerView.visibility = View.GONE
-        mError.visibility = View.VISIBLE
-        errorMessage?.let { mError.text = it }
+        // Show the Error View and Hide the loading, Empty and Recycler Views 
+        progressBar.visibility = View.GONE
+        recyclerView.visibility = View.GONE
+        emptyView.visibility = View.VISIBLE
+        errorMessage?.let { emptyView.text = it }
     }
 
     private fun setUpScreenForSuccess(data: List<News>?) {
         // Hide the Error View and the Progress View
-        mError.visibility = View.GONE
-        mLoadingIndicator.visibility = View.GONE
+        emptyView.visibility = View.GONE
+        progressBar.visibility = View.GONE
         if (data != null && data.isNotEmpty()) {
-            mNewsAdapter.setNews(data)
+            mNewsAdapter.submitList(data)
             // Show the RecyclerView
-            mRecyclerView.visibility = View.VISIBLE
+            recyclerView.visibility = View.VISIBLE
         } else {
             // Show the Empty View
-            mError.visibility = View.VISIBLE
-            mError.text = "No Data was found 😑😑"
+            emptyView.visibility = View.VISIBLE
+            emptyView.text = "No Data was found 😑😑"
         }
     }
 
     private fun setUpScreenForLoadingState() {
         // Show the Progress View and hide the RecyclerView, EmptyView and LoadingView
-        mLoadingIndicator.visibility = View.VISIBLE
-        mRecyclerView.visibility = View.GONE
-        mError.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
+        recyclerView.visibility = View.GONE
+        emptyView.visibility = View.GONE
     }
 
     private fun getSectionId(categoryName: String): String {

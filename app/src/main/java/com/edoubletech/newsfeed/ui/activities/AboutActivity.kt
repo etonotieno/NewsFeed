@@ -26,6 +26,7 @@ import android.view.MenuItem
 import android.widget.TextView
 
 import com.edoubletech.newsfeed.R
+import kotlinx.android.synthetic.main.activity_about.*
 
 class AboutActivity : AppCompatActivity() {
 
@@ -33,9 +34,7 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
 
-        val attributionTextView = findViewById<TextView>(R.id.attribution_text_view)
-
-        attributionTextView.setOnClickListener {
+        attribution_text_view.setOnClickListener {
             // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
             // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
             // and launch the desired Url with CustomTabsIntent.launchUrl()
