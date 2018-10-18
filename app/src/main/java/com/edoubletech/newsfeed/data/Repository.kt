@@ -17,9 +17,9 @@
 
 package com.edoubletech.newsfeed.data
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Transformations
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.edoubletech.newsfeed.BuildConfig
 import com.edoubletech.newsfeed.data.guardian.GuardianMain
 import com.edoubletech.newsfeed.data.guardian.mapToNews
