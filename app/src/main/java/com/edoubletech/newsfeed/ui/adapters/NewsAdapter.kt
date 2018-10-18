@@ -17,6 +17,8 @@
 
 package com.edoubletech.newsfeed.ui.adapters
 
+import android.support.v7.recyclerview.extensions.ListAdapter
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -27,13 +29,25 @@ import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.News
 import com.edoubletech.newsfeed.utils.getPrettifiedTimeString
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.news_item.view.*
 
 /**
  * Created by EtonOtieno on 2/15/2018
  */
 
-class NewsAdapter : RecyclerView.Adapter<NewsViewHolder>() {
-    private var mNewsList: List<News> = arrayListOf()
+class NewsAdapter : ListAdapter<News, NewsViewHolder>(COMPARATOR) {
+
+    companion object {
+        val COMPARATOR: DiffUtil.ItemCallback<News> = object : DiffUtil.ItemCallback<News>() {
+            override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
+                return oldItem.equals(newItem)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -42,7 +56,8 @@ class NewsAdapter : RecyclerView.Adapter<NewsViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val currentNews = mNewsList[position]
+        val currentNews = getItem(position) as News
+
         holder.mHeadlineTextView.text = currentNews.title
 
         holder.mTrailTextTextView.text = currentNews.trailText
@@ -61,21 +76,12 @@ class NewsAdapter : RecyclerView.Adapter<NewsViewHolder>() {
         holder.itemView.tag = currentNews
     }
 
-    override fun getItemCount(): Int {
-        return mNewsList.size
-    }
-
-    fun setNews(newListOfNews: List<News>) {
-        mNewsList = newListOfNews
-        notifyDataSetChanged()
-    }
-
 }
 
 class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val mTrailTextTextView: TextView = itemView.findViewById(R.id.trailtext_text_view)
-    val mHeadlineTextView: TextView = itemView.findViewById(R.id.headline_text_view)
-    val mSectionTextView: TextView = itemView.findViewById(R.id.section_text_view)
-    val mPublicationTime: TextView = itemView.findViewById(R.id.time_text_view)
-    val mArticleImageView: ImageView = itemView.findViewById(R.id.article_image_view)
+    val mTrailTextTextView: TextView = itemView.trailtext_text_view
+    val mHeadlineTextView: TextView = itemView.headline_text_view
+    val mSectionTextView: TextView = itemView.section_text_view
+    val mPublicationTime: TextView = itemView.time_text_view
+    val mArticleImageView: ImageView = itemView.article_image_view
 }

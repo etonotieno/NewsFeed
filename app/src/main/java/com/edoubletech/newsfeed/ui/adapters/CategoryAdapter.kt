@@ -17,6 +17,8 @@
 
 package com.edoubletech.newsfeed.ui.adapters
 
+import android.support.v7.recyclerview.extensions.ListAdapter
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -25,10 +27,22 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.Category
+import kotlinx.android.synthetic.main.category_item.view.*
 
-class CategoryAdapter(private val categories: List<Category>,
-                      private val mOnClickListener: ListItemClickListener)
-    : RecyclerView.Adapter<CategoryAdapter.NewsViewHolder>() {
+class CategoryAdapter(val mOnClickListener: ListItemClickListener)
+    : ListAdapter<Category, CategoryAdapter.NewsViewHolder>(COMPARATOR) {
+
+    companion object {
+        val COMPARATOR: DiffUtil.ItemCallback<Category> = object : DiffUtil.ItemCallback<Category>() {
+            override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+                return oldItem.name.equals(newItem.name)
+            }
+
+            override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
+                return oldItem.equals(newItem)
+            }
+        }
+    }
 
     interface ListItemClickListener {
         fun onListItemClick(clickedItemIndex: Int)
@@ -40,18 +54,14 @@ class CategoryAdapter(private val categories: List<Category>,
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val currentCategory = categories[position]
+        val currentCategory = getItem(position)
         holder.textView.text = currentCategory.name
-        holder.imageView.setImageResource(categories[position].image)
-    }
-
-    override fun getItemCount(): Int {
-        return categories.size
+        holder.imageView.setImageResource(currentCategory.image)
     }
 
     inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        val imageView: ImageView = itemView.findViewById(R.id.grid_image)
-        val textView: TextView = itemView.findViewById(R.id.grid_name)
+        val imageView: ImageView = itemView.grid_image
+        val textView: TextView = itemView.grid_name
 
         init {
             itemView.setOnClickListener(this)
