@@ -17,9 +17,9 @@
 
 package com.edoubletech.newsfeed.ui.adapters
 
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
+import android.support.v7.recyclerview.extensions.ListAdapter
+import android.support.v7.util.DiffUtil
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +29,6 @@ import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.News
 import com.edoubletech.newsfeed.utils.getPrettifiedTimeString
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.news_item.view.*
 
 /**
  * Created by EtonOtieno on 2/15/2018
@@ -79,9 +78,9 @@ class NewsAdapter : ListAdapter<News, NewsViewHolder>(COMPARATOR) {
 }
 
 class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val mTrailTextTextView: TextView = itemView.trailtext_text_view
-    val mHeadlineTextView: TextView = itemView.headline_text_view
-    val mSectionTextView: TextView = itemView.section_text_view
-    val mPublicationTime: TextView = itemView.time_text_view
-    val mArticleImageView: ImageView = itemView.article_image_view
+    val mTrailTextTextView: TextView = itemView.findViewById(R.id.trailtext_text_view)
+    val mHeadlineTextView: TextView = itemView.findViewById(R.id.headline_text_view)
+    val mSectionTextView: TextView = itemView.findViewById(R.id.section_text_view)
+    val mPublicationTime: TextView = itemView.findViewById(R.id.time_text_view)
+    val mArticleImageView: ImageView = itemView.findViewById(R.id.article_image_view)
 }

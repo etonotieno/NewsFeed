@@ -19,13 +19,15 @@ package com.edoubletech.newsfeed.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.tabs.TabLayout
-import androidx.appcompat.app.AppCompatActivity
+import android.support.design.widget.TabLayout
+import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.ui.adapters.SectionsPagerAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * @author EtonOtieno
@@ -33,17 +35,22 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var mViewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(main_activity_toolbar)
+        val mToolbar = findViewById<Toolbar>(R.id.main_activity_toolbar)
+        setSupportActionBar(mToolbar)
 
-        view_pager.adapter = SectionsPagerAdapter(supportFragmentManager)
+        mViewPager = findViewById(R.id.view_pager)
 
-        view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
-        tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view_pager))
+        val tabLayout = findViewById<TabLayout>(R.id.tabs)
+        mViewPager.adapter = SectionsPagerAdapter(supportFragmentManager)
+
+        mViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+        tabLayout.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(mViewPager))
     }
 
 

@@ -17,24 +17,30 @@
 
 package com.edoubletech.newsfeed.ui.fragments
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
+
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.News
 import com.edoubletech.newsfeed.ui.MainViewModel
 import com.edoubletech.newsfeed.ui.NewsState
 import com.edoubletech.newsfeed.ui.adapters.NewsAdapter
-import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment() {
 
     private val newsAdapter = NewsAdapter()
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mError: TextView
+    private lateinit var mLoadingIndicator: ProgressBar
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -42,7 +48,11 @@ class MainFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val rootView = inflater.inflate(R.layout.fragment_main, container, false)
 
-        main_fragment_recycler_view.apply {
+        mRecyclerView = rootView.findViewById(R.id.main_fragment_recycler_view)
+        mError = rootView.findViewById(R.id.main_fragment_empty_view)
+        mLoadingIndicator = rootView.findViewById(R.id.main_fragment_loading_indicator)
+
+        mRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
             adapter = newsAdapter
@@ -68,32 +78,32 @@ class MainFragment : Fragment() {
 
     private fun setUpScreenForError(errorMessage: String?) {
         // Show the Error View and Hide the loading, Empty and Recycler Views
-        main_fragment_loading_indicator.visibility = View.GONE
-        main_fragment_recycler_view.visibility = View.GONE
-        main_fragment_empty_view.visibility = View.VISIBLE
-        errorMessage?.let { main_fragment_empty_view.text = it }
+        mLoadingIndicator.visibility = View.GONE
+        mRecyclerView.visibility = View.GONE
+        mError.visibility = View.VISIBLE
+        errorMessage?.let { mError.text = it }
     }
 
     private fun setUpScreenForSuccess(data: List<News>?) {
         // Hide the Error View and the Progress View
-        main_fragment_empty_view.visibility = View.GONE
-        main_fragment_loading_indicator.visibility = View.GONE
+        mError.visibility = View.GONE
+        mLoadingIndicator.visibility = View.GONE
         if (data != null && data.isNotEmpty()) {
             newsAdapter.submitList(data)
             // Show the RecyclerView
-            main_fragment_recycler_view.visibility = View.VISIBLE
+            mRecyclerView.visibility = View.VISIBLE
         } else {
             // Show the Empty View
-            main_fragment_empty_view.visibility = View.VISIBLE
-            main_fragment_empty_view.text = "No Data was found 😑😑"
+            mError.visibility = View.VISIBLE
+            mError.text = "No Data was found 😑😑"
         }
     }
 
     private fun setUpScreenForLoadingState() {
         // Show the Progress View and hide the RecyclerView, EmptyView and LoadingView
-        main_fragment_loading_indicator.visibility = View.VISIBLE
-        main_fragment_recycler_view.visibility = View.GONE
-        main_fragment_empty_view.visibility = View.GONE
+        mLoadingIndicator.visibility = View.VISIBLE
+        mRecyclerView.visibility = View.GONE
+        mError.visibility = View.GONE
     }
 
 }

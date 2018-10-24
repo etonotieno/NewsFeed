@@ -17,9 +17,9 @@
 
 package com.edoubletech.newsfeed.ui.adapters
 
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
+import android.support.v7.recyclerview.extensions.ListAdapter
+import android.support.v7.util.DiffUtil
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +27,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.Category
-import kotlinx.android.synthetic.main.category_item.view.*
 
 class CategoryAdapter(val mOnClickListener: ListItemClickListener)
     : ListAdapter<Category, CategoryAdapter.NewsViewHolder>(COMPARATOR) {
@@ -60,8 +59,8 @@ class CategoryAdapter(val mOnClickListener: ListItemClickListener)
     }
 
     inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        val imageView: ImageView = itemView.grid_image
-        val textView: TextView = itemView.grid_name
+        val imageView: ImageView = itemView.findViewById(R.id.grid_image)
+        val textView: TextView = itemView.findViewById(R.id.grid_name)
 
         init {
             itemView.setOnClickListener(this)

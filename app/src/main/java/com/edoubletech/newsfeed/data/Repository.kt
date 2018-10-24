@@ -17,9 +17,9 @@
 
 package com.edoubletech.newsfeed.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
 import com.edoubletech.newsfeed.BuildConfig
 import com.edoubletech.newsfeed.data.guardian.GuardianMain
 import com.edoubletech.newsfeed.data.guardian.mapToNews
@@ -62,9 +62,9 @@ object Repository {
                 } else {
                     val statusCode = response.code()
                     val errorBody = response.errorBody()
-                    Timber.i("Network Error: " + errorBody.toString()
+                    Timber.i("Network Error: " + errorBody?.string()
                             + "\nStatus Code: " + statusCode)
-                    newsLiveData.postValue(NewsState.Error(errorBody.toString()))
+                    newsLiveData.postValue(NewsState.Error(errorBody?.string()))
 
                 }
             }

@@ -20,21 +20,17 @@ package com.edoubletech.newsfeed.ui.fragments
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.Category
 import com.edoubletech.newsfeed.ui.activities.CategoryActivity
 import com.edoubletech.newsfeed.ui.adapters.CategoryAdapter
-import kotlinx.android.synthetic.main.fragment_category.*
-
-import java.util.ArrayList
 
 /**
  * Created by EtonOtieno on 3/7/2018
@@ -42,13 +38,18 @@ import java.util.ArrayList
 
 class CategoryFragment : Fragment(), CategoryAdapter.ListItemClickListener {
 
+    private lateinit var mRecyclerView: RecyclerView
     private var mCategories = arrayListOf<Category>()
-    private lateinit var mAdapter: CategoryAdapter
+    private val mAdapter: CategoryAdapter by lazy {
+        CategoryAdapter(this)
+    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_category, container, false)
+
+        mRecyclerView = rootView.findViewById(R.id.category_recycler_view)
 
         mCategories.apply {
             add(Category(getString(R.string.arts_section), R.drawable.ic_arts))
@@ -69,8 +70,8 @@ class CategoryFragment : Fragment(), CategoryAdapter.ListItemClickListener {
             add(Category(getString(R.string.world_section), R.drawable.ic_world_news))
         }
         mAdapter.submitList(mCategories)
-        mAdapter = CategoryAdapter(this)
         setUpRecyclerView()
+
         return rootView
     }
 
@@ -83,7 +84,7 @@ class CategoryFragment : Fragment(), CategoryAdapter.ListItemClickListener {
             layoutManager.spanCount = 2
         }
 
-        category_recycler_view.apply {
+        mRecyclerView.apply {
             setLayoutManager(layoutManager)
             setHasFixedSize(true)
             adapter = mAdapter

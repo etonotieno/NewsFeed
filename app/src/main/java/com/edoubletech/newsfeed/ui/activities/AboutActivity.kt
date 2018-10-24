@@ -19,14 +19,13 @@ package com.edoubletech.newsfeed.ui.activities
 
 import android.net.Uri
 import android.os.Bundle
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.app.NavUtils
-import androidx.appcompat.app.AppCompatActivity
+import android.support.customtabs.CustomTabsIntent
+import android.support.v4.app.NavUtils
+import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.TextView
 
 import com.edoubletech.newsfeed.R
-import kotlinx.android.synthetic.main.activity_about.*
 
 class AboutActivity : AppCompatActivity() {
 
@@ -34,7 +33,9 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
 
-        attribution_text_view.setOnClickListener {
+        val attributionTextView = findViewById<TextView>(R.id.attribution_text_view)
+
+        attributionTextView.setOnClickListener {
             // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
             // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
             // and launch the desired Url with CustomTabsIntent.launchUrl()

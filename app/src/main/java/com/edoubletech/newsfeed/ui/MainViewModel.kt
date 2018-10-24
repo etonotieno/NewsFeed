@@ -17,8 +17,8 @@
 
 package com.edoubletech.newsfeed.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.ViewModel
 import com.edoubletech.newsfeed.data.Repository
 
 class MainViewModel : ViewModel() {
