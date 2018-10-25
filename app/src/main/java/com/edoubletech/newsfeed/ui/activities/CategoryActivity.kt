@@ -17,15 +17,15 @@
 
 package com.edoubletech.newsfeed.ui.activities
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.News
 import com.edoubletech.newsfeed.ui.MainViewModel
@@ -52,8 +52,7 @@ class CategoryActivity : AppCompatActivity() {
         supportActionBar?.title = categoryName
 
         mRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@CategoryActivity,
-                    LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(this@CategoryActivity, RecyclerView.VERTICAL, false)
             setHasFixedSize(true)
             adapter = mNewsAdapter
         }

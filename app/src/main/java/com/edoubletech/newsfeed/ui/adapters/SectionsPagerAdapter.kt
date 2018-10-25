@@ -17,9 +17,9 @@
 
 package com.edoubletech.newsfeed.ui.adapters
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 
 import com.edoubletech.newsfeed.ui.fragments.CategoryFragment
 import com.edoubletech.newsfeed.ui.fragments.MainFragment
@@ -34,7 +34,5 @@ class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         return if (position == 0) MainFragment() else CategoryFragment()
     }
 
-    override fun getCount(): Int {
-        return 2
-    }
+    override fun getCount(): Int = 2
 }
