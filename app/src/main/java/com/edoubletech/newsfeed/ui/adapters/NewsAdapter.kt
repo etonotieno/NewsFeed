@@ -43,7 +43,7 @@ class NewsAdapter : ListAdapter<News, NewsViewHolder>(COMPARATOR) {
             }
 
             override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
-                return oldItem.equals(newItem)
+                return oldItem == newItem
             }
         }
     }

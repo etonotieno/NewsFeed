@@ -34,11 +34,11 @@ class CategoryAdapter(val mOnClickListener: ListItemClickListener)
     companion object {
         val COMPARATOR: DiffUtil.ItemCallback<Category> = object : DiffUtil.ItemCallback<Category>() {
             override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
-                return oldItem.name.equals(newItem.name)
+                return oldItem.name == newItem.name
             }
 
             override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
-                return oldItem.equals(newItem)
+                return oldItem == newItem
             }
         }
     }

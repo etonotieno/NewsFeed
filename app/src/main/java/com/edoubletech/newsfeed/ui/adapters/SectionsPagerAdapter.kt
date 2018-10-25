@@ -34,7 +34,5 @@ class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         return if (position == 0) MainFragment() else CategoryFragment()
     }
 
-    override fun getCount(): Int {
-        return 2
-    }
+    override fun getCount(): Int = 2
 }
