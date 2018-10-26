@@ -15,12 +15,12 @@
  *
  */
 
-package com.edoubletech.newsfeed.data.guardian
+package com.edoubletech.newsfeed.guardian.model
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+/**
+ * Created by EtonOtieno on 3/21/2018
+ */
 
-class GuardianFields(@SerializedName("thumbnail") @Expose val thumbnail: String,
-                     @SerializedName("body") @Expose val bodyText: String,
-                     @SerializedName("trailText") @Expose val trailText: String
-)
+data class News(val id: String, val imageUrl: String?, val webUrl: String,
+                val sectionName: String, val title: String, val trailText: String,
+                val bodyText: String, val publicationDate: String)

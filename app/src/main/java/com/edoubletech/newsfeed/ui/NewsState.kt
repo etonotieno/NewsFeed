@@ -1,7 +1,7 @@
 package com.edoubletech.newsfeed.ui
 
 import com.edoubletech.newsfeed.data.ResourceState
-import com.edoubletech.newsfeed.data.model.News
+import com.edoubletech.newsfeed.guardian.model.News
 
 sealed class NewsState(val resourceState: ResourceState,
                        val data: List<News>? = null,

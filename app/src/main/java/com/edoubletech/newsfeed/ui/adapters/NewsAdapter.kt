@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.edoubletech.newsfeed.R
-import com.edoubletech.newsfeed.data.model.News
+import com.edoubletech.newsfeed.guardian.model.News
 import com.edoubletech.newsfeed.utils.getPrettifiedTimeString
 import com.squareup.picasso.Picasso
 

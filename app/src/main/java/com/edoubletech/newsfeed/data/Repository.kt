@@ -21,10 +21,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.edoubletech.newsfeed.BuildConfig
-import com.edoubletech.newsfeed.data.guardian.GuardianMain
-import com.edoubletech.newsfeed.data.guardian.mapToNews
 import com.edoubletech.newsfeed.data.networking.Injector
 import com.edoubletech.newsfeed.data.networking.Service
+import com.edoubletech.newsfeed.guardian.GuardianMain
+import com.edoubletech.newsfeed.guardian.mapToNews
 import com.edoubletech.newsfeed.ui.NewsState
 import retrofit2.Call
 import retrofit2.Callback

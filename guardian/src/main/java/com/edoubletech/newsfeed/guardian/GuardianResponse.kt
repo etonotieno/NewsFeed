@@ -15,12 +15,11 @@
  *
  */
 
-package com.edoubletech.newsfeed.data.guardian
+package com.edoubletech.newsfeed.guardian
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-
-import java.util.ArrayList
+import java.util.*
 
 class GuardianResponse(
         @SerializedName("status") @Expose val status: String,
