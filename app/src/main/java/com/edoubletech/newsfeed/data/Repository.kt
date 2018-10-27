@@ -26,10 +26,10 @@ import com.edoubletech.newsfeed.data.networking.Service
 import com.edoubletech.newsfeed.guardian.GuardianMain
 import com.edoubletech.newsfeed.guardian.mapToNews
 import com.edoubletech.newsfeed.ui.NewsState
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import timber.log.Timber
 
 object Repository {
 
@@ -51,28 +51,19 @@ object Repository {
         val call = service.getNews("50", BuildConfig.GUARDIAN_API_KEY,
                 categoryName, "all", "json")
 
-        // Make the actual call. This is an asynchronous call.
-        call.enqueue(object : Callback<GuardianMain> {
-            override fun onResponse(call: Call<GuardianMain>, response: Response<GuardianMain>) {
-                if (response.isSuccessful) {
-                    Timber.d(" NewsResponse is successful")
-                    response.body()?.mapToNews()?.let {
-                        newsLiveData.postValue(NewsState.Success(it))
-                    }
-                } else {
-                    val statusCode = response.code()
-                    val errorBody = response.errorBody()
-                    Timber.i("Network Error: " + errorBody?.string()
-                            + "\nStatus Code: " + statusCode)
-                    newsLiveData.postValue(NewsState.Error(errorBody?.string()))
+        launch {
 
+            val response = call.await()
+            if (response.isSuccessful) {
+                response.body()?.mapToNews()?.let {
+                    newsLiveData.postValue(NewsState.Success(it))
                 }
+            } else {
+                val errorBody = response.errorBody()
+                newsLiveData.postValue(NewsState.Error(errorBody?.string()))
             }
-
-            override fun onFailure(call1: Call<GuardianMain>, throwable: Throwable) {
-                newsLiveData.postValue(NewsState.Error(throwable.message))
-            }
-        })
+        }
         return newsLiveData
+
     }
 }

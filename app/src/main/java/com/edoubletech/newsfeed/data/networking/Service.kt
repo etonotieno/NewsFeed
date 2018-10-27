@@ -18,7 +18,8 @@
 package com.edoubletech.newsfeed.data.networking
 
 import com.edoubletech.newsfeed.guardian.GuardianMain
-import retrofit2.Call
+import kotlinx.coroutines.Deferred
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -35,5 +36,5 @@ interface Service {
             @Query("section") section: String,
             @Query("show-fields") fields: String,
             @Query("format") format: String
-    ): Call<GuardianMain>
+    ): Deferred<Response<GuardianMain>>
 }
