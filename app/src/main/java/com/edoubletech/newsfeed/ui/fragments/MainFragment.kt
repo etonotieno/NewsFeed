@@ -17,6 +17,7 @@
 
 package com.edoubletech.newsfeed.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,11 +34,15 @@ import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.guardian.model.News
 import com.edoubletech.newsfeed.ui.MainViewModel
 import com.edoubletech.newsfeed.ui.NewsState
+import com.edoubletech.newsfeed.ui.activities.DetailActivity
 import com.edoubletech.newsfeed.ui.adapters.NewsAdapter
 
 class MainFragment : Fragment() {
 
-    private val newsAdapter = NewsAdapter()
+    private val newsAdapter = NewsAdapter {
+        val intent = Intent(requireActivity(), DetailActivity::class.java)
+        startActivity(intent)
+    }
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mError: TextView
     private lateinit var mLoadingIndicator: ProgressBar

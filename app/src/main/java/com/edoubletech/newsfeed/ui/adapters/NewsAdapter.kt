@@ -29,12 +29,15 @@ import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.guardian.model.News
 import com.edoubletech.newsfeed.utils.getPrettifiedTimeString
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.news_item.view.*
 
 /**
  * Created by EtonOtieno on 2/15/2018
  */
 
-class NewsAdapter : ListAdapter<News, NewsViewHolder>(COMPARATOR) {
+class NewsAdapter(
+        private val onItemClick: (news: News) -> Unit
+) : ListAdapter<News, NewsViewHolder>(COMPARATOR) {
 
     companion object {
         val COMPARATOR: DiffUtil.ItemCallback<News> = object : DiffUtil.ItemCallback<News>() {
@@ -56,31 +59,31 @@ class NewsAdapter : ListAdapter<News, NewsViewHolder>(COMPARATOR) {
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val currentNews = getItem(position) as News
-
-        holder.mHeadlineTextView.text = currentNews.title
-
-        holder.mTrailTextTextView.text = currentNews.trailText
-
-        holder.mSectionTextView.text = currentNews.sectionName
-
-        val dateString = currentNews.publicationDate
-        holder.mPublicationTime.text = dateString.getPrettifiedTimeString()
-
-        val imageUrl = currentNews.imageUrl
-        if (imageUrl == null) {
-            holder.mArticleImageView.visibility = View.GONE
-        } else {
-            Picasso.get().load(imageUrl).into(holder.mArticleImageView)
-        }
-        holder.itemView.tag = currentNews
+        holder.bind(currentNews, onItemClick)
     }
 
 }
 
-class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val mTrailTextTextView: TextView = itemView.findViewById(R.id.trailtext_text_view)
-    val mHeadlineTextView: TextView = itemView.findViewById(R.id.headline_text_view)
-    val mSectionTextView: TextView = itemView.findViewById(R.id.section_text_view)
-    val mPublicationTime: TextView = itemView.findViewById(R.id.time_text_view)
-    val mArticleImageView: ImageView = itemView.findViewById(R.id.article_image_view)
+class NewsViewHolder(newsItemView: View) : RecyclerView.ViewHolder(newsItemView) {
+
+    fun bind(news: News, onItemClick: (news: News) -> Unit) {
+        itemView.headline_text_view.text = news.title
+        itemView.trailtext_text_view.text = news.trailText
+        itemView.section_text_view.text = news.sectionName
+
+        val dateString = news.publicationDate
+        itemView.time_text_view.text = dateString.getPrettifiedTimeString()
+
+        val imageUrl = news.imageUrl
+        if (imageUrl == null) {
+            itemView.article_image_view.visibility = View.GONE
+        } else {
+            Picasso.get().load(imageUrl).into(itemView.article_image_view)
+        }
+
+        itemView.setOnClickListener {
+            onItemClick(news)
+        }
+    }
+
 }

@@ -17,6 +17,7 @@
 
 package com.edoubletech.newsfeed.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
@@ -35,7 +36,10 @@ import com.edoubletech.newsfeed.ui.fragments.CategoryFragment
 
 class CategoryActivity : AppCompatActivity() {
 
-    private val mNewsAdapter: NewsAdapter = NewsAdapter()
+    private val mNewsAdapter: NewsAdapter = NewsAdapter {
+        val intent = Intent(this, DetailActivity::class.java)
+        startActivity(intent)
+    }
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mError: TextView
     private lateinit var mLoadingIndicator: ProgressBar
@@ -63,7 +67,6 @@ class CategoryActivity : AppCompatActivity() {
 
         viewModel.getNews().observe(this, Observer { state ->
             state?.let { handleState(state) }
-
         })
     }
 
