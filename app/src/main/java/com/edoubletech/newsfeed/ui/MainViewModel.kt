@@ -23,12 +23,19 @@ import com.edoubletech.newsfeed.data.Repository
 
 class MainViewModel : ViewModel() {
 
+    private val repository = Repository()
+
     fun search(categoryName: String?) {
-        categoryName?.let { Repository.search(it) }
+        categoryName?.let { repository.search(it) }
     }
 
     fun getNews(): LiveData<NewsState> {
-        return Repository.news
+        return repository.news
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        repository.clear()
     }
 
 }

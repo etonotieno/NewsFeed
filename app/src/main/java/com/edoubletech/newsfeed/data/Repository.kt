@@ -23,18 +23,20 @@ import androidx.lifecycle.Transformations
 import com.edoubletech.newsfeed.BuildConfig
 import com.edoubletech.newsfeed.data.networking.Injector
 import com.edoubletech.newsfeed.data.networking.Service
-import com.edoubletech.newsfeed.guardian.GuardianMain
 import com.edoubletech.newsfeed.guardian.mapToNews
 import com.edoubletech.newsfeed.ui.NewsState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-object Repository {
+class Repository {
 
     private val newsLiveData = MutableLiveData<NewsState>()
     private val categoryLiveData = MutableLiveData<String>()
+
+    private val job = Job()
+    private val backGroundScope = CoroutineScope(Dispatchers.Default + job)
 
     val news: LiveData<NewsState> = Transformations.switchMap(categoryLiveData) {
         getNewsData(it)
@@ -51,8 +53,7 @@ object Repository {
         val call = service.getNews("50", BuildConfig.GUARDIAN_API_KEY,
                 categoryName, "all", "json")
 
-        launch {
-
+        backGroundScope.launch {
             val response = call.await()
             if (response.isSuccessful) {
                 response.body()?.mapToNews()?.let {
@@ -64,6 +65,9 @@ object Repository {
             }
         }
         return newsLiveData
+    }
 
+    fun clear() {
+        job.cancel()
     }
 }
