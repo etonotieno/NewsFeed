@@ -15,9 +15,9 @@
  *
  */
 
-package com.edoubletech.newsfeed.data.guardian
+package com.edoubletech.newsfeed.guardian
 
-import com.edoubletech.newsfeed.data.model.News
+import com.edoubletech.newsfeed.guardian.model.News
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
