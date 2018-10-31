@@ -28,8 +28,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.Category
 
-class CategoryAdapter(val mOnClickListener: ListItemClickListener)
-    : ListAdapter<Category, CategoryAdapter.NewsViewHolder>(COMPARATOR) {
+class CategoryAdapter(
+        private val onItemClick: (category: Category) -> Unit
+) : ListAdapter<Category, CategoryViewHolder>(COMPARATOR) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
+        return CategoryViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+        val currentCategory = getItem(position)
+        holder.bind(currentCategory, onItemClick)
+    }
 
     companion object {
         val COMPARATOR: DiffUtil.ItemCallback<Category> = object : DiffUtil.ItemCallback<Category>() {
@@ -42,33 +53,18 @@ class CategoryAdapter(val mOnClickListener: ListItemClickListener)
             }
         }
     }
+}
 
-    interface ListItemClickListener {
-        fun onListItemClick(clickedItemIndex: Int)
-    }
+class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private val gridImage: ImageView = itemView.findViewById(R.id.grid_image)
+    private val gridName: TextView = itemView.findViewById(R.id.grid_name)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
-        return NewsViewHolder(view)
-    }
+    fun bind(category: Category, onItemClick: (category: Category) -> Unit) {
+        gridName.text = category.name
+        gridImage.setImageResource(category.image)
 
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val currentCategory = getItem(position)
-        holder.textView.text = currentCategory.name
-        holder.imageView.setImageResource(currentCategory.image)
-    }
-
-    inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        val imageView: ImageView = itemView.findViewById(R.id.grid_image)
-        val textView: TextView = itemView.findViewById(R.id.grid_name)
-
-        init {
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View) {
-            val clickedPosition = adapterPosition
-            mOnClickListener.onListItemClick(clickedPosition)
+        itemView.setOnClickListener {
+            onItemClick(category)
         }
     }
 }

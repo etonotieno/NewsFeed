@@ -32,16 +32,15 @@ import com.edoubletech.newsfeed.data.model.Category
 import com.edoubletech.newsfeed.ui.activities.CategoryActivity
 import com.edoubletech.newsfeed.ui.adapters.CategoryAdapter
 
-/**
- * Created by EtonOtieno on 3/7/2018
- */
-
-class CategoryFragment : Fragment(), CategoryAdapter.ListItemClickListener {
+class CategoryFragment : Fragment() {
 
     private lateinit var mRecyclerView: RecyclerView
     private var mCategories = arrayListOf<Category>()
-    private val mAdapter: CategoryAdapter by lazy {
-        CategoryAdapter(this)
+
+    private val mAdapter: CategoryAdapter = CategoryAdapter {
+        val intent = Intent(activity, CategoryActivity::class.java)
+        intent.putExtra(EXTRA_CATEGORY_NAME, it.name)
+        startActivity(intent)
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -89,14 +88,6 @@ class CategoryFragment : Fragment(), CategoryAdapter.ListItemClickListener {
             setHasFixedSize(true)
             adapter = mAdapter
         }
-    }
-
-
-    override fun onListItemClick(clickedItemIndex: Int) {
-        val name = mCategories[clickedItemIndex].name
-        val intent = Intent(activity, CategoryActivity::class.java)
-        intent.putExtra(EXTRA_CATEGORY_NAME, name)
-        startActivity(intent)
     }
 
     companion object {
