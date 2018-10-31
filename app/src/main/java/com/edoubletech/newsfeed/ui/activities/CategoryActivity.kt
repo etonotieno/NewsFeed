@@ -31,7 +31,6 @@ import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.guardian.model.News
 import com.edoubletech.newsfeed.ui.MainViewModel
 import com.edoubletech.newsfeed.ui.NewsState
-import com.edoubletech.newsfeed.ui.ViewModelFactory
 import com.edoubletech.newsfeed.ui.adapters.NewsAdapter
 import com.edoubletech.newsfeed.ui.fragments.CategoryFragment
 
@@ -62,10 +61,9 @@ class CategoryActivity : AppCompatActivity() {
             adapter = mNewsAdapter
         }
 
-        val factory = ViewModelFactory(getSectionId(categoryName))
-        val viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        viewModel.startDataLoad()
+        viewModel.startDataLoad(getSectionId(categoryName))
         viewModel.getNews().observe(this, Observer { state ->
             state?.let { handleState(state) }
         })

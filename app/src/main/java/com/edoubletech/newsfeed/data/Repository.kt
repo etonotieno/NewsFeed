@@ -20,29 +20,35 @@ package com.edoubletech.newsfeed.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.edoubletech.newsfeed.BuildConfig
 import com.edoubletech.newsfeed.data.networking.Injector
 import com.edoubletech.newsfeed.data.networking.Service
+import com.edoubletech.newsfeed.guardian.GuardianMain
 import com.edoubletech.newsfeed.guardian.mapToNews
 import com.edoubletech.newsfeed.ui.NewsState
 import kotlinx.coroutines.*
+import retrofit2.Response
 
 /**
  * This class handles all the data loading logic needed for the app and does it with the use of
  * coroutines.
  */
-class Repository(private val categoryName: String) {
+class Repository {
 
     private val newsLiveData = MutableLiveData<NewsState>()
+    private val sectionLiveData = MutableLiveData<String>()
+
+    private val service = Injector.provideRetrofit().create(Service::class.java)
+    private lateinit var call: Deferred<Response<GuardianMain>>
+
+    val data: LiveData<NewsState> = Transformations.switchMap(sectionLiveData) { categoryName ->
+        categoryName?.let { call = service.getNews(section = it) }
+        newsLiveData
+    }
 
     suspend fun loadData() {
-        newsLiveData.postValue(NewsState.Loading)
-
-        val service = Injector.provideRetrofit().create(Service::class.java)
-        val call = service.getNews(section = categoryName)
-
         // Perform the actual network call on the IO Dispatcher
         withContext(Dispatchers.IO) {
+            newsLiveData.postValue(NewsState.Loading)
             val response = call.await()
             if (response.isSuccessful) {
                 response.body()?.mapToNews()?.let {
@@ -55,7 +61,7 @@ class Repository(private val categoryName: String) {
         }
     }
 
-    fun getNewsData(): LiveData<NewsState> {
-        return newsLiveData
+    fun search(sectionName: String) {
+        sectionLiveData.value = sectionName
     }
 }

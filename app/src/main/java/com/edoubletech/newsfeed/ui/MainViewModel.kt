@@ -25,18 +25,19 @@ import kotlinx.coroutines.launch
 /**
  * This is the MainViewModel that contains the data needed in the app.
  */
-class MainViewModel(categoryName: String) : BaseViewModel() {
+class MainViewModel : BaseViewModel() {
 
-    private val repository = Repository(categoryName)
+    private val repository = Repository()
 
-    fun startDataLoad() {
+    fun startDataLoad(newsSection: String) {
+        repository.search(newsSection)
         uiScope.launch {
             repository.loadData()
         }
     }
 
     fun getNews(): LiveData<NewsState> {
-        return repository.getNewsData()
+        return repository.data
     }
 
 }
