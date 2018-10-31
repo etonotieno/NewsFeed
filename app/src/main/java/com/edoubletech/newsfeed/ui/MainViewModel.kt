@@ -22,6 +22,9 @@ import com.edoubletech.newsfeed.data.Repository
 import com.edoubletech.newsfeed.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
+/**
+ * This is the MainViewModel that contains the data needed in the app.
+ */
 class MainViewModel(categoryName: String) : BaseViewModel() {
 
     private val repository = Repository(categoryName)

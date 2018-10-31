@@ -5,6 +5,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
+/**
+ * This BaseViewModel is used to provide the CoroutineScope to all [ViewModel] classes that extend it
+ */
 open class BaseViewModel : ViewModel() {
 
     private val baseJob = Job()

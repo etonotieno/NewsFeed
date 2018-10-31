@@ -36,9 +36,6 @@ class AboutActivity : AppCompatActivity() {
         val attributionTextView = findViewById<TextView>(R.id.attribution_text_view)
 
         attributionTextView.setOnClickListener {
-            // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
-            // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
-            // and launch the desired Url with CustomTabsIntent.launchUrl()
             val url = "http://open-platform.theguardian.com/"
             val builder = CustomTabsIntent.Builder()
                     .enableUrlBarHiding()

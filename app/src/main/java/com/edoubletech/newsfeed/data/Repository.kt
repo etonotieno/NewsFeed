@@ -27,6 +27,10 @@ import com.edoubletech.newsfeed.guardian.mapToNews
 import com.edoubletech.newsfeed.ui.NewsState
 import kotlinx.coroutines.*
 
+/**
+ * This class handles all the data loading logic needed for the app and does it with the use of
+ * coroutines.
+ */
 class Repository(private val categoryName: String) {
 
     private val newsLiveData = MutableLiveData<NewsState>()
@@ -35,9 +39,9 @@ class Repository(private val categoryName: String) {
         newsLiveData.postValue(NewsState.Loading)
 
         val service = Injector.provideRetrofit().create(Service::class.java)
-        val call = service.getNews("50", BuildConfig.GUARDIAN_API_KEY,
-                categoryName, "all", "json")
+        val call = service.getNews(section = categoryName)
 
+        // Perform the actual network call on the IO Dispatcher
         withContext(Dispatchers.IO) {
             val response = call.await()
             if (response.isSuccessful) {

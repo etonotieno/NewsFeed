@@ -17,4 +17,7 @@
 
 package com.edoubletech.newsfeed.data.model
 
+/**
+ * This data class holds the data for each News category
+ */
 data class Category(val name: String, val image: Int)
