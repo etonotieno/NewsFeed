@@ -26,13 +26,13 @@ class MainViewModel(categoryName: String) : BaseViewModel() {
 
     private val repository = Repository(categoryName)
 
-    init {
+    fun startDataLoad() {
         uiScope.launch {
             repository.loadData()
         }
     }
 
-    fun getNews() : LiveData<NewsState>{
+    fun getNews(): LiveData<NewsState> {
         return repository.getNewsData()
     }
 

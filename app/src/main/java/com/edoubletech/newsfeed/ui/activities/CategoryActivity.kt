@@ -65,6 +65,7 @@ class CategoryActivity : AppCompatActivity() {
         val factory = ViewModelFactory(getSectionId(categoryName))
         val viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
 
+        viewModel.startDataLoad()
         viewModel.getNews().observe(this, Observer { state ->
             state?.let { handleState(state) }
         })
