@@ -25,35 +25,20 @@ import com.edoubletech.newsfeed.data.networking.Injector
 import com.edoubletech.newsfeed.data.networking.Service
 import com.edoubletech.newsfeed.guardian.mapToNews
 import com.edoubletech.newsfeed.ui.NewsState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
-class Repository {
+class Repository(private val categoryName: String) {
 
     private val newsLiveData = MutableLiveData<NewsState>()
-    private val categoryLiveData = MutableLiveData<String>()
 
-    private val job = Job()
-    private val backGroundScope = CoroutineScope(Dispatchers.Default + job)
-
-    val news: LiveData<NewsState> = Transformations.switchMap(categoryLiveData) {
-        getNewsData(it)
-    }
-
-    fun search(categoryName: String) {
-        categoryLiveData.value = categoryName
-    }
-
-    private fun getNewsData(categoryName: String): LiveData<NewsState> {
+    suspend fun loadData() {
         newsLiveData.postValue(NewsState.Loading)
 
         val service = Injector.provideRetrofit().create(Service::class.java)
         val call = service.getNews("50", BuildConfig.GUARDIAN_API_KEY,
                 categoryName, "all", "json")
 
-        backGroundScope.launch {
+        withContext(Dispatchers.IO) {
             val response = call.await()
             if (response.isSuccessful) {
                 response.body()?.mapToNews()?.let {
@@ -64,10 +49,9 @@ class Repository {
                 newsLiveData.postValue(NewsState.Error(errorBody?.string()))
             }
         }
-        return newsLiveData
     }
 
-    fun clear() {
-        job.cancel()
+    fun getNewsData(): LiveData<NewsState> {
+        return newsLiveData
     }
 }

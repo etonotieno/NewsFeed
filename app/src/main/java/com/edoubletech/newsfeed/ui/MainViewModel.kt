@@ -18,24 +18,21 @@
 package com.edoubletech.newsfeed.ui
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import com.edoubletech.newsfeed.data.Repository
+import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(categoryName: String) : BaseViewModel() {
 
-    private val repository = Repository()
+    private val repository = Repository(categoryName)
 
-    fun search(categoryName: String?) {
-        categoryName?.let { repository.search(it) }
+    init {
+        uiScope.launch {
+            repository.loadData()
+        }
     }
 
-    fun getNews(): LiveData<NewsState> {
-        return repository.news
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        repository.clear()
+    fun getNews() : LiveData<NewsState>{
+        return repository.getNewsData()
     }
 
 }
