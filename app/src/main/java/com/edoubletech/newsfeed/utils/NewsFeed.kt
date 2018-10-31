@@ -33,27 +33,9 @@ class NewsFeed : Application() {
     override fun onCreate() {
         super.onCreate()
         JodaTimeAndroid.init(this)
-
-        instance = this
-
+        
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-    }
-
-    fun checkIfHasNetwork(): Boolean {
-        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = cm.activeNetworkInfo
-        return networkInfo != null && networkInfo.isConnected
-    }
-
-    companion object {
-        @JvmStatic
-        fun hasNetwork(): Boolean {
-            return instance.checkIfHasNetwork()
-        }
-
-        @JvmStatic
-        lateinit var instance: NewsFeed
     }
 }
