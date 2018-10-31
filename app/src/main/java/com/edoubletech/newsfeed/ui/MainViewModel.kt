@@ -19,6 +19,7 @@ package com.edoubletech.newsfeed.ui
 
 import androidx.lifecycle.LiveData
 import com.edoubletech.newsfeed.data.Repository
+import com.edoubletech.newsfeed.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class MainViewModel(categoryName: String) : BaseViewModel() {

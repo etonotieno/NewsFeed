@@ -1,4 +1,4 @@
-package com.edoubletech.newsfeed.ui
+package com.edoubletech.newsfeed.ui.base
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
