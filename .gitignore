@@ -8,3 +8,4 @@ build/
 *.aar
 *.zip
 google-services.json
+ktlint
