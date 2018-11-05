@@ -1,4 +1,7 @@
 # News-Feed [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
+# Contributors
+[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/0)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/0)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/1)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/1)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/2)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/2)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/3)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/3)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/4)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/4)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/5)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/5)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/6)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/6)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/7)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/7)
+
 This is a Kotlin app that fetches data from
 Guardian API using [Retrofit](https://github.com/square/retrofit)
 and shows the list in a RecyclerView. For the app to work as expected,
