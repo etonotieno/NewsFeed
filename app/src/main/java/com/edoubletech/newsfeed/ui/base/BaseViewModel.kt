@@ -14,7 +14,7 @@ open class BaseViewModel : ViewModel() {
     protected val uiScope = CoroutineScope(Dispatchers.Main + baseJob)
 
     override fun onCleared() {
-        super.onCleared()
         baseJob.cancel()
+        super.onCleared()
     }
 }
