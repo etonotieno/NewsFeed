@@ -1,6 +1,4 @@
 # News-Feed [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
-# Contributors
-[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/0)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/0)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/1)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/1)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/2)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/2)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/3)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/3)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/4)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/4)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/5)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/5)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/6)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/6)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/7)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/7)
 
 This is a Kotlin app that fetches data from
 Guardian API using [Retrofit](https://github.com/square/retrofit)
@@ -10,7 +8,7 @@ you need an API Key from
 it in the  gradle.properties file inside the MyApiKey String.
 
 
-# News Feed v2.0 
+# News Feed v2.0 (WIP)
 I am currently working on the 2nd version of the app that will use [clean architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) in a modularized structure. 
 This will be in five modules:
 
@@ -40,3 +38,6 @@ Contributions through Pull Requests and Issues are much appreciated.
 [Twitter](https://twitter.com/eton_otieno)
 
 [LinkedIn](https://www.linkedin.com/in/eton-otieno-10b7b0150/)
+
+# Contributors
+[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/0)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/0)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/1)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/1)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/2)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/2)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/3)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/3)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/4)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/4)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/5)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/5)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/6)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/6)[![](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/images/7)](https://sourcerer.io/fame/CodeZilla7/CodeZilla7/News-Feed/links/7)
