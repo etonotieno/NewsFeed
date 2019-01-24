@@ -18,10 +18,10 @@
 package com.edoubletech.newsfeed.utils
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
 import com.edoubletech.newsfeed.BuildConfig
+import com.edoubletech.newsfeed.data.networking.appModule
 import net.danlew.android.joda.JodaTimeAndroid
+import org.koin.android.ext.android.startKoin
 import timber.log.Timber
 
 /**
@@ -32,6 +32,7 @@ class NewsFeed : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        startKoin(this, listOf(appModule))
         JodaTimeAndroid.init(this)
         
         if (BuildConfig.DEBUG) {

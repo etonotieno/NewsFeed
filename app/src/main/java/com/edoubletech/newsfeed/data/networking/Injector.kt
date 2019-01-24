@@ -17,19 +17,29 @@
 
 package com.edoubletech.newsfeed.data.networking
 
+import com.edoubletech.newsfeed.data.Repository
+import com.edoubletech.newsfeed.ui.MainViewModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import org.koin.androidx.viewmodel.ext.koin.viewModel
+import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
-object Injector {
-
-    private const val BASE_URL = "https://content.guardianapis.com/"
-
-    fun provideRetrofit(): Retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+val appModule = module {
+    single<Retrofit> {
+        Retrofit.Builder()
+                .baseUrl("https://content.guardianapis.com/")
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+    }
+    single<Service> {
+        val retrofit: Retrofit = get()
+        retrofit.create()
+    }
+    single { Repository(get()) }
+    viewModel { MainViewModel(get()) }
 }
 
 

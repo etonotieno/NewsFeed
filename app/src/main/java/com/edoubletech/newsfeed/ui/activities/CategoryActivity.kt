@@ -24,7 +24,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.edoubletech.newsfeed.R
@@ -33,6 +32,7 @@ import com.edoubletech.newsfeed.ui.MainViewModel
 import com.edoubletech.newsfeed.ui.NewsState
 import com.edoubletech.newsfeed.ui.adapters.NewsAdapter
 import com.edoubletech.newsfeed.ui.fragments.CategoryFragment
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class CategoryActivity : AppCompatActivity() {
 
@@ -61,7 +61,7 @@ class CategoryActivity : AppCompatActivity() {
             adapter = mNewsAdapter
         }
 
-        val viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        val viewModel = getViewModel<MainViewModel>()
 
         viewModel.startDataLoad(getSectionId(categoryName))
         viewModel.getNews().observe(this, Observer { state ->

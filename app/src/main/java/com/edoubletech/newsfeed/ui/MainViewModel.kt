@@ -25,9 +25,7 @@ import kotlinx.coroutines.launch
 /**
  * This is the MainViewModel that contains the data needed in the app.
  */
-class MainViewModel : BaseViewModel() {
-
-    private val repository = Repository()
+class MainViewModel(private val repository: Repository) : BaseViewModel() {
 
     fun startDataLoad(newsSection: String) {
         repository.search(newsSection)

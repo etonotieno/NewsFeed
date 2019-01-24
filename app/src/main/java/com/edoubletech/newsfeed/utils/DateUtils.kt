@@ -51,7 +51,7 @@ fun String.getPrettifiedTimeString(): String {
     val timeDifference = this.getTimeDifferenceInSeconds()
     val timeStrings = arrayOf("minute", "hour", "day", "week")
     val timePassed = arrayOf(60, 3600, 86400, 604800)
-    var prettifiedTime = if (timeDifference <= 1) timeDifference.toString() + " second ago" else timeDifference.toString() + " seconds ago"
+    var prettifiedTime = if (timeDifference <= 1) "$timeDifference second ago" else "$timeDifference seconds ago"
     timePassed.forEachIndexed { index, _ ->
         val calc = timeDifference / timePassed[index]
         if (timeDifference >= timePassed[index]) {

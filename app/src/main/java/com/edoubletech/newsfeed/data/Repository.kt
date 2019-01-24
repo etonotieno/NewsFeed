@@ -20,24 +20,24 @@ package com.edoubletech.newsfeed.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.edoubletech.newsfeed.data.networking.Injector
 import com.edoubletech.newsfeed.data.networking.Service
 import com.edoubletech.newsfeed.guardian.GuardianMain
 import com.edoubletech.newsfeed.guardian.mapToNews
 import com.edoubletech.newsfeed.ui.NewsState
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 
 /**
  * This class handles all the data loading logic needed for the app and does it with the use of
  * coroutines.
  */
-class Repository {
+class Repository(private val service: Service) {
 
     private val newsLiveData = MutableLiveData<NewsState>()
     private val sectionLiveData = MutableLiveData<String>()
 
-    private val service = Injector.provideRetrofit().create(Service::class.java)
     private lateinit var call: Deferred<Response<GuardianMain>>
 
     val data: LiveData<NewsState> = Transformations.switchMap(sectionLiveData) { categoryName ->

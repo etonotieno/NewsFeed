@@ -26,16 +26,15 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.guardian.model.News
 import com.edoubletech.newsfeed.ui.MainViewModel
 import com.edoubletech.newsfeed.ui.NewsState
 import com.edoubletech.newsfeed.ui.activities.DetailActivity
 import com.edoubletech.newsfeed.ui.adapters.NewsAdapter
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainFragment : Fragment() {
 
@@ -62,7 +61,7 @@ class MainFragment : Fragment() {
             setHasFixedSize(true)
             adapter = newsAdapter
         }
-        val viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        val viewModel = getViewModel<MainViewModel>()
 
         viewModel.startDataLoad("technology")
         viewModel.getNews().observe(this, Observer { state ->
