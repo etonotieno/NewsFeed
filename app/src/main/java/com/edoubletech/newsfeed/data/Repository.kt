@@ -40,10 +40,11 @@ class Repository(private val service: Service) {
 
     private lateinit var call: Deferred<Response<GuardianMain>>
 
-    val data: LiveData<NewsState> = Transformations.switchMap(sectionLiveData) { categoryName ->
-        categoryName?.let { call = service.getNews(section = it) }
-        newsLiveData
-    }
+    val data: LiveData<NewsState>
+        get() = Transformations.switchMap(sectionLiveData) { categoryName ->
+            categoryName?.let { call = service.getNews(section = it) }
+            newsLiveData
+        }
 
     suspend fun loadData() {
         // Perform the actual network call on the IO Dispatcher

@@ -51,7 +51,7 @@ class NewsAdapter(
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val currentNews = getItem(position) as News
+        val currentNews = getItem(position)
         holder.bind(currentNews, onItemClick)
     }
 }
