@@ -35,11 +35,13 @@ android {
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        forEach {
+            it.buildConfigField("String", "GUARDIAN_API_KEY",
+                    "${project.properties["GUARDIAN_API_KEY"]}")
+        }
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            buildConfigField("String", "GUARDIAN_API_KEY",
-                    "\"${project.properties["MyApiKey"].toString()}\"")
         }
     }
 }
