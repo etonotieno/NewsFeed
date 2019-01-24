@@ -34,8 +34,6 @@ class MainViewModel(private val repository: Repository) : BaseViewModel() {
         }
     }
 
-    fun getNews(): LiveData<NewsState> {
-        return repository.data
-    }
+    fun getNews(): LiveData<NewsState> = repository.data
 
 }

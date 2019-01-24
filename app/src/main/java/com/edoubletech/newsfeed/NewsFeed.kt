@@ -15,10 +15,9 @@
  *
  */
 
-package com.edoubletech.newsfeed.utils
+package com.edoubletech.newsfeed
 
 import android.app.Application
-import com.edoubletech.newsfeed.BuildConfig
 import com.edoubletech.newsfeed.data.networking.appModule
 import net.danlew.android.joda.JodaTimeAndroid
 import org.koin.android.ext.android.startKoin
