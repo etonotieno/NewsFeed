@@ -18,18 +18,14 @@
 package com.edoubletech.newsfeed.ui.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.Category
 
 class CategoryAdapter(
-        private val onItemClick: (category: Category) -> Unit
+        private val onItemClick: (Category) -> Unit
 ) : ListAdapter<Category, CategoryViewHolder>(COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -43,7 +39,7 @@ class CategoryAdapter(
     }
 
     companion object {
-        val COMPARATOR: DiffUtil.ItemCallback<Category> = object : DiffUtil.ItemCallback<Category>() {
+        private val COMPARATOR: DiffUtil.ItemCallback<Category> = object : DiffUtil.ItemCallback<Category>() {
             override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
                 return oldItem.name == newItem.name
             }
@@ -55,16 +51,3 @@ class CategoryAdapter(
     }
 }
 
-class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val gridImage: ImageView = itemView.findViewById(R.id.grid_image)
-    private val gridName: TextView = itemView.findViewById(R.id.grid_name)
-
-    fun bind(category: Category, onItemClick: (category: Category) -> Unit) {
-        gridName.text = category.name
-        gridImage.setImageResource(category.image)
-
-        itemView.setOnClickListener {
-            onItemClick(category)
-        }
-    }
-}
