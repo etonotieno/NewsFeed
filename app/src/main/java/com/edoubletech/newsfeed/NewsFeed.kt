@@ -18,7 +18,7 @@
 package com.edoubletech.newsfeed
 
 import android.app.Application
-import com.edoubletech.newsfeed.data.networking.appModule
+import com.edoubletech.newsfeed.injection.appModule
 import net.danlew.android.joda.JodaTimeAndroid
 import org.koin.android.ext.android.startKoin
 import timber.log.Timber

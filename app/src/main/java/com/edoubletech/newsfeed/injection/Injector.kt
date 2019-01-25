@@ -15,9 +15,10 @@
  *
  */
 
-package com.edoubletech.newsfeed.data.networking
+package com.edoubletech.newsfeed.injection
 
 import com.edoubletech.newsfeed.data.Repository
+import com.edoubletech.newsfeed.data.networking.Service
 import com.edoubletech.newsfeed.ui.MainViewModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import org.koin.androidx.viewmodel.ext.koin.viewModel
