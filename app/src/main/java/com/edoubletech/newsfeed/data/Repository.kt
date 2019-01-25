@@ -42,7 +42,7 @@ class Repository(private val service: Service) {
 
     val data: LiveData<NewsState>
         get() = Transformations.switchMap(sectionLiveData) { categoryName ->
-            categoryName?.let { call = service.getNews(section = it) }
+            categoryName?.let { call = service.getNewsAsync(section = it) }
             newsLiveData
         }
 

@@ -31,7 +31,7 @@ import retrofit2.http.Query
 interface Service {
 
     @GET("search")
-    fun getNews(
+    fun getNewsAsync(
             @Query("page-size") pageSize: String = "50",
             @Query("api-key") apiKey: String = BuildConfig.GUARDIAN_API_KEY,
             @Query("section") section: String,
