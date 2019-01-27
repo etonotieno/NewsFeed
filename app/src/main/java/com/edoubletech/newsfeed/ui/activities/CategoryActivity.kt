@@ -44,9 +44,7 @@ class CategoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-
         val categoryName = intent.getStringExtra(CategoryFragment.EXTRA_CATEGORY_NAME)
-
         supportActionBar?.title = categoryName
 
         category_activity_recycler_view.apply {

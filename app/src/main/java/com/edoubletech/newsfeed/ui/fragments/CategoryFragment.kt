@@ -26,7 +26,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.Category
 import com.edoubletech.newsfeed.ui.activities.CategoryActivity
@@ -43,11 +42,10 @@ class CategoryFragment : Fragment() {
         startActivity(intent)
     }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_category, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_category, container, false)
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mCategories.apply {
             add(Category(getString(R.string.arts_section), R.drawable.ic_arts))
             add(Category(getString(R.string.books_section), R.drawable.ic_books))
@@ -68,8 +66,6 @@ class CategoryFragment : Fragment() {
         }
         mAdapter.submitList(mCategories)
         setUpRecyclerView()
-
-        return rootView
     }
 
     private fun setUpRecyclerView() {
