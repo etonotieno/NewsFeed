@@ -31,14 +31,14 @@ import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.Category
 import com.edoubletech.newsfeed.ui.activities.CategoryActivity
 import com.edoubletech.newsfeed.ui.adapters.CategoryAdapter
+import kotlinx.android.synthetic.main.fragment_category.*
 
 class CategoryFragment : Fragment() {
 
-    private lateinit var mRecyclerView: RecyclerView
-    private var mCategories = arrayListOf<Category>()
+    private val mCategories = arrayListOf<Category>()
 
     private val mAdapter: CategoryAdapter = CategoryAdapter {
-        val intent = Intent(activity, CategoryActivity::class.java)
+        val intent = Intent(requireContext(), CategoryActivity::class.java)
         intent.putExtra(EXTRA_CATEGORY_NAME, it.name)
         startActivity(intent)
     }
@@ -47,8 +47,6 @@ class CategoryFragment : Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_category, container, false)
-
-        mRecyclerView = rootView.findViewById(R.id.category_recycler_view)
 
         mCategories.apply {
             add(Category(getString(R.string.arts_section), R.drawable.ic_arts))
@@ -75,7 +73,7 @@ class CategoryFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        val layoutManager = GridLayoutManager(activity,
+        val layoutManager = GridLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL)
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             layoutManager.spanCount = 3
@@ -83,7 +81,7 @@ class CategoryFragment : Fragment() {
             layoutManager.spanCount = 2
         }
 
-        mRecyclerView.apply {
+        category_recycler_view.apply {
             setLayoutManager(layoutManager)
             setHasFixedSize(true)
             adapter = mAdapter
