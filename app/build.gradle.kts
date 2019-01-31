@@ -14,13 +14,12 @@
  *  limitations under the License.
  *
  */
-import org.jetbrains.kotlin.config.KotlinCompilerVersion
 
 plugins {
     id("com.android.application")
-    kotlin("android")
-    kotlin("android.extensions")
-    kotlin("kapt")
+    id("kotlin-android")
+    id("kotlin-android-extensions")
+    id("kotlin-kapt")
 }
 
 android {
@@ -52,8 +51,8 @@ dependencies {
     implementation(project(":guardian"))
 
     // Kotlin
-    implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
-
+    implementation(kotlin("stdlib-jdk8"))
+    
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1")
