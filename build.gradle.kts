@@ -39,6 +39,6 @@ allprojects {
     }
 }
 
-tasks.register("clean", Delete::class.java) {
+tasks.register<Delete>("clean").configure {
     delete(rootProject.buildDir)
 }
