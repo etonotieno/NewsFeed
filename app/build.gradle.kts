@@ -14,6 +14,8 @@
  *  limitations under the License.
  *
  */
+import java.io.FileInputStream
+import java.util.*
 
 plugins {
     id("com.android.application")
@@ -32,12 +34,19 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+
+        val secretsProperties = File("secrets.properties")
+        if (secretsProperties.exists()) {
+            val secretsFile = rootProject.file("secrets.properties")
+            val secrets = Properties()
+            secrets.load(FileInputStream(secretsFile))
+
+            buildConfigField ("String", "GUARDIAN_API_KEY", secrets.getProperty("GUARDIAN_API_KEY"))
+        } else {
+            buildConfigField ("String", "GUARDIAN_API_KEY", "\"View the README to add your API Key\"")
+        }
     }
     buildTypes {
-        forEach {
-            it.buildConfigField("String", "GUARDIAN_API_KEY",
-                    "${project.properties["GUARDIAN_API_KEY"]}")
-        }
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
