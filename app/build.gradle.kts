@@ -58,9 +58,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1")
 
     // Koin for Android
-    implementation("org.koin:koin-android:1.0.1")
-    implementation("org.koin:koin-androidx-scope:1.0.1")
-    implementation("org.koin:koin-androidx-viewmodel:1.0.1")
+    implementation("org.koin:koin-android:1.0.2")
+    implementation("org.koin:koin-androidx-scope:1.0.2")
+    implementation("org.koin:koin-androidx-viewmodel:1.0.2")
 
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
     implementation("ru.gildor.coroutines:kotlin-coroutines-retrofit:0.13.0-eap13")
@@ -76,14 +76,14 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
 
     // Paging
-    implementation("androidx.paging:paging-runtime-ktx:2.1.0-rc01")
+    implementation("androidx.paging:paging-runtime-ktx:2.1.0")
 
     // Room
-    implementation("androidx.room:room-runtime:2.1.0-alpha03")
-    kapt("androidx.room:room-compiler:2.1.0-alpha03")
+    implementation("androidx.room:room-runtime:2.1.0-alpha04")
+    kapt("androidx.room:room-compiler:2.1.0-alpha04")
 
     // WorkManager
-    implementation("android.arch.work:work-runtime-ktx:1.0.0-beta02")
+    implementation("android.arch.work:work-runtime-ktx:1.0.0-rc02")
 
     // ConstraintLayout
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-alpha3")
@@ -95,9 +95,9 @@ dependencies {
     implementation("com.jakewharton.timber:timber:4.7.1")
 
     // Retrofit for making the network calls
-    implementation("com.squareup.retrofit2:retrofit:2.5.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.5.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:3.10.0")
+    implementation("com.squareup.retrofit2:retrofit:2.5.1-SNAPSHOT")
+    implementation("com.squareup.retrofit2:converter-gson:2.5.1-SNAPSHOT")
+    implementation("com.squareup.okhttp3:logging-interceptor:3.13.0")
     implementation("com.google.code.gson:gson:2.8.5")
 
     // Joda Time
