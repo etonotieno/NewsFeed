@@ -28,12 +28,10 @@ import kotlinx.coroutines.launch
 class MainViewModel(private val repository: Repository) : BaseViewModel() {
 
     fun startDataLoad(newsSection: String) {
-        repository.search(newsSection)
         uiScope.launch {
-            repository.loadData()
+            repository.loadData(newsSection)
         }
     }
 
-    fun getNews(): LiveData<NewsState> = repository.data
-
+    fun getNews(): LiveData<NewsState> = repository.newsData
 }

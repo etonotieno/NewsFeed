@@ -19,12 +19,10 @@ package com.edoubletech.newsfeed.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.edoubletech.newsfeed.data.networking.Service
 import com.edoubletech.newsfeed.guardian.GuardianMain
 import com.edoubletech.newsfeed.guardian.mapToNews
 import com.edoubletech.newsfeed.ui.NewsState
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
@@ -36,21 +34,18 @@ import retrofit2.Response
 class Repository(private val service: Service) {
 
     private val newsLiveData = MutableLiveData<NewsState>()
-    private val sectionLiveData = MutableLiveData<String>()
 
-    private lateinit var call: Deferred<Response<GuardianMain>>
+    private lateinit var call: Response<GuardianMain>
 
-    val data: LiveData<NewsState>
-        get() = Transformations.switchMap(sectionLiveData) { categoryName ->
-            categoryName?.let { call = service.getNewsAsync(section = it) }
-            newsLiveData
-        }
+    val newsData: LiveData<NewsState>
+        get() = newsLiveData
 
-    suspend fun loadData() {
+    suspend fun loadData(sectionName: String) {
+        call = service.getNewsAsync(section = sectionName)
         // Perform the actual network call on the IO Dispatcher
         withContext(Dispatchers.IO) {
             newsLiveData.postValue(NewsState.Loading)
-            val response = call.await()
+            val response = call
             if (response.isSuccessful) {
                 response.body()?.mapToNews()?.let {
                     newsLiveData.postValue(NewsState.Success(it))
@@ -62,7 +57,4 @@ class Repository(private val service: Service) {
         }
     }
 
-    fun search(sectionName: String) {
-        sectionLiveData.value = sectionName
-    }
 }

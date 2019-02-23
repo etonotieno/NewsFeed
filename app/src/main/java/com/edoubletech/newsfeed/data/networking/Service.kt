@@ -19,7 +19,6 @@ package com.edoubletech.newsfeed.data.networking
 
 import com.edoubletech.newsfeed.BuildConfig
 import com.edoubletech.newsfeed.guardian.GuardianMain
-import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -31,11 +30,11 @@ import retrofit2.http.Query
 interface Service {
 
     @GET("search")
-    fun getNewsAsync(
+    suspend fun getNewsAsync(
             @Query("page-size") pageSize: String = "50",
             @Query("api-key") apiKey: String = BuildConfig.GUARDIAN_API_KEY,
             @Query("section") section: String,
             @Query("show-fields") fields: String = "all",
             @Query("format") format: String = "json"
-    ): Deferred<Response<GuardianMain>>
+    ): Response<GuardianMain>
 }
