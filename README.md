@@ -1,6 +1,6 @@
 This current version does not work as expected. I'm currently debugging the issue and working out a fix.
 
-# News-Feed [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
+# News-Feed [![CircleCI](https://circleci.com/gh/TheCodingWarlock/News-Feed/tree/master.svg?style=svg)](https://circleci.com/gh/TheCodingWarlock/News-Feed/tree/master)
 
 This is a Kotlin app that fetches data from
 Guardian API using [Retrofit](https://github.com/square/retrofit)
