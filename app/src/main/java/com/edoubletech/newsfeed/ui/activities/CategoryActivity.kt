@@ -27,9 +27,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.guardian.model.News
 import com.edoubletech.newsfeed.ui.MainViewModel
-import com.edoubletech.newsfeed.ui.NewsState
 import com.edoubletech.newsfeed.ui.adapters.NewsAdapter
 import com.edoubletech.newsfeed.ui.fragments.CategoryFragment
+import com.edoubletech.newsfeed.ui.state.NewsState
 import kotlinx.android.synthetic.main.activity_category.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -55,7 +55,8 @@ class CategoryActivity : AppCompatActivity() {
 
         val viewModel = getViewModel<MainViewModel>()
 
-        viewModel.startDataLoad(getSectionId(categoryName))
+        viewModel.setCategory(getSectionId(categoryName))
+        viewModel.fetchNews()
         viewModel.getNews().observe(this, Observer { state ->
             state?.let { handleState(state) }
         })
@@ -65,7 +66,7 @@ class CategoryActivity : AppCompatActivity() {
         when (newsState) {
             is NewsState.Loading -> setUpScreenForLoadingState()
             is NewsState.Success -> setUpScreenForSuccess(newsState.data)
-            is NewsState.Error -> setUpScreenForError(newsState.errorMessage)
+            is NewsState.Error -> setUpScreenForError(newsState.error)
         }
     }
 

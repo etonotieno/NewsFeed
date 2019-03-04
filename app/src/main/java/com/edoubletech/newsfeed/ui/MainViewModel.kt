@@ -20,6 +20,7 @@ package com.edoubletech.newsfeed.ui
 import androidx.lifecycle.LiveData
 import com.edoubletech.newsfeed.data.Repository
 import com.edoubletech.newsfeed.ui.base.BaseViewModel
+import com.edoubletech.newsfeed.ui.state.NewsState
 import kotlinx.coroutines.launch
 
 /**
@@ -27,11 +28,13 @@ import kotlinx.coroutines.launch
  */
 class MainViewModel(private val repository: Repository) : BaseViewModel() {
 
-    fun startDataLoad(newsSection: String) {
+    fun setCategory(category: String) = repository.setCategory(category)
+
+    fun fetchNews() {
         uiScope.launch {
-            repository.loadData(newsSection)
+            repository.fetchNews()
         }
     }
 
-    fun getNews(): LiveData<NewsState> = repository.newsData
+    fun getNews(): LiveData<NewsState> = repository.getNews()
 }

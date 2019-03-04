@@ -36,8 +36,7 @@ val appModule = module {
                 .build()
     }
     single<Service> {
-        val retrofit: Retrofit = get()
-        retrofit.create()
+        get<Retrofit>().create()
     }
     single { Repository(get()) }
     viewModel { MainViewModel(get()) }

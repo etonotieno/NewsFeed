@@ -33,7 +33,7 @@ interface Service {
     suspend fun getNewsAsync(
             @Query("page-size") pageSize: String = "50",
             @Query("api-key") apiKey: String = BuildConfig.GUARDIAN_API_KEY,
-            @Query("section") section: String,
+            @Query("section") category: String?,
             @Query("show-fields") fields: String = "all",
             @Query("format") format: String = "json"
     ): Response<GuardianMain>

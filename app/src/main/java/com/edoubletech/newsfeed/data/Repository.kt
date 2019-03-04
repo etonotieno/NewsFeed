@@ -17,12 +17,14 @@
 
 package com.edoubletech.newsfeed.data
 
+import androidx.arch.core.util.Function
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.edoubletech.newsfeed.data.networking.Service
 import com.edoubletech.newsfeed.guardian.GuardianMain
 import com.edoubletech.newsfeed.guardian.mapToNews
-import com.edoubletech.newsfeed.ui.NewsState
+import com.edoubletech.newsfeed.ui.state.NewsState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
@@ -34,27 +36,33 @@ import retrofit2.Response
 class Repository(private val service: Service) {
 
     private val newsLiveData = MutableLiveData<NewsState>()
+    private val categoryLiveData = MutableLiveData<String>()
 
-    private lateinit var call: Response<GuardianMain>
+    private lateinit var response: Response<GuardianMain>
 
-    val newsData: LiveData<NewsState>
-        get() = newsLiveData
+    fun getNews(): LiveData<NewsState> = categoryLiveData.switchMap(Function<String, LiveData<NewsState>> {
+        newsLiveData
+    })
 
-    suspend fun loadData(sectionName: String) {
-        call = service.getNewsAsync(section = sectionName)
-        // Perform the actual network call on the IO Dispatcher
+    suspend fun fetchNews() {
+        response = service.getNewsAsync(category = categoryLiveData.value)
+        newsLiveData.postValue(NewsState.Loading)
         withContext(Dispatchers.IO) {
-            newsLiveData.postValue(NewsState.Loading)
-            val response = call
             if (response.isSuccessful) {
                 response.body()?.mapToNews()?.let {
                     newsLiveData.postValue(NewsState.Success(it))
                 }
             } else {
                 val errorBody = response.errorBody()
-                newsLiveData.postValue(NewsState.Error(errorBody?.string()))
+                newsLiveData.postValue(NewsState.Error(errorBody?.string().toString()))
             }
         }
     }
 
+    fun setCategory(category: String) {
+        categoryLiveData.value = category
+    }
 }
+
+private fun <I, O> LiveData<I>.switchMap(function: Function<I, LiveData<O>>): LiveData<O> =
+        Transformations.switchMap(this, function)

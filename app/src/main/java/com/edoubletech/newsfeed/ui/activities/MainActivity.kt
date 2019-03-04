@@ -24,6 +24,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.ui.adapters.SectionsPagerAdapter
+import com.edoubletech.newsfeed.ui.fragments.CategoryFragment
+import com.edoubletech.newsfeed.ui.fragments.HomeFragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -36,9 +38,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(main_activity_toolbar)
-
-        view_pager.adapter = SectionsPagerAdapter(supportFragmentManager)
+        val adapter = SectionsPagerAdapter(supportFragmentManager)
+        adapter.addFragment(HomeFragment(), "Home")
+        adapter.addFragment(CategoryFragment(), "Categories")
+        view_pager.adapter = adapter
         view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view_pager))
     }

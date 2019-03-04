@@ -21,18 +21,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-import com.edoubletech.newsfeed.ui.fragments.CategoryFragment
-import com.edoubletech.newsfeed.ui.fragments.MainFragment
-
 /**
  * Created by EtonOtieno on 3/7/2018
  */
 
 class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    private val fragmentsList = ArrayList<Fragment>()
+    private val fragmentTitle = ArrayList<String>()
 
-    override fun getItem(position: Int): Fragment {
-        return if (position == 0) MainFragment() else CategoryFragment()
+    fun addFragment(fragment: Fragment, title: String) {
+        fragmentsList.add(fragment)
+        fragmentTitle.add(title)
     }
 
-    override fun getCount(): Int = 2
+    override fun getItem(position: Int): Fragment = fragmentsList[position]
+
+    override fun getCount(): Int = fragmentsList.size
+
+    override fun getPageTitle(position: Int): CharSequence? = fragmentTitle[position]
 }

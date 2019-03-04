@@ -29,13 +29,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.guardian.model.News
 import com.edoubletech.newsfeed.ui.MainViewModel
-import com.edoubletech.newsfeed.ui.NewsState
 import com.edoubletech.newsfeed.ui.activities.DetailActivity
 import com.edoubletech.newsfeed.ui.adapters.NewsAdapter
-import kotlinx.android.synthetic.main.fragment_main.*
+import com.edoubletech.newsfeed.ui.state.NewsState
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
-class MainFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     private val newsAdapter = NewsAdapter {
         val intent = Intent(requireContext(), DetailActivity::class.java)
@@ -44,17 +44,18 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_main, container, false)
+            inflater.inflate(R.layout.fragment_home, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        main_fragment_recycler_view.apply {
+        home_fragment_recycler_view.apply {
             layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             setHasFixedSize(true)
             adapter = newsAdapter
         }
         val viewModel = getViewModel<MainViewModel>()
 
-        viewModel.startDataLoad("technology")
+        viewModel.setCategory("technology")
+        viewModel.fetchNews()
         viewModel.getNews().observe(this, Observer { state ->
             state?.let { handleState(state) }
         })
@@ -64,38 +65,39 @@ class MainFragment : Fragment() {
         when (newsState) {
             is NewsState.Loading -> setUpScreenForLoadingState()
             is NewsState.Success -> setUpScreenForSuccess(newsState.data)
-            is NewsState.Error -> setUpScreenForError(newsState.errorMessage)
+            is NewsState.Error -> setUpScreenForError(newsState.error)
         }
     }
 
     private fun setUpScreenForError(errorMessage: String?) {
         // Show the Error View and Hide the loading, Empty and Recycler Views
-        main_fragment_loading_indicator.visibility = View.GONE
-        main_fragment_recycler_view.visibility = View.GONE
-        main_fragment_empty_view.visibility = View.VISIBLE
-        errorMessage?.let { main_fragment_empty_view.text = it }
+        home_fragment_loading_indicator.visibility = View.GONE
+        home_fragment_recycler_view.visibility = View.GONE
+        home_fragment_empty_view.visibility = View.VISIBLE
+        errorMessage?.let { home_fragment_empty_view.text = it }
     }
 
     private fun setUpScreenForSuccess(data: List<News>?) {
         // Hide the Error View and the Progress View
-        main_fragment_empty_view.visibility = View.GONE
-        main_fragment_loading_indicator.visibility = View.GONE
-        if (data != null && data.isNotEmpty()) {
+        home_fragment_empty_view.visibility = View.GONE
+        home_fragment_loading_indicator.visibility = View.GONE
+
+        if (!data.isNullOrEmpty()) {
             newsAdapter.submitList(data)
             // Show the RecyclerView
-            main_fragment_recycler_view.visibility = View.VISIBLE
+            home_fragment_recycler_view.visibility = View.VISIBLE
         } else {
             // Show the Empty View
-            main_fragment_empty_view.visibility = View.VISIBLE
-            main_fragment_empty_view.text = "No Data was found 😑😑"
+            home_fragment_empty_view.visibility = View.VISIBLE
+            home_fragment_empty_view.text = "No Data was found 😑😑"
         }
     }
 
     private fun setUpScreenForLoadingState() {
         // Show the Progress View and hide the RecyclerView, EmptyView and LoadingView
-        main_fragment_loading_indicator.visibility = View.VISIBLE
-        main_fragment_recycler_view.visibility = View.GONE
-        main_fragment_empty_view.visibility = View.GONE
+        home_fragment_loading_indicator.visibility = View.VISIBLE
+        home_fragment_recycler_view.visibility = View.GONE
+        home_fragment_empty_view.visibility = View.GONE
     }
 
 }

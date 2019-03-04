@@ -18,7 +18,6 @@
 package com.edoubletech.newsfeed.ui.fragments
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +29,7 @@ import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.data.model.Category
 import com.edoubletech.newsfeed.ui.activities.CategoryActivity
 import com.edoubletech.newsfeed.ui.adapters.CategoryAdapter
+import com.edoubletech.newsfeed.utils.isInLandscapeMode
 import kotlinx.android.synthetic.main.fragment_category.*
 
 class CategoryFragment : Fragment() {
@@ -71,10 +71,10 @@ class CategoryFragment : Fragment() {
     private fun setUpRecyclerView() {
         val layoutManager = GridLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL)
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            layoutManager.spanCount = 3
+        layoutManager.spanCount = if (isInLandscapeMode) {
+            3
         } else {
-            layoutManager.spanCount = 2
+            2
         }
 
         category_recycler_view.apply {
