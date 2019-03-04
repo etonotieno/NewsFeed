@@ -49,5 +49,11 @@
     <string name="world_section">World News</string>
 
     <string name="seconds">%d seconds elapsed</string>
+    <string name="menu_home_string">Home</string>
+    <string name="menu_categories_string">Categories</string>
+    <string name="menu_bookmarked_string">Bookmarked</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
