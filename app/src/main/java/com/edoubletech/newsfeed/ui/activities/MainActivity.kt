@@ -26,10 +26,6 @@ import com.edoubletech.newsfeed.ui.fragments.CategoryFragment
 import com.edoubletech.newsfeed.ui.fragments.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-/**
- * @author EtonOtieno
- */
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var currentFragment: Fragment
