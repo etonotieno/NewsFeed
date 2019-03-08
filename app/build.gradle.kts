@@ -34,7 +34,7 @@ android {
         targetSdkVersion(28)
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         val secretsProperties = File("secrets.properties")
         if (secretsProperties.exists()) {
@@ -48,8 +48,9 @@ android {
         }
     }
     buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
+        getByName("debug") {
+            isShrinkResources = true
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
@@ -67,14 +68,13 @@ dependencies {
     implementation("org.koin:koin-android:1.0.2")
     implementation("org.koin:koin-androidx-scope:1.0.2")
     implementation("org.koin:koin-androidx-viewmodel:1.0.2")
-    implementation("androidx.core:core-ktx:1.1.0-alpha04")
     implementation("androidx.activity:activity-ktx:1.0.0-alpha04")
     implementation("androidx.fragment:fragment-ktx:1.1.0-alpha04")
     implementation("com.google.android.material:material:1.1.0-alpha04")
     implementation("androidx.recyclerview:recyclerview:1.1.0-alpha02")
     implementation("androidx.browser:browser:1.0.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.1.0-alpha02")
-    implementation("androidx.lifecycle:lifecycle-compiler:2.1.0-alpha02")
+    kapt("androidx.lifecycle:lifecycle-compiler:2.1.0-alpha02")
     implementation("androidx.paging:paging-runtime-ktx:2.1.0")
     implementation("androidx.room:room-runtime:2.1.0-alpha04")
     implementation("androidx.room:room-coroutines:2.1.0-alpha04")
