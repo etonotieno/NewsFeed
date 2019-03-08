@@ -1,26 +1,23 @@
 /*
- *   Copyright (C) 2018 Eton Otieno Oboch
+ *  Copyright (C) 2019 Eton Otieno
  *
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the License at
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ *       http://www.apache.org/licenses/LICENSE-2.0
  *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 
 package com.edoubletech.newsfeed.data
 
-import androidx.arch.core.util.Function
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.edoubletech.newsfeed.data.networking.Service
 import com.edoubletech.newsfeed.guardian.api.GuardianMain
 import com.edoubletech.newsfeed.guardian.api.mapToNews
@@ -40,9 +37,7 @@ class Repository(private val service: Service) {
 
     private lateinit var response: Response<GuardianMain>
 
-    fun getNews(): LiveData<NewsState> = categoryLiveData.switchMap(Function<String, LiveData<NewsState>> {
-        newsLiveData
-    })
+    fun getNews(): LiveData<NewsState> = newsLiveData
 
     suspend fun fetchNews() {
         response = service.getNewsAsync(category = categoryLiveData.value)
@@ -63,6 +58,3 @@ class Repository(private val service: Service) {
         categoryLiveData.value = category
     }
 }
-
-private fun <I, O> LiveData<I>.switchMap(function: Function<I, LiveData<O>>): LiveData<O> =
-        Transformations.switchMap(this, function)
