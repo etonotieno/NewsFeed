@@ -30,11 +30,11 @@ buildscript {
 
 allprojects {
     repositories {
-        maven {
-            url = java.net.URI("https://oss.sonatype.org/content/repositories/snapshots")
-        }
         google()
         jcenter()
+        maven {
+            url = uri("https://oss.sonatype.org/content/repositories/snapshots")
+        }
     }
 }
 
