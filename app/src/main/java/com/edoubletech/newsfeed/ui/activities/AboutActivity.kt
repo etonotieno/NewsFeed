@@ -34,10 +34,10 @@ class AboutActivity : AppCompatActivity() {
 
         attribution_text_view.setOnClickListener {
             val url = "http://open-platform.theguardian.com/"
-            val builder = CustomTabsIntent.Builder()
+            CustomTabsIntent.Builder()
                     .enableUrlBarHiding()
-            val customTabsIntent = builder.build()
-            customTabsIntent.launchUrl(this, Uri.parse(url))
+                    .build()
+                    .launchUrl(this, Uri.parse(url))
         }
     }
 

@@ -22,8 +22,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.edoubletech.newsfeed.data.networking.Service
-import com.edoubletech.newsfeed.guardian.GuardianMain
-import com.edoubletech.newsfeed.guardian.mapToNews
+import com.edoubletech.newsfeed.guardian.api.GuardianMain
+import com.edoubletech.newsfeed.guardian.api.mapToNews
 import com.edoubletech.newsfeed.ui.state.NewsState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
