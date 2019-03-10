@@ -24,7 +24,8 @@ import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.ui.fragments.BookmarkedFragment
 import com.edoubletech.newsfeed.ui.fragments.CategoryFragment
 import com.edoubletech.newsfeed.ui.fragments.HomeFragment
-import kotlinx.android.synthetic.main.activity_main.*
+import com.edoubletech.newsfeed.utils.bindView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,8 +34,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val mainNavView by bindView<BottomNavigationView>(R.id.main_nav_view)
 
-        main_nav_view.setOnNavigationItemSelectedListener {
+        mainNavView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> replaceFragment(HomeFragment())
                 R.id.menu_category -> replaceFragment(CategoryFragment())
@@ -44,11 +46,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Add a listener to prevent reselects from being treated as selects.
-        main_nav_view.setOnNavigationItemReselectedListener {}
+        mainNavView.setOnNavigationItemReselectedListener {}
 
         if (savedInstanceState == null) {
             // Show the Home page when the screen is opened
-            main_nav_view.selectedItemId = R.id.menu_home
+            mainNavView.selectedItemId = R.id.menu_home
         } else {
             // Find the current fragment
             currentFragment =

@@ -20,11 +20,12 @@ package com.edoubletech.newsfeed.ui.activities
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.NavUtils
 import com.edoubletech.newsfeed.R
-import kotlinx.android.synthetic.main.activity_about.*
+import com.edoubletech.newsfeed.utils.bindView
 
 class AboutActivity : AppCompatActivity() {
 
@@ -32,12 +33,14 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
 
-        attribution_text_view.setOnClickListener {
+        val attributionTextView by bindView<TextView>(R.id.attribution_text_view)
+        val intent = CustomTabsIntent.Builder()
+                .enableUrlBarHiding()
+                .build()
+
+        attributionTextView.setOnClickListener {
             val url = "http://open-platform.theguardian.com/"
-            CustomTabsIntent.Builder()
-                    .enableUrlBarHiding()
-                    .build()
-                    .launchUrl(this, Uri.parse(url))
+            intent.launchUrl(this, Uri.parse(url))
         }
     }
 

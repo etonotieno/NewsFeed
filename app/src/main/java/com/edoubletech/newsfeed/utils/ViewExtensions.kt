@@ -14,23 +14,22 @@
  *  limitations under the License.
  */
 
-package com.edoubletech.newsfeed.ui.fragments
+package com.edoubletech.newsfeed.utils
 
-import android.os.Bundle
-import android.view.LayoutInflater
+import android.app.Activity
 import android.view.View
-import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 
-import com.edoubletech.newsfeed.R
+fun <T> fastLazy(initializer: () -> T): Lazy<T> {
+    return lazy(LazyThreadSafetyMode.NONE, initializer)
+}
 
-class BookmarkedFragment : Fragment() {
+fun <ViewType : View> Activity.bindView(@IdRes viewId: Int): Lazy<ViewType> {
+    return fastLazy { findViewById<ViewType>(viewId) }
+}
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_bookmarked, container, false)
-
-
+// TODO: Convert to a safer way of accessing Views from a Fragment
+fun <ViewType : View> Fragment.bindView(@IdRes viewId: Int): Lazy<ViewType> {
+    return fastLazy { requireView().findViewById<ViewType>(viewId) }
 }

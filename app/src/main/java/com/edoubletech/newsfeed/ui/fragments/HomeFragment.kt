@@ -34,6 +34,7 @@ import com.edoubletech.newsfeed.ui.MainViewModel
 import com.edoubletech.newsfeed.ui.activities.DetailActivity
 import com.edoubletech.newsfeed.ui.adapters.NewsAdapter
 import com.edoubletech.newsfeed.ui.state.NewsState
+import com.edoubletech.newsfeed.utils.bindView
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class HomeFragment : Fragment() {
@@ -43,15 +44,9 @@ class HomeFragment : Fragment() {
         startActivity(intent)
     }
 
-    private val homeNewsRecyclerView by lazy(LazyThreadSafetyMode.NONE) {
-        requireView().findViewById<RecyclerView>(R.id.news_list_recycler_view)
-    }
-    private val homeEmptyView by lazy(LazyThreadSafetyMode.NONE) {
-        requireView().findViewById<TextView>(R.id.news_empty_view)
-    }
-    private val homeLoadingIndicator by lazy(LazyThreadSafetyMode.NONE) {
-        requireView().findViewById<ProgressBar>(R.id.news_empty_view)
-    }
+    private val homeNewsRecyclerView by bindView<RecyclerView>(R.id.news_list_recycler_view)
+    private val homeEmptyView by bindView<TextView>(R.id.news_empty_view)
+    private val homeLoadingIndicator by bindView<ProgressBar>(R.id.news_loading_indicator)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =

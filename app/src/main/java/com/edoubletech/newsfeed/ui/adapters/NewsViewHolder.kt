@@ -17,26 +17,30 @@
 package com.edoubletech.newsfeed.ui.adapters
 
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.guardian.model.News
 import com.edoubletech.newsfeed.utils.getPrettifiedTimeString
-import kotlinx.android.synthetic.main.news_item.view.*
 
 class NewsViewHolder(newsItemView: View) : RecyclerView.ViewHolder(newsItemView) {
 
     fun bind(news: News, onItemClick: (news: News) -> Unit) {
-        itemView.headline_text_view.text = news.title
-        itemView.section_text_view.text = news.sectionName
+        itemView.findViewById<TextView>(R.id.headline_text_view).text = news.title
+        itemView.findViewById<TextView>(R.id.section_text_view).text = news.sectionName
 
-        val dateString = news.publicationDate
-        itemView.time_text_view.text = dateString.getPrettifiedTimeString()
+        val date = news.publicationDate
+        itemView.findViewById<TextView>(R.id.time_text_view).text = date.getPrettifiedTimeString()
 
         val imageUrl = news.imageUrl
+        val articleImageView = itemView.findViewById<ImageView>(R.id.article_image_view)
+
         if (imageUrl == null) {
-            itemView.article_image_view.visibility = View.GONE
+            articleImageView.visibility = View.GONE
         } else {
-            Glide.with(itemView.context).load(imageUrl).into(itemView.article_image_view)
+            Glide.with(itemView.context).load(imageUrl).into(articleImageView)
         }
 
         itemView.setOnClickListener {

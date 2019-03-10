@@ -22,10 +22,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.ui.adapters.CategoriesPagerAdapter
+import com.edoubletech.newsfeed.utils.bindView
 
 class CategoryFragment : Fragment() {
+
+    private val viewPager by bindView<ViewPager>(R.id.categories_container)
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -35,6 +39,6 @@ class CategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val viewPagerAdapter = CategoriesPagerAdapter(requireFragmentManager())
-
+        viewPager.adapter = viewPagerAdapter
     }
 }
