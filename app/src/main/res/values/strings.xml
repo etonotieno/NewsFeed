@@ -49,5 +49,16 @@
     <string name="world_section">World News</string>
 
     <string name="seconds">%d seconds elapsed</string>
+    <string name="menu_home_string">Home</string>
+    <string name="menu_categories_string">Categories</string>
+    <string name="menu_bookmarked_string">Bookmarked</string>
+
+    <string name="news_category_content_desc">News Category Image</string>
+    <string name="title_activity_scroll">Scroll</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

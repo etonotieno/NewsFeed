@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/ic_menu_home"
+        android:orderInCategory="1"
+        android:title="@string/menu_home_string" />
+    <item
+        android:id="@+id/menu_category"
+        android:icon="@drawable/ic_menu_categories"
+        android:orderInCategory="2"
+        android:title="@string/menu_categories_string" />
+    <item
+        android:id="@+id/menu_bookmarked"
+        android:icon="@drawable/ic_menu_bookmarked"
+        android:orderInCategory="3"
+        android:title="@string/menu_bookmarked_string" />
+</menu>

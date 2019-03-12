@@ -21,7 +21,6 @@ import android.app.Application
 import com.edoubletech.newsfeed.injection.appModule
 import net.danlew.android.joda.JodaTimeAndroid
 import org.koin.android.ext.android.startKoin
-import timber.log.Timber
 
 /**
  * Created by EtonOtieno on 3/13/2018
@@ -33,9 +32,5 @@ class NewsFeed : Application() {
         super.onCreate()
         startKoin(this, listOf(appModule))
         JodaTimeAndroid.init(this)
-        
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
     }
 }

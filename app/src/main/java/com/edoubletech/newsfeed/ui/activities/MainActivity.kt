@@ -17,52 +17,58 @@
 
 package com.edoubletech.newsfeed.ui.activities
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.edoubletech.newsfeed.R
-import com.edoubletech.newsfeed.ui.adapters.SectionsPagerAdapter
+import com.edoubletech.newsfeed.ui.fragments.BookmarkedFragment
 import com.edoubletech.newsfeed.ui.fragments.CategoryFragment
 import com.edoubletech.newsfeed.ui.fragments.HomeFragment
-import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_main.*
-
-/**
- * @author EtonOtieno
- */
+import com.edoubletech.newsfeed.utils.bindView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var currentFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val adapter = SectionsPagerAdapter(supportFragmentManager)
-        adapter.addFragment(HomeFragment(), "Home")
-        adapter.addFragment(CategoryFragment(), "Categories")
-        view_pager.adapter = adapter
-        view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
-        tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view_pager))
+        val mainNavView by bindView<BottomNavigationView>(R.id.main_nav_view)
+
+        mainNavView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_home -> replaceFragment(HomeFragment())
+                R.id.menu_category -> replaceFragment(CategoryFragment())
+                R.id.menu_bookmarked -> replaceFragment(BookmarkedFragment())
+                else -> false
+            }
+        }
+
+        // Add a listener to prevent reselects from being treated as selects.
+        mainNavView.setOnNavigationItemReselectedListener {}
+
+        if (savedInstanceState == null) {
+            // Show the Home page when the screen is opened
+            mainNavView.selectedItemId = R.id.menu_home
+        } else {
+            // Find the current fragment
+            currentFragment =
+                    supportFragmentManager.findFragmentById(FRAGMENT_ID)
+                            ?: throw IllegalStateException("Activity recreated, but no fragment found!")
+        }
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main_menu, menu)
+    // Replace Fragment and return true after transaction
+    private fun replaceFragment(fragment: Fragment): Boolean {
+        currentFragment = fragment
+        supportFragmentManager.beginTransaction()
+                .replace(FRAGMENT_ID, fragment)
+                .commit()
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.about -> {
-                startActivity(Intent(this, AboutActivity::class.java))
-                return true
-            }
-            R.id.settings ->
-                //Do nothing for now
-                return true
-        }
-        return super.onOptionsItemSelected(item)
+    companion object {
+        private const val FRAGMENT_ID = R.id.fragment_container
     }
 }

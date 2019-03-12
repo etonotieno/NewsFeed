@@ -25,7 +25,7 @@ import androidx.fragment.app.FragmentPagerAdapter
  * Created by EtonOtieno on 3/7/2018
  */
 
-class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class CategoriesPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     private val fragmentsList = ArrayList<Fragment>()
     private val fragmentTitle = ArrayList<String>()
 

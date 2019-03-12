@@ -43,8 +43,7 @@
                 android:background="@drawable/scrim_gradient"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
-                tools:background="@drawable/placeholder_image"
-                tools:ignore="ContentDescription" />
+                tools:src="@tools:sample/backgrounds/scenic[6]" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"

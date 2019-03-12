@@ -18,7 +18,7 @@
 package com.edoubletech.newsfeed.data.networking
 
 import com.edoubletech.newsfeed.BuildConfig
-import com.edoubletech.newsfeed.guardian.GuardianMain
+import com.edoubletech.newsfeed.guardian.api.GuardianMain
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

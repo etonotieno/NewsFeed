@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018 Eton Otieno Oboch
+ *  Copyright (C) 2019 Eton Otieno
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -12,12 +12,25 @@
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
- *
  */
 
-package com.edoubletech.newsfeed.data.model
+package com.edoubletech.newsfeed.ui.fragments
 
-/**
- * This data class holds the data for each News category
- */
-data class Category(val name: String, val image: Int)
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+
+import com.edoubletech.newsfeed.R
+
+class BookmarkedFragment : Fragment() {
+
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_bookmarked, container, false)
+
+
+}

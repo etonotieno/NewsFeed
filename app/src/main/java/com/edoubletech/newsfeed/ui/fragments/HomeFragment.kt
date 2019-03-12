@@ -22,6 +22,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,7 +34,7 @@ import com.edoubletech.newsfeed.ui.MainViewModel
 import com.edoubletech.newsfeed.ui.activities.DetailActivity
 import com.edoubletech.newsfeed.ui.adapters.NewsAdapter
 import com.edoubletech.newsfeed.ui.state.NewsState
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.edoubletech.newsfeed.utils.bindView
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class HomeFragment : Fragment() {
@@ -42,12 +44,16 @@ class HomeFragment : Fragment() {
         startActivity(intent)
     }
 
+    private val homeNewsRecyclerView by bindView<RecyclerView>(R.id.news_list_recycler_view)
+    private val homeEmptyView by bindView<TextView>(R.id.news_empty_view)
+    private val homeLoadingIndicator by bindView<ProgressBar>(R.id.news_loading_indicator)
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_home, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        home_fragment_recycler_view.apply {
+        homeNewsRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             setHasFixedSize(true)
             adapter = newsAdapter
@@ -71,33 +77,33 @@ class HomeFragment : Fragment() {
 
     private fun setUpScreenForError(errorMessage: String?) {
         // Show the Error View and Hide the loading, Empty and Recycler Views
-        home_fragment_loading_indicator.visibility = View.GONE
-        home_fragment_recycler_view.visibility = View.GONE
-        home_fragment_empty_view.visibility = View.VISIBLE
-        errorMessage?.let { home_fragment_empty_view.text = it }
+        homeLoadingIndicator.visibility = View.GONE
+        homeNewsRecyclerView.visibility = View.GONE
+        homeEmptyView.visibility = View.VISIBLE
+        errorMessage?.let { homeEmptyView.text = it }
     }
 
     private fun setUpScreenForSuccess(data: List<News>?) {
         // Hide the Error View and the Progress View
-        home_fragment_empty_view.visibility = View.GONE
-        home_fragment_loading_indicator.visibility = View.GONE
+        homeEmptyView.visibility = View.GONE
+        homeLoadingIndicator.visibility = View.GONE
 
-        if (!data.isNullOrEmpty()) {
+        if (data.isNullOrEmpty()) {
+            // Show the Empty View
+            homeEmptyView.visibility = View.VISIBLE
+            homeEmptyView.text = "No Data was found 😑😑"
+        } else {
             newsAdapter.submitList(data)
             // Show the RecyclerView
-            home_fragment_recycler_view.visibility = View.VISIBLE
-        } else {
-            // Show the Empty View
-            home_fragment_empty_view.visibility = View.VISIBLE
-            home_fragment_empty_view.text = "No Data was found 😑😑"
+            homeNewsRecyclerView.visibility = View.VISIBLE
         }
     }
 
     private fun setUpScreenForLoadingState() {
         // Show the Progress View and hide the RecyclerView, EmptyView and LoadingView
-        home_fragment_loading_indicator.visibility = View.VISIBLE
-        home_fragment_recycler_view.visibility = View.GONE
-        home_fragment_empty_view.visibility = View.GONE
+        homeLoadingIndicator.visibility = View.VISIBLE
+        homeNewsRecyclerView.visibility = View.GONE
+        homeEmptyView.visibility = View.GONE
     }
 
 }

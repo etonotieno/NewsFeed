@@ -18,20 +18,21 @@
 package com.edoubletech.newsfeed.ui
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.edoubletech.newsfeed.data.Repository
-import com.edoubletech.newsfeed.ui.base.BaseViewModel
 import com.edoubletech.newsfeed.ui.state.NewsState
 import kotlinx.coroutines.launch
 
 /**
  * This is the MainViewModel that contains the data needed in the app.
  */
-class MainViewModel(private val repository: Repository) : BaseViewModel() {
+class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun setCategory(category: String) = repository.setCategory(category)
 
     fun fetchNews() {
-        uiScope.launch {
+        viewModelScope.launch {
             repository.fetchNews()
         }
     }

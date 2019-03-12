@@ -18,27 +18,18 @@
   -->
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Base.Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
     <!-- Theme of the DetailActivity -->
-    <style name="DetailTheme" parent="AppTheme.NoActionBar">
+    <style name="DetailTheme" parent="AppTheme">
         <item name="colorPrimary">@color/detailColorPrimary</item>
         <item name="colorPrimaryDark">@color/detailColorPrimaryDark</item>
         <item name="colorAccent">@color/accent</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
 </resources>
