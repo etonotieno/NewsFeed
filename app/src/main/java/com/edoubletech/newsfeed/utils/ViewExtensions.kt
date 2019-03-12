@@ -30,6 +30,6 @@ fun <ViewType : View> Activity.bindView(@IdRes viewId: Int): Lazy<ViewType> {
 }
 
 // TODO: Convert to a safer way of accessing Views from a Fragment
-fun <ViewType : View> Fragment.bindView(@IdRes viewId: Int): Lazy<ViewType> {
+fun <ViewType> Fragment.bindView(@IdRes viewId: Int): Lazy<ViewType> where ViewType : View {
     return fastLazy { requireView().findViewById<ViewType>(viewId) }
 }
