@@ -17,10 +17,9 @@
 package com.edoubletech.newsfeed.guardian.api
 
 import com.edoubletech.newsfeed.guardian.model.News
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class GuardianMain(@SerializedName("response") @Expose val response: GuardianResponse)
+class GuardianMain(@field:SerializedName("response") val response: GuardianResponse)
 
 fun GuardianMain.mapToNews(): List<News> {
     val results = this.response.results
