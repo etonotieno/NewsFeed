@@ -24,13 +24,12 @@ import com.edoubletech.newsfeed.ui.state.NewsState.*
  * There are 3 states:
  * [Loading], [Success] and [Error]
  */
-sealed class NewsState(resourceState: ResourceState, val data: List<News>? = null,
-                       val error: String? = null) {
-
+sealed class NewsState(
+    resourceState: ResourceState,
+    val data: List<News>? = null,
+    val error: String? = null
+) {
     object Loading : NewsState(ResourceState.LOADING)
-
-    data class Success(private val newsList: List<News>) : NewsState(ResourceState.SUCCESS,
-            newsList)
-
+    data class Success(private val newsList: List<News>) : NewsState(ResourceState.SUCCESS, newsList)
     data class Error(private val message: String) : NewsState(ResourceState.ERROR, error = message)
 }

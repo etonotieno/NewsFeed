@@ -32,9 +32,9 @@ class CategoryFragment : Fragment() {
     private val viewPager by bindView<ViewPager>(R.id.categories_container)
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_category, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

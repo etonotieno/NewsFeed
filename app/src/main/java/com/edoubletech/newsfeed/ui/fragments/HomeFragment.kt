@@ -48,9 +48,11 @@ class HomeFragment : Fragment() {
     private val homeEmptyView by bindView<TextView>(R.id.news_empty_view)
     private val homeLoadingIndicator by bindView<ProgressBar>(R.id.news_loading_indicator)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_home, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_home, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         homeNewsRecyclerView.apply {
@@ -105,5 +107,4 @@ class HomeFragment : Fragment() {
         homeNewsRecyclerView.visibility = View.GONE
         homeEmptyView.visibility = View.GONE
     }
-
 }

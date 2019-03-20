@@ -29,7 +29,7 @@ import com.edoubletech.newsfeed.guardian.model.News
  */
 
 class NewsAdapter(
-        private val onItemClick: (News) -> Unit
+    private val onItemClick: (News) -> Unit
 ) : ListAdapter<News, NewsViewHolder>(COMPARATOR) {
 
     companion object {

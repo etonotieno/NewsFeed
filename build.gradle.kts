@@ -24,7 +24,7 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:3.3.2")
         classpath(kotlin("gradle-plugin", version = "1.3.21"))
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.0.0-rc02")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.0.0")
     }
 }
 
@@ -36,6 +36,7 @@ allprojects {
             url = uri("https://oss.sonatype.org/content/repositories/snapshots")
         }
     }
+    apply(from = "$rootDir/ktlint.gradle")
 }
 
 tasks.register<Delete>("clean").configure {

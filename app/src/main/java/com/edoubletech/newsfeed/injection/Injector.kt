@@ -39,5 +39,3 @@ val appModule = module {
     single { Repository(get()) }
     viewModel { MainViewModel(get()) }
 }
-
-

@@ -27,10 +27,8 @@ import com.edoubletech.newsfeed.R
 class BookmarkedFragment : Fragment() {
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_bookmarked, container, false)
-
-
 }

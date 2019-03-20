@@ -47,5 +47,4 @@ class NewsViewHolder(newsItemView: View) : RecyclerView.ViewHolder(newsItemView)
             onItemClick(news)
         }
     }
-
 }
