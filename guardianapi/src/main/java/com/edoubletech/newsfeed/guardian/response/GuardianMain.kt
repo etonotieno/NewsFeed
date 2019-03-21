@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.edoubletech.newsfeed.guardian.api
+package com.edoubletech.newsfeed.guardian.response
 
 import com.edoubletech.newsfeed.guardian.model.News
 import com.google.gson.annotations.SerializedName

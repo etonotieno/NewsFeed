@@ -15,10 +15,9 @@
  *
  */
 
-package com.edoubletech.newsfeed.data.networking
+package com.edoubletech.newsfeed.guardian.data
 
-import com.edoubletech.newsfeed.BuildConfig
-import com.edoubletech.newsfeed.guardian.api.GuardianMain
+import com.edoubletech.newsfeed.guardian.response.GuardianMain
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -32,7 +31,7 @@ interface Service {
     @GET("search")
     suspend fun getNewsAsync(
         @Query("page-size") pageSize: String = "50",
-        @Query("api-key") apiKey: String = BuildConfig.GUARDIAN_API_KEY,
+        @Query("api-key") apiKey: String = "",
         @Query("section") category: String?,
         @Query("show-fields") fields: String = "all",
         @Query("format") format: String = "json"

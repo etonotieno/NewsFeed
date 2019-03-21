@@ -14,6 +14,9 @@
  *  limitations under the License.
  */
 
-package com.edoubletch.newsfeed
+package com.edoubletech.newsfeed.newsapi
 
-class Article
+interface NewsApiService {
+
+
+}

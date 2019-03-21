@@ -18,9 +18,9 @@ package com.edoubletech.newsfeed.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.edoubletech.newsfeed.data.networking.Service
-import com.edoubletech.newsfeed.guardian.api.GuardianMain
-import com.edoubletech.newsfeed.guardian.api.mapToNews
+import com.edoubletech.newsfeed.guardian.data.Service
+import com.edoubletech.newsfeed.guardian.response.GuardianMain
+import com.edoubletech.newsfeed.guardian.response.mapToNews
 import com.edoubletech.newsfeed.ui.state.NewsState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

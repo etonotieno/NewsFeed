@@ -18,7 +18,7 @@
 package com.edoubletech.newsfeed.injection
 
 import com.edoubletech.newsfeed.data.Repository
-import com.edoubletech.newsfeed.data.networking.Service
+import com.edoubletech.newsfeed.guardian.data.Service
 import com.edoubletech.newsfeed.ui.MainViewModel
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
