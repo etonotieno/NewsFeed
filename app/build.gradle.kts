@@ -76,9 +76,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.1.0-alpha03")
     kapt("androidx.lifecycle:lifecycle-compiler:2.1.0-alpha03")
     implementation("androidx.paging:paging-runtime-ktx:2.1.0")
-    implementation("androidx.room:room-runtime:2.1.0-alpha04")
-    implementation("androidx.room:room-coroutines:2.1.0-alpha04")
-    kapt("androidx.room:room-compiler:2.1.0-alpha04")
+    implementation("androidx.room:room-runtime:2.1.0-alpha05")
+    implementation("androidx.room:room-ktx:2.1.0-alpha05")
+    kapt("androidx.room:room-compiler:2.1.0-alpha05")
     implementation("android.arch.work:work-runtime-ktx:1.0.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.0.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.0.0")
@@ -89,4 +89,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.5.1-SNAPSHOT")
     implementation("com.squareup.okhttp3:logging-interceptor:3.13.1")
     implementation("net.danlew:android.joda:2.9.9.3")
+    testImplementation("androidx.room:room-testing:2.1.0-alpha05")
 }
