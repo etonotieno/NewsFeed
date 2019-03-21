@@ -18,7 +18,8 @@ package com.edoubletech.newsfeed.utils
 
 import org.joda.time.DateTimeZone
 import org.joda.time.format.ISODateTimeFormat
-import java.util.*
+import java.util.Calendar
+import java.util.TimeZone
 
 /**
  * This extension function gets the time difference between the date passed as its parameter and the

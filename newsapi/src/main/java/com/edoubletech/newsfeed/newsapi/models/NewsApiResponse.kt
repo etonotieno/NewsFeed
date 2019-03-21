@@ -19,20 +19,20 @@ package com.edoubletech.newsfeed.newsapi.models
 import com.google.gson.annotations.SerializedName
 
 data class NewsApiResponse(
-        @field:SerializedName("articles") val articles: List<NewsApiArticle>
+    @field:SerializedName("articles") val articles: List<NewsApiArticle>
 )
 
 data class NewsApiArticle(
-        @field:SerializedName("source") val source: NewsApiSource,
-        @field:SerializedName("author") val author: String,
-        @field:SerializedName("title") val title: String,
-        @field:SerializedName("description") val description: String,
-        @field:SerializedName("url") val url: String,
-        @field:SerializedName("urlToImage") val imageUrl: String,
-        @field:SerializedName("publishedAt") val publicationTime: String
+    @field:SerializedName("source") val source: NewsApiSource,
+    @field:SerializedName("author") val author: String,
+    @field:SerializedName("title") val title: String,
+    @field:SerializedName("description") val description: String,
+    @field:SerializedName("url") val url: String,
+    @field:SerializedName("urlToImage") val imageUrl: String,
+    @field:SerializedName("publishedAt") val publicationTime: String
 )
 
 data class NewsApiSource(
-        @field:SerializedName("id") val id: String,
-        @field:SerializedName("name") val name: String
+    @field:SerializedName("id") val id: String,
+    @field:SerializedName("name") val name: String
 )

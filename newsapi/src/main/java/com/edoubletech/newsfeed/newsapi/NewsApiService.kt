@@ -16,7 +16,4 @@
 
 package com.edoubletech.newsfeed.newsapi
 
-interface NewsApiService {
-
-
-}
+interface NewsApiService

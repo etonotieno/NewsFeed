@@ -17,7 +17,9 @@
 package com.edoubletech.newsfeed.ui.state
 
 import com.edoubletech.newsfeed.guardian.model.News
-import com.edoubletech.newsfeed.ui.state.NewsState.*
+import com.edoubletech.newsfeed.ui.state.NewsState.Error
+import com.edoubletech.newsfeed.ui.state.NewsState.Loading
+import com.edoubletech.newsfeed.ui.state.NewsState.Success
 
 /**
  * This class holds the View state for the app using a sealed class.
