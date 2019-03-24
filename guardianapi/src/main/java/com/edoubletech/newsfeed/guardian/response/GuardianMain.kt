@@ -16,24 +16,26 @@
 
 package com.edoubletech.newsfeed.guardian.response
 
-import com.edoubletech.newsfeed.guardian.model.News
+import com.edoubletech.newsfeed.data.model.News
 import com.google.gson.annotations.SerializedName
 
 class GuardianMain(@field:SerializedName("response") val response: GuardianResponse)
 
 fun GuardianMain.mapToNews(): List<News> {
     val results = this.response.results
-    val articles = ArrayList<News>()
+    val articles = mutableListOf<News>()
     results.forEach {
-        articles.add(News(
-                it.id,
-                it.fields.thumbnail, /* Thumbnail for the news */
-                it.webUrl, /* Website url*/
-                it.sectionName, /* Section name*/
-                it.webTitle, /* Web Title of Article*/
-                it.fields.trailText, /* Trail Text*/
-                it.fields.bodyText, /* Description */
-                it.webPublicationDate)) /* Publication Date*/
+        articles.add(
+            News(
+                id = it.id,
+                imageUrl = it.fields.thumbnail,
+                webUrl = it.webUrl,
+                sectionName = it.sectionName,
+                title = it.webTitle,
+                bodyText = it.fields.bodyText,
+                publicationDate = it.webPublicationDate
+            )
+        )
     }
     return articles
 }

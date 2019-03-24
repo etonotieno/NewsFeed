@@ -14,8 +14,9 @@
  *  limitations under the License.
  */
 
-package com.edoubletech.newsfeed.newsapi.models
+package com.edoubletech.newsfeed.newsapi.response
 
+import com.edoubletech.newsfeed.data.model.News
 import com.google.gson.annotations.SerializedName
 
 data class NewsApiResponse(
@@ -36,3 +37,23 @@ data class NewsApiSource(
     @field:SerializedName("id") val id: String,
     @field:SerializedName("name") val name: String
 )
+
+fun NewsApiResponse.mapToNews(): List<News> {
+    val newsArticles = this.articles
+    val articles = mutableListOf<News>()
+    for (article in newsArticles) {
+        articles.add(
+            News(
+                id = "id ${article.url}",
+                imageUrl = article.imageUrl,
+                webUrl = article.url,
+                // TODO: Figure out how to represent the section name in the News API
+                sectionName = article.source.name,
+                title = article.title,
+                bodyText = article.description,
+                publicationDate = article.publicationTime
+            )
+        )
+    }
+    return articles
+}

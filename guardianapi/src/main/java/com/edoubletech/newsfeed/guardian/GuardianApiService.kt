@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018 Eton Otieno Oboch
+ *  Copyright (C) 2019 Eton Otieno
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -12,13 +12,11 @@
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
- *
  */
 
-package com.edoubletech.newsfeed.guardian.data
+package com.edoubletech.newsfeed.guardian
 
 import com.edoubletech.newsfeed.guardian.response.GuardianMain
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -29,23 +27,23 @@ import retrofit2.http.Query
  * Created by EtonOtieno on 3/2/2018
  */
 
-interface GuardianApiNewsService {
+interface GuardianApiService {
 
     @GET("search")
-    suspend fun getNewsAsync(
+    suspend fun getNewsResponse(
         @Query("page-size") pageSize: String = "50",
         @Query("api-key") apiKey: String = "",
         @Query("section") category: String?,
         @Query("show-fields") fields: String = "all",
         @Query("format") format: String = "json"
-    ): Response<GuardianMain>
+    ): GuardianMain
 
     companion object {
-        operator fun invoke(): GuardianApiNewsService {
+        operator fun invoke(): GuardianApiService {
             val retrofit = Retrofit.Builder()
-                    .baseUrl(GUARDIAN_BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
+                .baseUrl(GUARDIAN_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
             return retrofit.create()
         }
     }

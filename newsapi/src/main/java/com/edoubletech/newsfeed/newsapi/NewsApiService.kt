@@ -16,8 +16,7 @@
 
 package com.edoubletech.newsfeed.newsapi
 
-import com.edoubletech.newsfeed.newsapi.models.NewsApiResponse
-import retrofit2.Response
+import com.edoubletech.newsfeed.newsapi.response.NewsApiResponse
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -26,11 +25,12 @@ import retrofit2.http.Query
 
 interface NewsApiService {
 
+    //TODO: Figure out how to pass these values
     @GET("everything")
     suspend fun getNews(
-        @Query("sources") source: String,
-        @Query("language") language: String
-    ): Response<NewsApiResponse>
+        @Query("sources") source: String = "techcrunch",
+        @Query("language") language: String = "en"
+    ): NewsApiResponse
 
     companion object {
         operator fun invoke(): NewsApiService {

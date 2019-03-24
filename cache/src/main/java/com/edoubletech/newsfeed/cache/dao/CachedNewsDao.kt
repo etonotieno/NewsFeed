@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018 Eton Otieno Oboch
+ *  Copyright (C) 2019 Eton Otieno
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -12,19 +12,26 @@
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
- *
  */
 
-package com.edoubletech.newsfeed.injection
+package com.edoubletech.newsfeed.cache.dao
 
-import com.edoubletech.newsfeed.data.Repository
-import com.edoubletech.newsfeed.guardian.data.GuardianApiNewsService
-import com.edoubletech.newsfeed.ui.MainViewModel
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.edoubletech.newsfeed.cache.model.NewsDbModel
 
-val appModule = module {
-    single { GuardianApiNewsService() }
-    single { Repository(get()) }
-    viewModel { MainViewModel(get()) }
+@Dao
+interface CachedNewsDao {
+
+    @Query("SELECT * FROM news_table")
+    fun getListOfNews(): List<NewsDbModel>
+
+    @Query("DELETE FROM news_table")
+    fun clearListOfNews()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertNews(news: List<NewsDbModel>)
+
 }

@@ -14,13 +14,17 @@
  *  limitations under the License.
  */
 
-package com.edoubletech.newsfeed.data.repository
+package com.edoubletech.newsfeed.cache.model
 
-import com.edoubletech.newsfeed.data.model.News
+import androidx.room.Entity
 
-interface NewsRepository {
-
-    suspend fun getNews(): List<News>
-
-    fun saveListOfNews(news: List<News>)
-}
+@Entity(tableName = "news_table")
+data class NewsDbModel(
+    val id: String,
+    val imageUrl: String?,
+    val webUrl: String,
+    val sectionName: String,
+    val title: String,
+    val bodyText: String,
+    val publicationDate: String
+)

@@ -16,19 +16,22 @@
 
 package com.edoubletech.newsfeed.data.data
 
-open class NewsDataStoreFactory(
+class NewsDataStoreFactory(
     private val newsCacheDataStore: NewsDataStore,
-    private val newsRemoteDataStore: NewsDataStore
+    private val guardianApiDataStore: NewsDataStore,
+    private val newsApiDataStore: NewsDataStore
 ) {
 
-    open fun getDataStore(isCached: Boolean): NewsDataStore {
+    fun getDataStore(isCached: Boolean): NewsDataStore {
         if (isCached) {
             return getCacheDataStore()
         }
-        return getRemoteDataStore()
+        return getGuardianApiDataStore()
     }
 
-    open fun getCacheDataStore(): NewsDataStore = newsCacheDataStore
+    fun getCacheDataStore(): NewsDataStore = newsCacheDataStore
 
-    open fun getRemoteDataStore(): NewsDataStore = newsRemoteDataStore
+    fun getGuardianApiDataStore(): NewsDataStore = guardianApiDataStore
+
+    fun getNewsApiDataStore(): NewsDataStore = newsApiDataStore
 }

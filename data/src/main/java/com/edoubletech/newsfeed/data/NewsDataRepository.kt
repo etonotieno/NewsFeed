@@ -19,15 +19,19 @@ package com.edoubletech.newsfeed.data
 import com.edoubletech.newsfeed.data.data.NewsDataStoreFactory
 import com.edoubletech.newsfeed.data.model.News
 import com.edoubletech.newsfeed.data.repository.NewsRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-open class NewsDataRepository(private val factory: NewsDataStoreFactory) : NewsRepository {
+class NewsDataRepository(private val factory: NewsDataStoreFactory) : NewsRepository {
 
     // TODO: Handle getting news from either cache or remote
-    override fun getNews(): List<News> {
-        val isCached = factory.getCacheDataStore().isCached()
-        val news = factory.getDataStore(isCached).getObservableNews()
-        saveListOfNews(news)
-        return news
+    override suspend fun getNews(): List<News> {
+        return withContext(Dispatchers.IO) {
+            val isCached = factory.getCacheDataStore().isCached()
+            val news = factory.getDataStore(isCached).getObservableNews()
+            saveListOfNews(news)
+            news
+        }
     }
 
     override fun saveListOfNews(news: List<News>) {

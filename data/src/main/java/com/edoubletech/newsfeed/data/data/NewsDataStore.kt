@@ -24,9 +24,16 @@ import com.edoubletech.newsfeed.data.model.News
 interface NewsDataStore {
 
     // TODO: Change to LiveData
-    fun getObservableNews(): List<News>
+    suspend fun getObservableNews(): List<News>
 
     fun saveNews(news: List<News>)
 
     fun isCached(): Boolean
+
+    fun clearListOfNews()
+
+    fun setLastCacheTime(lastCache: Long)
+
+    fun isExpired(): Boolean
+
 }

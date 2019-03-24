@@ -22,7 +22,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.edoubletech.newsfeed.R
-import com.edoubletech.newsfeed.guardian.model.News
+import com.edoubletech.newsfeed.data.model.News
 
 /**
  * Created by EtonOtieno on 2/15/2018
@@ -46,7 +46,7 @@ class NewsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.news_item, parent, false)
+            .inflate(R.layout.news_item, parent, false)
         return NewsViewHolder(view)
     }
 

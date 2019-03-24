@@ -22,7 +22,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.edoubletech.newsfeed.R
-import com.edoubletech.newsfeed.guardian.model.News
+import com.edoubletech.newsfeed.data.model.News
 import com.edoubletech.newsfeed.utils.getFormattedTimeString
 
 class NewsViewHolder(newsItemView: View) : RecyclerView.ViewHolder(newsItemView) {

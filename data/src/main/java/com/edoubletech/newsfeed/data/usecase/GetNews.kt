@@ -21,7 +21,7 @@ import com.edoubletech.newsfeed.data.repository.NewsRepository
 
 open class GetNews(private val newsRepository: NewsRepository) {
 
-    open fun execute(): List<News> {
+    open suspend fun execute(): List<News> {
         return newsRepository.getNews()
     }
 }
