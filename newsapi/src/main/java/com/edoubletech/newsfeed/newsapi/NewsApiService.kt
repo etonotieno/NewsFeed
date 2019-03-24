@@ -16,4 +16,31 @@
 
 package com.edoubletech.newsfeed.newsapi
 
-interface NewsApiService
+import com.edoubletech.newsfeed.newsapi.models.NewsApiResponse
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+interface NewsApiService {
+
+    @GET("everything")
+    suspend fun getNews(
+        @Query("sources") source: String,
+        @Query("language") language: String
+    ): Response<NewsApiResponse>
+
+    companion object {
+        operator fun invoke(): NewsApiService {
+            val retrofit = Retrofit.Builder()
+                .baseUrl(NEWS_API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+            return retrofit.create()
+        }
+    }
+}
+
+private const val NEWS_API_BASE_URL = "https://newsapi.org/v2/"

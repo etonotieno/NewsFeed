@@ -1,1 +1,1 @@
-include(":app", ":guardianapi", ":newsapi")
+include(":app", ":guardianapi", ":newsapi", ":data")
