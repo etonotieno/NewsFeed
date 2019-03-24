@@ -18,7 +18,7 @@ package com.edoubletech.newsfeed.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.edoubletech.newsfeed.guardian.data.Service
+import com.edoubletech.newsfeed.guardian.data.GuardianApiNewsService
 import com.edoubletech.newsfeed.guardian.response.GuardianMain
 import com.edoubletech.newsfeed.guardian.response.mapToNews
 import com.edoubletech.newsfeed.ui.state.NewsState
@@ -30,7 +30,7 @@ import retrofit2.Response
  * This class handles all the data loading logic needed for the app and does it with the use of
  * coroutines.
  */
-class Repository(private val service: Service) {
+class Repository(private val service: GuardianApiNewsService) {
 
     private val newsLiveData = MutableLiveData<NewsState>()
     private val categoryLiveData = MutableLiveData<String>()

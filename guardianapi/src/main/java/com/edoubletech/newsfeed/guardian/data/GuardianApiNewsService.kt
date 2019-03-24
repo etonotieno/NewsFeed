@@ -19,6 +19,9 @@ package com.edoubletech.newsfeed.guardian.data
 
 import com.edoubletech.newsfeed.guardian.response.GuardianMain
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -26,7 +29,7 @@ import retrofit2.http.Query
  * Created by EtonOtieno on 3/2/2018
  */
 
-interface Service {
+interface GuardianApiNewsService {
 
     @GET("search")
     suspend fun getNewsAsync(
@@ -36,4 +39,16 @@ interface Service {
         @Query("show-fields") fields: String = "all",
         @Query("format") format: String = "json"
     ): Response<GuardianMain>
+
+    companion object {
+        operator fun invoke(): GuardianApiNewsService {
+            val retrofit = Retrofit.Builder()
+                    .baseUrl(GUARDIAN_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            return retrofit.create()
+        }
+    }
 }
+
+private const val GUARDIAN_BASE_URL = "https://content.guardianapis.com/"

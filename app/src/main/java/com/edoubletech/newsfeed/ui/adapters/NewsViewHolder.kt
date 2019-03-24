@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.edoubletech.newsfeed.R
 import com.edoubletech.newsfeed.guardian.model.News
-import com.edoubletech.newsfeed.utils.getPrettifiedTimeString
+import com.edoubletech.newsfeed.utils.getFormattedTimeString
 
 class NewsViewHolder(newsItemView: View) : RecyclerView.ViewHolder(newsItemView) {
 
@@ -32,7 +32,7 @@ class NewsViewHolder(newsItemView: View) : RecyclerView.ViewHolder(newsItemView)
         itemView.findViewById<TextView>(R.id.section_text_view).text = news.sectionName
 
         val date = news.publicationDate
-        itemView.findViewById<TextView>(R.id.time_text_view).text = date.getPrettifiedTimeString()
+        itemView.findViewById<TextView>(R.id.time_text_view).text = date.getFormattedTimeString()
 
         val imageUrl = news.imageUrl
         val articleImageView = itemView.findViewById<ImageView>(R.id.article_image_view)

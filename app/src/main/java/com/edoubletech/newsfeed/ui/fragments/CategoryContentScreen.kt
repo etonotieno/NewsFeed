@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018 Eton Otieno Oboch
+ *  Copyright (C) 2019 Eton Otieno
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -12,7 +12,6 @@
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
- *
  */
 
 package com.edoubletech.newsfeed.ui.fragments
@@ -22,17 +21,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
 import com.edoubletech.newsfeed.R
-import com.edoubletech.newsfeed.utils.bindView
 
-class CategoryFragment : Fragment() {
-
-    private val viewPager by bindView<ViewPager>(R.id.categories_container)
+class CategoryContentScreen : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_category, container, false)
+    ): View? = inflater.inflate(R.layout.category_content_screen, container, false)
+
+    companion object {
+        const val CATEGORY = ""
+    }
 }

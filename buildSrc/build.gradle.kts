@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018 Eton Otieno Oboch
+ *  Copyright (C) 2019 Eton Otieno
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -12,19 +12,9 @@
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
- *
  */
 
-package com.edoubletech.newsfeed.injection
-
-import com.edoubletech.newsfeed.data.Repository
-import com.edoubletech.newsfeed.guardian.data.GuardianApiNewsService
-import com.edoubletech.newsfeed.ui.MainViewModel
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
-
-val appModule = module {
-    single { GuardianApiNewsService() }
-    single { Repository(get()) }
-    viewModel { MainViewModel(get()) }
+plugins {
+    `kotlin-dsl`
 }
+

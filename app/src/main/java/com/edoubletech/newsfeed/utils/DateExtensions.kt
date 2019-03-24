@@ -44,18 +44,17 @@ private fun String.getTimeDifferenceInSeconds(): Long {
  * This extension function creates a String variable according to the time in seconds passed as a parameter.
  * For example, if 1 was used then the method would return "1 second ago" . If 2 was used, it
  * would return "2 seconds ago".
- *
- * @return The prettified time string
  */
-fun String.getPrettifiedTimeString(): String {
-    val timeDifference = this.getTimeDifferenceInSeconds()
+fun String.getFormattedTimeString(): String {
+    val timeDifference = getTimeDifferenceInSeconds()
     val timeStrings = arrayOf("minute", "hour", "day", "week")
     val timePassed = arrayOf(60, 3600, 86400, 604800)
     var prettifiedTime = if (timeDifference <= 1) "$timeDifference second ago" else "$timeDifference seconds ago"
     timePassed.forEachIndexed { index, _ ->
         val calc = timeDifference / timePassed[index]
         if (timeDifference >= timePassed[index]) {
-            prettifiedTime = if (calc > 1) calc.toString() + " " + timeStrings[index] + "s ago" else calc.toString() + " " + timeStrings[index] + " ago"
+            prettifiedTime =
+                if (calc > 1) calc.toString() + " " + timeStrings[index] + "s ago" else calc.toString() + " " + timeStrings[index] + " ago"
         }
     }
     return prettifiedTime
