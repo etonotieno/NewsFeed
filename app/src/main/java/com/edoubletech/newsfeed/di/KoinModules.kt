@@ -53,5 +53,4 @@ val appModule = module(override = true) {
     factory { GetNews(get()) }
     single { GuardianApiService() }
     viewModel { MainViewModel(get()) }
-
 }

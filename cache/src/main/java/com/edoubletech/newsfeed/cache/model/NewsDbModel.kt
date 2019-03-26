@@ -17,9 +17,11 @@
 package com.edoubletech.newsfeed.cache.model
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "news_table")
 data class NewsDbModel(
+    @PrimaryKey
     val id: String,
     val imageUrl: String,
     val webUrl: String,

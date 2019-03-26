@@ -24,4 +24,8 @@ open class GetNews(private val newsRepository: NewsRepository) {
     open suspend fun execute(): List<News> {
         return newsRepository.getNews()
     }
+
+    fun setCategory(category: String) {
+        //TODO: Actually do something with the category we passed
+    }
 }

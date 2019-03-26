@@ -35,5 +35,4 @@ interface NewsDataStore {
     fun setLastCacheTime(lastCache: Long)
 
     fun isExpired(): Boolean
-
 }

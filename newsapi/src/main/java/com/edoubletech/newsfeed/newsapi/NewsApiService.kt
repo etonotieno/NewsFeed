@@ -25,7 +25,7 @@ import retrofit2.http.Query
 
 interface NewsApiService {
 
-    //TODO: Figure out how to pass these values
+    // TODO: Figure out how to pass these values
     @GET("everything")
     suspend fun getNews(
         @Query("sources") source: String = "techcrunch",

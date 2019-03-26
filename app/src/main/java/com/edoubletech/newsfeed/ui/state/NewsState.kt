@@ -16,7 +16,7 @@
 
 package com.edoubletech.newsfeed.ui.state
 
-import com.edoubletech.newsfeed.guardian.model.News
+import com.edoubletech.newsfeed.data.model.News
 import com.edoubletech.newsfeed.ui.state.NewsState.Error
 import com.edoubletech.newsfeed.ui.state.NewsState.Loading
 import com.edoubletech.newsfeed.ui.state.NewsState.Success

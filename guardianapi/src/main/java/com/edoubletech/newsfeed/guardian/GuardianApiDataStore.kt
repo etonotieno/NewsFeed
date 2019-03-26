@@ -23,15 +23,15 @@ import com.edoubletech.newsfeed.guardian.response.mapToNews
 class GuardianApiDataStore(private val guardianService: GuardianApiService) : NewsDataStore {
 
     override fun clearListOfNews() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun setLastCacheTime(lastCache: Long) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun isExpired(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     // TODO: Figure out mechanism to pass news category here
@@ -41,11 +41,10 @@ class GuardianApiDataStore(private val guardianService: GuardianApiService) : Ne
     }
 
     override fun saveNews(news: List<News>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun isCached(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
-
 }

@@ -62,7 +62,6 @@ class NewsCacheDataStore(
 
     override fun isCached(): Boolean = newsDatabase.cachedNewsDao().getListOfNews().isNotEmpty()
 
-
     override fun setLastCacheTime(lastCache: Long) {
         preferencesHelper.lastCacheTime = lastCache
     }
@@ -76,5 +75,4 @@ class NewsCacheDataStore(
     private fun getLastCacheUpdateTimeMillis(): Long {
         return preferencesHelper.lastCacheTime
     }
-
 }

@@ -33,5 +33,4 @@ interface CachedNewsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNews(news: List<NewsDbModel>)
-
 }

@@ -21,7 +21,7 @@ import androidx.room.RoomDatabase
 import com.edoubletech.newsfeed.cache.dao.CachedNewsDao
 import com.edoubletech.newsfeed.cache.model.NewsDbModel
 
-@Database(entities = [NewsDbModel::class], version = 1)
+@Database(entities = [NewsDbModel::class], version = 1, exportSchema = false)
 abstract class NewsDatabase : RoomDatabase() {
 
     abstract fun cachedNewsDao(): CachedNewsDao
