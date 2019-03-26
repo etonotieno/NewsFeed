@@ -37,11 +37,7 @@ class NewsViewHolder(newsItemView: View) : RecyclerView.ViewHolder(newsItemView)
         val imageUrl = news.imageUrl
         val articleImageView = itemView.findViewById<ImageView>(R.id.article_image_view)
 
-        if (imageUrl == null) {
-            articleImageView.visibility = View.GONE
-        } else {
-            Glide.with(itemView.context).load(imageUrl).into(articleImageView)
-        }
+        Glide.with(itemView.context).load(imageUrl).into(articleImageView)
 
         itemView.setOnClickListener {
             onItemClick(news)

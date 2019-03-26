@@ -21,7 +21,7 @@ import androidx.room.Entity
 @Entity(tableName = "news_table")
 data class NewsDbModel(
     val id: String,
-    val imageUrl: String?,
+    val imageUrl: String,
     val webUrl: String,
     val sectionName: String,
     val title: String,
