@@ -58,6 +58,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
         sourceCompatibility = JavaVersion.VERSION_1_8
     }
+    // This is a fix for Coroutines 1.2.0-alpha
+	packagingOptions {
+        exclude("META-INF/atomicfu.kotlin_module")
+	}
 }
 
 dependencies {
@@ -65,8 +69,8 @@ dependencies {
     implementation(project(":newsapi"))
     implementation(project(":cache"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.21")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.0-alpha")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.0-alpha")
     implementation("org.koin:koin-android:1.0.2")
     implementation("org.koin:koin-androidx-scope:1.0.2")
     implementation("org.koin:koin-androidx-viewmodel:1.0.2")
@@ -78,9 +82,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.1.0-alpha03")
     kapt("androidx.lifecycle:lifecycle-compiler:2.1.0-alpha03")
     implementation("androidx.paging:paging-runtime-ktx:2.1.0")
-    implementation("androidx.room:room-runtime:2.1.0-alpha05")
-    implementation("androidx.room:room-ktx:2.1.0-alpha05")
-    kapt("androidx.room:room-compiler:2.1.0-alpha05")
+    implementation("androidx.room:room-runtime:2.1.0-alpha06")
+    implementation("androidx.room:room-ktx:2.1.0-alpha06")
+    kapt("androidx.room:room-compiler:2.1.0-alpha06")
     implementation("android.arch.work:work-runtime-ktx:1.0.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.0.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.0.0")
@@ -91,5 +95,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.5.1-SNAPSHOT")
     implementation("com.squareup.okhttp3:logging-interceptor:3.13.1")
     implementation("net.danlew:android.joda:2.9.9.3")
-    testImplementation("androidx.room:room-testing:2.1.0-alpha05")
+    testImplementation("androidx.room:room-testing:2.1.0-alpha06")
 }

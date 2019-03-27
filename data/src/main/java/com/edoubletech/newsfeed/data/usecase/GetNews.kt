@@ -26,6 +26,6 @@ open class GetNews(private val newsRepository: NewsRepository) {
     }
 
     fun setCategory(category: String) {
-        //TODO: Actually do something with the category we passed
+        // TODO: Actually do something with the category we passed
     }
 }

@@ -35,11 +35,12 @@ allprojects {
         jcenter()
         mavenCentral()
         maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots") }
+        // Fix for Room 2.1.0-alpha06
         maven { url = uri("https://kotlin.bintray.com/kotlinx/") }
     }
-    apply(from = "$rootDir/ktlint.gradle")
+    apply(from = "$rootDir/ktlint.gradle.kts")
 }
 
-tasks.register<Delete>("clean").configure {
+tasks.register<Delete>("clean") {
     delete(rootProject.buildDir)
 }
