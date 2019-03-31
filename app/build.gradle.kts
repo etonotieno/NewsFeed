@@ -29,7 +29,7 @@ android {
     compileSdkVersion(28)
     buildToolsVersion = "28.0.3"
     defaultConfig {
-        applicationId = "com.edoubletech.newsfeed"
+        applicationId = "io.devbits.newsfeed"
         minSdkVersion(16)
         targetSdkVersion(28)
         versionCode = 1
@@ -49,8 +49,8 @@ android {
     }
     buildTypes {
         getByName("debug") {
-            isShrinkResources = true
-            isMinifyEnabled = true
+            isShrinkResources = false
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
@@ -89,10 +89,11 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.0.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-alpha3")
+	implementation("androidx.viewpager2:viewpager2:1.0.0-alpha02")
     implementation("com.github.bumptech.glide:glide:4.9.0")
     kapt("com.github.bumptech.glide:compiler:4.9.0")
-    implementation("com.squareup.retrofit2:retrofit:2.5.1-SNAPSHOT")
-    implementation("com.squareup.retrofit2:converter-gson:2.5.1-SNAPSHOT")
+    implementation("com.squareup.retrofit2:retrofit:2.5.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.5.0")
     implementation("com.squareup.okhttp3:logging-interceptor:3.13.1")
     implementation("net.danlew:android.joda:2.9.9.3")
     testImplementation("androidx.room:room-testing:2.1.0-alpha06")
