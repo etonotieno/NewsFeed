@@ -20,12 +20,12 @@ package io.devbits.newsfeed.ui.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.edoubletech.newsfeed.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import io.devbits.newsfeed.R
 import io.devbits.newsfeed.ui.fragments.BookmarkedFragment
 import io.devbits.newsfeed.ui.fragments.CategoryFragment
 import io.devbits.newsfeed.ui.fragments.HomeFragment
 import io.devbits.newsfeed.utils.bindView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 

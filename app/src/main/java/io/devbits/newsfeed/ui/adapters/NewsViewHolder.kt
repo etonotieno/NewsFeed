@@ -21,7 +21,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.edoubletech.newsfeed.R
+import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.model.News
 import io.devbits.newsfeed.utils.getFormattedTimeString
 

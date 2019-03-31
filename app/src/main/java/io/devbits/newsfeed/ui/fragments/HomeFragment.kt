@@ -28,7 +28,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.edoubletech.newsfeed.R
+import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.model.News
 import io.devbits.newsfeed.ui.MainViewModel
 import io.devbits.newsfeed.ui.activities.DetailActivity

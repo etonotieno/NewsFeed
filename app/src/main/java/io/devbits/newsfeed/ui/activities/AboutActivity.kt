@@ -24,7 +24,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.NavUtils
-import com.edoubletech.newsfeed.R
+import io.devbits.newsfeed.R
 import io.devbits.newsfeed.utils.bindView
 
 class AboutActivity : AppCompatActivity() {

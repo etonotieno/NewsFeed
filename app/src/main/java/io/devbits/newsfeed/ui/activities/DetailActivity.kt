@@ -21,7 +21,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
-import com.edoubletech.newsfeed.R
+import io.devbits.newsfeed.R
 
 class DetailActivity : AppCompatActivity() {
 

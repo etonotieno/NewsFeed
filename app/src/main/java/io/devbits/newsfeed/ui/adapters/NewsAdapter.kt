@@ -21,7 +21,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.edoubletech.newsfeed.R
+import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.model.News
 
 /**
