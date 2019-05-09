@@ -20,12 +20,13 @@ import android.app.Application
 import io.devbits.newsfeed.di.appModule
 import net.danlew.android.joda.JodaTimeAndroid
 import org.koin.android.ext.android.startKoin
+import androidx.multidex.MultiDexApplication
 
 /**
  * Created by EtonOtieno on 3/13/2018
  */
 
-class NewsFeed : Application() {
+class NewsFeed : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

@@ -14,16 +14,11 @@
  *  limitations under the License.
  *
  */
-import java.io.FileInputStream
-import java.util.*
-
-plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-android-extensions")
-    id("kotlin-kapt")
-    id("androidx.navigation.safeargs.kotlin")
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion(28)
@@ -35,22 +30,12 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        val secretsProperties = File("secrets.properties")
-        if (secretsProperties.exists()) {
-            val secretsFile = rootProject.file("secrets.properties")
-            val secrets = Properties()
-            secrets.load(FileInputStream(secretsFile))
-
-            buildConfigField("String", "GUARDIAN_API_KEY", secrets.getProperty("GUARDIAN_API_KEY"))
-        } else {
-            buildConfigField("String", "GUARDIAN_API_KEY", "\"View the README to add your API Key\"")
-        }
+        multiDexEnabled = true
     }
     buildTypes {
-        getByName("debug") {
-            isShrinkResources = false
-            isMinifyEnabled = false
+        debug {
+            shrinkResources = false
+            minifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
@@ -58,43 +43,54 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
         sourceCompatibility = JavaVersion.VERSION_1_8
     }
-    // This is a fix for Coroutines 1.2.0-alpha
-	packagingOptions {
-        exclude("META-INF/atomicfu.kotlin_module")
-	}
+}
+
+android.applicationVariants.all { variant ->
+    def secretsProperties = new File("secrets.properties")
+    if (secretsProperties.exists()) {
+        def secretsFile = rootProject.file("secrets.properties")
+        def secrets = new Properties()
+        secrets.load(new FileInputStream(secretsFile))
+
+        buildConfigField("String", "GUARDIAN_API_KEY", secrets.getProperty("GUARDIAN_API_KEY"))
+    } else {
+        buildConfigField("String", "GUARDIAN_API_KEY", "\"View the README to add your API Key\"")
+    }
 }
 
 dependencies {
     implementation(project(":guardianapi"))
     implementation(project(":newsapi"))
     implementation(project(":cache"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.21")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.0-alpha")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.0-alpha")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.31")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1")
     implementation("org.koin:koin-android:1.0.2")
     implementation("org.koin:koin-androidx-scope:1.0.2")
     implementation("org.koin:koin-androidx-viewmodel:1.0.2")
-    implementation("androidx.activity:activity-ktx:1.0.0-alpha05")
-    implementation("androidx.fragment:fragment-ktx:1.1.0-alpha05")
+    implementation("androidx.activity:activity-ktx:1.0.0-alpha07")
+    implementation("androidx.fragment:fragment-ktx:1.1.0-alpha07")
     implementation("com.google.android.material:material:1.1.0-alpha04")
     implementation("androidx.recyclerview:recyclerview:1.1.0-alpha03")
     implementation("androidx.browser:browser:1.0.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.1.0-alpha03")
     kapt("androidx.lifecycle:lifecycle-compiler:2.1.0-alpha03")
     implementation("androidx.paging:paging-runtime-ktx:2.1.0")
-    implementation("androidx.room:room-runtime:2.1.0-alpha06")
-    implementation("androidx.room:room-ktx:2.1.0-alpha06")
-    kapt("androidx.room:room-compiler:2.1.0-alpha06")
-    implementation("android.arch.work:work-runtime-ktx:1.0.0")
+    implementation("androidx.room:room-runtime:2.1.0-alpha07")
+    implementation("androidx.room:room-ktx:2.1.0-alpha07")
+    kapt("androidx.room:room-compiler:2.1.0-alpha07")
+    implementation("androidx.work:work-runtime-ktx:2.1.0-alpha01")
     implementation("androidx.navigation:navigation-fragment-ktx:2.0.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-alpha3")
-	implementation("androidx.viewpager2:viewpager2:1.0.0-alpha02")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-alpha5")
+    implementation("androidx.viewpager2:viewpager2:1.0.0-alpha02")
     implementation("com.github.bumptech.glide:glide:4.9.0")
     kapt("com.github.bumptech.glide:compiler:4.9.0")
     implementation("com.squareup.retrofit2:retrofit:2.5.0")
     implementation("com.squareup.retrofit2:converter-gson:2.5.0")
     implementation("com.squareup.okhttp3:logging-interceptor:3.13.1")
     implementation("net.danlew:android.joda:2.9.9.3")
-    testImplementation("androidx.room:room-testing:2.1.0-alpha06")
+    implementation("com.android.support:multidex:1.0.3")
+    implementation("com.airbnb.android:mvrx:1.0.0")
+    testImplementation("androidx.room:room-testing:2.1.0-alpha07")
 }
