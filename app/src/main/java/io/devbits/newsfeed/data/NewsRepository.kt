@@ -14,14 +14,23 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.ui
+package io.devbits.newsfeed.data
 
-import androidx.lifecycle.ViewModel
-import io.devbits.newsfeed.data.NewsRepository
+import io.devbits.newsfeed.api.guardian.GuardianApiService
+import io.devbits.newsfeed.api.guardian.model.mapToNews
+import io.devbits.newsfeed.api.news.NewsApiService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-/**
- * This is the MainViewModel that contains the data needed in the app.
- */
-class MainViewModel(private val repository: NewsRepository) : ViewModel() {
+class NewsRepository(
+    private val guardianApiService: GuardianApiService,
+    private val newsApiService: NewsApiService
+) {
+
+    suspend fun getListOfNews() = withContext(Dispatchers.IO) {
+        guardianApiService.getNewsResponseAsync("technology")
+            .await()
+            .mapToNews()
+    }
 
 }

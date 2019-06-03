@@ -16,8 +16,15 @@
 
 package io.devbits.newsfeed.di
 
+import io.devbits.newsfeed.api.guardian.GuardianApiService
+import io.devbits.newsfeed.api.news.NewsApiService
+import io.devbits.newsfeed.data.NewsRepository
+import io.devbits.newsfeed.ui.MainViewModel
+import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
 val appModule = module {
 
+    single { NewsRepository(GuardianApiService(), NewsApiService()) }
+    viewModel { MainViewModel(get()) }
 }

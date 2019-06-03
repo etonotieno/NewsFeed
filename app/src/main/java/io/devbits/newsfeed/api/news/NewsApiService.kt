@@ -16,16 +16,19 @@
 
 package io.devbits.newsfeed.api.news
 
+import io.devbits.newsfeed.BuildConfig
 import io.devbits.newsfeed.api.news.model.NewsApiResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface NewsApiService {
 
+    @Headers("X-Api-Key: ${BuildConfig.NEWS_API_KEY}")
     @GET("everything")
     fun getNewsResponseAsync(
         @Query("sources") source: String = "techcrunch",

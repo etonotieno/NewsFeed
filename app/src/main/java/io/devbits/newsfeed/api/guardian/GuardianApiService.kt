@@ -16,6 +16,7 @@
 
 package io.devbits.newsfeed.api.guardian
 
+import io.devbits.newsfeed.BuildConfig
 import io.devbits.newsfeed.api.guardian.model.GuardianMain
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
@@ -32,11 +33,11 @@ interface GuardianApiService {
 
     @GET("search")
     fun getNewsResponseAsync(
-        @Query("page-size") pageSize: String = "50",
-        @Query("api-key") apiKey: String = "",
         @Query("section") category: String?,
+        @Query("page-size") pageSize: String = "50",
         @Query("show-fields") fields: String = "all",
-        @Query("format") format: String = "json"
+        @Query("format") format: String = "json",
+        @Query("api-key") apiKey: String = BuildConfig.GUARDIAN_API_KEY
     ): Deferred<GuardianMain>
 
     companion object {
