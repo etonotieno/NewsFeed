@@ -16,13 +16,9 @@
 
 package io.devbits.newsfeed.api.guardian
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import io.devbits.newsfeed.BuildConfig
 import io.devbits.newsfeed.api.guardian.model.GuardianMain
 import kotlinx.coroutines.Deferred
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -41,16 +37,4 @@ interface GuardianApiService {
         @Query("api-key") apiKey: String = BuildConfig.GUARDIAN_API_KEY
     ): Deferred<GuardianMain>
 
-    companion object {
-        operator fun invoke(): GuardianApiService {
-            val retrofit = Retrofit.Builder()
-                .baseUrl(GUARDIAN_BASE_URL)
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-            return retrofit.create()
-        }
-    }
 }
-
-private const val GUARDIAN_BASE_URL = "https://content.guardianapis.com/"

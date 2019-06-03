@@ -17,6 +17,7 @@
 package io.devbits.newsfeed.data
 
 import io.devbits.newsfeed.api.guardian.GuardianApiService
+import io.devbits.newsfeed.api.guardian.model.mapToNews
 import io.devbits.newsfeed.api.news.NewsApiService
 import io.devbits.newsfeed.api.news.model.mapToNews
 import io.devbits.newsfeed.ui.state.Result
@@ -31,10 +32,13 @@ class NewsRepository(
     suspend fun getListOfNews(): Result<List<News>> = withContext(Dispatchers.IO) {
         Result.Loading
         try {
-            val news = newsApiService.getNewsResponseAsync()
-                .await()
-                .mapToNews()
-            Result.Success(news)
+            val guardianNews = guardianApiService.getNewsResponseAsync("technology").await().mapToNews()
+            val news = newsApiService.getNewsResponseAsync().await().mapToNews()
+            val merged = news.plus(guardianNews)
+                .sortedBy {
+                    it.publicationDate
+                }
+            Result.Success(merged)
         } catch (e: Exception) {
             Result.Error(e)
         }

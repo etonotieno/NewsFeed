@@ -16,15 +16,39 @@
 
 package io.devbits.newsfeed.di
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import io.devbits.newsfeed.api.guardian.GuardianApiService
 import io.devbits.newsfeed.api.news.NewsApiService
 import io.devbits.newsfeed.data.NewsRepository
 import io.devbits.newsfeed.ui.MainViewModel
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
+
+private const val GUARDIAN_BASE_URL = "https://content.guardianapis.com/"
+private const val NEWS_API_BASE_URL = "https://newsapi.org/v2/"
 
 val appModule = module {
-
-    single { NewsRepository(GuardianApiService(), NewsApiService()) }
+    single {
+        Retrofit.Builder()
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+    single<GuardianApiService> {
+        get<Retrofit>().newBuilder()
+            .baseUrl(GUARDIAN_BASE_URL)
+            .build()
+            .create()
+    }
+    single<NewsApiService> {
+        get<Retrofit>().newBuilder()
+            .baseUrl(NEWS_API_BASE_URL)
+            .build()
+            .create()
+    }
+    single { NewsRepository(get(), get()) }
     viewModel { MainViewModel(get()) }
 }
