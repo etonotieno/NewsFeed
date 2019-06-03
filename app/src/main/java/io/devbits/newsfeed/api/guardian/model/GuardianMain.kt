@@ -16,8 +16,8 @@
 
 package io.devbits.newsfeed.api.guardian.model
 
-import io.devbits.newsfeed.data.model.News
 import com.google.gson.annotations.SerializedName
+import io.devbits.newsfeed.data.News
 
 class GuardianMain(@field:SerializedName("response") val response: GuardianResponse)
 
@@ -32,6 +32,7 @@ fun GuardianMain.mapToNews(): List<News> {
                 webUrl = it.webUrl,
                 sectionName = it.sectionName,
                 title = it.webTitle,
+                trailText = it.fields.trailText,
                 bodyText = it.fields.bodyText,
                 publicationDate = it.webPublicationDate
             )

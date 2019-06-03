@@ -16,7 +16,7 @@
 
 package io.devbits.newsfeed.ui.state
 
-import io.devbits.newsfeed.data.model.News
+import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.ui.state.NewsState.Error
 import io.devbits.newsfeed.ui.state.NewsState.Loading
 import io.devbits.newsfeed.ui.state.NewsState.Success

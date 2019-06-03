@@ -16,7 +16,7 @@
 
 package io.devbits.newsfeed.api.news
 
-import io.devbits.newsfeed.api.model.NewsApiResponse
+import io.devbits.newsfeed.api.news.model.NewsApiResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

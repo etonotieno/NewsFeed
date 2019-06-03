@@ -21,7 +21,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import io.devbits.newsfeed.R
-import io.devbits.newsfeed.data.model.News
+import io.devbits.newsfeed.data.News
 
 /**
  * Created by EtonOtieno on 2/15/2018

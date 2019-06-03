@@ -14,10 +14,10 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.api.model
+package io.devbits.newsfeed.api.news.model
 
-import io.devbits.newsfeed.data.model.News
 import com.google.gson.annotations.SerializedName
+import io.devbits.newsfeed.data.News
 
 data class NewsApiResponse(
     @field:SerializedName("articles") val articles: List<NewsApiArticle>
@@ -47,7 +47,6 @@ fun NewsApiResponse.mapToNews(): List<News> {
                 id = "id ${article.url}",
                 imageUrl = article.imageUrl,
                 webUrl = article.url,
-                // TODO: Figure out how to represent the section name in the News API
                 sectionName = article.source.name,
                 title = article.title,
                 bodyText = article.description,
