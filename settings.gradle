@@ -14,4 +14,4 @@
  *  limitations under the License.
  */
 
-include ":app", ":guardianapi", ":newsapi", ":data",":cache", ":domain"
+include ":app"

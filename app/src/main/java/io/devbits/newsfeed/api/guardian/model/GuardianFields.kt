@@ -14,18 +14,12 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data.usecase
+package io.devbits.newsfeed.api.guardian.model
 
-import io.devbits.newsfeed.data.model.News
-import io.devbits.newsfeed.data.repository.NewsRepository
+import com.google.gson.annotations.SerializedName
 
-class GetNews(private val newsRepository: NewsRepository) {
-
-    suspend fun execute(): List<News> {
-        return newsRepository.getNews()
-    }
-
-    fun setCategory(category: String) {
-        // TODO: Actually do something with the category we passed
-    }
-}
+class GuardianFields(
+    @field:SerializedName("thumbnail") val thumbnail: String,
+    @field:SerializedName("body") val bodyText: String,
+    @field:SerializedName("trailText") val trailText: String
+)

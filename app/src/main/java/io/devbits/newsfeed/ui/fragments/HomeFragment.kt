@@ -24,11 +24,10 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.devbits.newsfeed.R
-import io.devbits.newsfeed.data.model.News
+import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.ui.MainViewModel
 import io.devbits.newsfeed.ui.activities.DetailActivity
 import io.devbits.newsfeed.ui.adapters.NewsAdapter
@@ -60,12 +59,6 @@ class HomeFragment : Fragment() {
             adapter = newsAdapter
         }
         val viewModel = getViewModel<MainViewModel>()
-
-        viewModel.setCategory("technology")
-        viewModel.fetchNews()
-        viewModel.newsLiveData.observe(this, Observer { state ->
-            state?.let { handleState(state) }
-        })
     }
 
     private fun handleState(newsState: NewsState) {

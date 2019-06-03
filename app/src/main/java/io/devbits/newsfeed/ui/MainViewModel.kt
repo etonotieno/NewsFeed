@@ -16,29 +16,9 @@
 
 package io.devbits.newsfeed.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import io.devbits.newsfeed.data.usecase.GetNews
-import io.devbits.newsfeed.ui.state.NewsState
-import kotlinx.coroutines.launch
 
 /**
  * This is the MainViewModel that contains the data needed in the app.
  */
-class MainViewModel(private val getNews: GetNews) : ViewModel() {
-
-    private val _newsLiveData = MutableLiveData<NewsState>()
-
-    val newsLiveData: LiveData<NewsState>
-        get() = _newsLiveData
-
-    fun setCategory(category: String) = getNews.setCategory(category)
-
-    fun fetchNews() {
-        viewModelScope.launch {
-            _newsLiveData.postValue(NewsState.Success(getNews.execute()))
-        }
-    }
-}
+class MainViewModel : ViewModel()

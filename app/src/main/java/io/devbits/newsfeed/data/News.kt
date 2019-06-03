@@ -14,16 +14,19 @@
  *  limitations under the License.
  */
 
-apply plugin: 'java-library'
-apply plugin: "kotlin"
+package io.devbits.newsfeed.data
 
-dependencies {
-    api project(":data")
-    implementation "com.google.code.gson:gson:2.8.5"
-    implementation "com.squareup.retrofit2:retrofit:2.5.0"
-    implementation "com.squareup.retrofit2:converter-gson:2.5.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.31"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1"
-    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
-}
+/**
+ * Created by EtonOtieno on 3/21/2018
+ */
+
+data class News(
+    val id: String,
+    val imageUrl: String?,
+    val webUrl: String,
+    val sectionName: String,
+    val title: String,
+    val trailText: String,
+    val bodyText: String,
+    val publicationDate: String
+)

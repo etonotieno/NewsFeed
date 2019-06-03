@@ -16,30 +16,8 @@
 
 package io.devbits.newsfeed.di
 
-import androidx.room.Room
-import io.devbits.newsfeed.cache.db.NewsDatabase
-import io.devbits.newsfeed.data.NewsDataRepository
-import io.devbits.newsfeed.data.repository.NewsRepository
-import io.devbits.newsfeed.data.usecase.GetNews
-import io.devbits.newsfeed.guardianapi.data.GuardianApiService
-import io.devbits.newsfeed.ui.MainViewModel
-import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
-val appModule = module(override = true) {
-    single {
-        Room.databaseBuilder(
-            androidContext(),
-            NewsDatabase::class.java, "news.db"
-        ).build()
-    }
-    factory { get<NewsDatabase>().cachedNewsDao() }
+val appModule = module {
 
-    factory<NewsRepository> { NewsDataRepository() }
-
-    factory { GetNews(get()) }
-    single { GuardianApiService() }
-
-    viewModel { MainViewModel(get()) }
 }

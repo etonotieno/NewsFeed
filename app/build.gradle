@@ -20,6 +20,23 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'de.mannodermaus.android-junit5'
 
+def getProperties(String fileName) {
+    final Properties properties = new Properties()
+    def file = file(fileName)
+    if (file.exists()) {
+        file.withInputStream { stream -> properties.load(stream) }
+    }
+    return properties
+}
+
+static def getFromProperties(Properties properties, String name) {
+    return properties.getProperty(name) ?: "$name missing"
+}
+
+def SECRETS_FILE = getProperties(rootProject.file("secrets.properties").path)
+def GUARDIAN_API_KEY = getFromProperties(SECRETS_FILE, "GUARDIAN_KEY")
+def NEWS_API_KEY = getFromProperties(SECRETS_FILE, "NEWS_KEY")
+
 android {
     compileSdkVersion 28
     buildToolsVersion = "28.0.3"
@@ -32,6 +49,8 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArgument "listener", "com.squareup.leakcanary.FailTestOnLeakRunListener"
         multiDexEnabled = true
+        buildConfigField("String", "GUARDIAN_API_KEY", GUARDIAN_API_KEY)
+        buildConfigField("String", "NEWS_API_KEY", NEWS_API_KEY)
     }
     buildTypes {
         debug {
@@ -46,23 +65,7 @@ android {
     }
 }
 
-android.applicationVariants.all { variant ->
-    def secretsProperties = new File("secrets.properties")
-    if (secretsProperties.exists()) {
-        def secretsFile = rootProject.file("secrets.properties")
-        def secrets = new Properties()
-        secrets.load(new FileInputStream(secretsFile))
-
-        buildConfigField("String", "GUARDIAN_API_KEY", secrets.getProperty("GUARDIAN_API_KEY"))
-    } else {
-        buildConfigField("String", "GUARDIAN_API_KEY", "\"View the README to add your API Key\"")
-    }
-}
-
 dependencies {
-    implementation project(":guardianapi")
-    implementation project(":newsapi")
-    implementation project(":cache")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.31"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1"
@@ -71,15 +74,15 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:1.0.2"
     implementation "androidx.activity:activity-ktx:1.0.0-alpha08"
     implementation "androidx.fragment:fragment-ktx:1.1.0-alpha09"
-    implementation "com.google.android.material:material:1.1.0-alpha06"
+    implementation "com.google.android.material:material:1.1.0-alpha07"
     implementation "androidx.recyclerview:recyclerview:1.1.0-alpha05"
     implementation "androidx.browser:browser:1.0.0"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha01"
     implementation "androidx.paging:paging-runtime-ktx:2.1.0"
-    implementation "androidx.room:room-runtime:2.1.0-beta01"
-    implementation "androidx.room:room-ktx:2.1.0-beta01"
-    kapt "androidx.room:room-compiler:2.1.0-beta01"
+    implementation "androidx.room:room-runtime:2.1.0-rc01"
+    implementation "androidx.room:room-ktx:2.1.0-rc01"
+    kapt "androidx.room:room-compiler:2.1.0-rc01"
     implementation "androidx.work:work-runtime-ktx:2.1.0-alpha02"
     implementation "androidx.navigation:navigation-fragment-ktx:2.1.0-alpha04"
     implementation "androidx.navigation:navigation-ui-ktx:2.1.0-alpha04"
@@ -93,7 +96,7 @@ dependencies {
     implementation "com.android.support:multidex:1.0.3"
     implementation 'com.airbnb.android:mvrx:1.0.1'
     implementation 'com.squareup.leakcanary:leaksentry:2.0-alpha-2'
-    testImplementation "androidx.room:room-testing:2.1.0-beta01"
+    testImplementation "androidx.room:room-testing:2.1.0-rc01"
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
     androidTestImplementation "com.squareup.leakcanary:leakcanary-android-instrumentation:2.0-alpha-2"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'

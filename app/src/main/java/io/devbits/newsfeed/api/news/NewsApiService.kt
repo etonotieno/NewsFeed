@@ -14,9 +14,9 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.guardianapi.data
+package io.devbits.newsfeed.api.news
 
-import io.devbits.newsfeed.guardianapi.data.api.model.GuardianMain
+import io.devbits.newsfeed.api.model.NewsApiResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,25 +24,18 @@ import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-/**
- * Created by EtonOtieno on 3/2/2018
- */
+interface NewsApiService {
 
-interface GuardianApiService {
-
-    @GET("search")
+    @GET("everything")
     fun getNewsResponseAsync(
-        @Query("page-size") pageSize: String = "50",
-        @Query("api-key") apiKey: String = "",
-        @Query("section") category: String?,
-        @Query("show-fields") fields: String = "all",
-        @Query("format") format: String = "json"
-    ): Deferred<GuardianMain>
+        @Query("sources") source: String = "techcrunch",
+        @Query("language") language: String = "en"
+    ): Deferred<NewsApiResponse>
 
     companion object {
-        operator fun invoke(): GuardianApiService {
+        operator fun invoke(): NewsApiService {
             val retrofit = Retrofit.Builder()
-                .baseUrl(GUARDIAN_BASE_URL)
+                .baseUrl(NEWS_API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
             return retrofit.create()
@@ -50,4 +43,4 @@ interface GuardianApiService {
     }
 }
 
-private const val GUARDIAN_BASE_URL = "https://content.guardianapis.com/"
+private const val NEWS_API_BASE_URL = "https://newsapi.org/v2/"
