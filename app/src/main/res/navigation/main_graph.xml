@@ -19,10 +19,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/destination_home">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/destination_home"
         android:name="io.devbits.newsfeed.ui.fragments.HomeFragment"
         android:label="HomeFragment" >
         <action
@@ -35,11 +35,11 @@
         android:label="activity_detail"
         tools:layout="@layout/activity_detail" />
     <fragment
-        android:id="@+id/categoryFragment"
+        android:id="@+id/destination_category"
         android:name="io.devbits.newsfeed.ui.fragments.CategoryFragment"
         android:label="CategoryFragment" />
     <fragment
-        android:id="@+id/bookmarkedFragment"
+        android:id="@+id/destination_bookmarked"
         android:name="io.devbits.newsfeed.ui.fragments.BookmarkedFragment"
         android:label="fragment_bookmarked"
         tools:layout="@layout/fragment_bookmarked" />

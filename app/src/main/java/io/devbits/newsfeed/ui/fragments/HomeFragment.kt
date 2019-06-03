@@ -23,17 +23,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import io.devbits.newsfeed.R
-import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.ui.MainViewModel
 import io.devbits.newsfeed.ui.activities.DetailActivity
 import io.devbits.newsfeed.ui.adapters.NewsAdapter
 import io.devbits.newsfeed.ui.state.Result
-import kotlinx.android.synthetic.main.fragment_home.homeEmptyView
-import kotlinx.android.synthetic.main.fragment_home.homeLoadingIndicator
-import kotlinx.android.synthetic.main.fragment_home.homeNewsRV
 import kotlinx.android.synthetic.main.fragment_home.view.homeNewsRV
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -51,53 +45,11 @@ class HomeFragment : Fragment() {
     ): View? = inflater.inflate(R.layout.fragment_home, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        view.homeNewsRV.run {
-            layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-            setHasFixedSize(true)
-            adapter = newsAdapter
-        }
+        view.homeNewsRV.adapter = newsAdapter
         val viewModel = getViewModel<MainViewModel>()
         viewModel.newsLiveData.observe(viewLifecycleOwner, Observer {
-            handleState(it)
+            if (it is Result.Success) newsAdapter.submitList(it.data)
         })
     }
 
-    private fun handleState(result: Result<List<News>>) {
-        when (result) {
-            is Result.Loading -> setUpScreenForLoadingState()
-            is Result.Success -> setUpScreenForSuccess(result.data)
-            is Result.Error -> setUpScreenForError(result.exception)
-        }
-    }
-
-    private fun setUpScreenForError(error: Exception) {
-        // Show the Error View and Hide the loading, Empty and Recycler Views
-        homeLoadingIndicator.visibility = View.GONE
-        homeNewsRV.visibility = View.GONE
-        homeEmptyView.visibility = View.VISIBLE
-        homeEmptyView.text = "There was an error loading the results."
-    }
-
-    private fun setUpScreenForSuccess(data: List<News>?) {
-        // Hide the Error View and the Progress View
-        homeEmptyView.visibility = View.GONE
-        homeLoadingIndicator.visibility = View.GONE
-
-        if (data.isNullOrEmpty()) {
-            // Show the Empty View
-            homeEmptyView.visibility = View.VISIBLE
-            homeEmptyView.text = "No Data was found 😑😑"
-        } else {
-            newsAdapter.submitList(data)
-            // Show the RecyclerView
-            homeNewsRV.visibility = View.VISIBLE
-        }
-    }
-
-    private fun setUpScreenForLoadingState() {
-        // Show the Progress View and hide the RecyclerView, EmptyView and LoadingView
-        homeLoadingIndicator.visibility = View.VISIBLE
-        homeNewsRV.visibility = View.GONE
-        homeEmptyView.visibility = View.GONE
-    }
 }

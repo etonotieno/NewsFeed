@@ -24,11 +24,6 @@ import io.devbits.newsfeed.R
 
 class DetailActivity : AppCompatActivity() {
 
-    override fun onStart() {
-        super.onStart()
-        actionBar?.hide()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
