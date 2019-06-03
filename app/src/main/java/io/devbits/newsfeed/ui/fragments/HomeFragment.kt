@@ -16,7 +16,6 @@
 
 package io.devbits.newsfeed.ui.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,19 +23,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import io.devbits.newsfeed.R
+import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.ui.MainViewModel
-import io.devbits.newsfeed.ui.activities.DetailActivity
 import io.devbits.newsfeed.ui.adapters.NewsAdapter
 import io.devbits.newsfeed.ui.state.Result
+import kotlinx.android.synthetic.main.fragment_home.homeEmptyView
+import kotlinx.android.synthetic.main.fragment_home.homeLoadingIndicator
+import kotlinx.android.synthetic.main.fragment_home.homeNewsRV
 import kotlinx.android.synthetic.main.fragment_home.view.homeNewsRV
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class HomeFragment : Fragment() {
 
-    private val newsAdapter = NewsAdapter {
-        val intent = Intent(requireContext(), DetailActivity::class.java)
-        startActivity(intent)
-    }
+    private val newsAdapter = NewsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,9 +46,42 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.homeNewsRV.adapter = newsAdapter
         val viewModel = getViewModel<MainViewModel>()
-        viewModel.newsLiveData.observe(viewLifecycleOwner, Observer {
-            if (it is Result.Success) newsAdapter.submitList(it.data)
+        viewModel.newsLiveData.observe(this, Observer {
+            handleState(it)
         })
     }
 
+    private fun handleState(result: Result<List<News>>) {
+        when (result) {
+            is Result.Loading -> setUpScreenForLoadingState()
+            is Result.Success -> setUpScreenForSuccess(result.data)
+            is Result.Error -> setUpScreenForError(result.exception)
+        }
+    }
+
+    private fun setUpScreenForLoadingState() {
+        homeLoadingIndicator.visibility = View.VISIBLE
+        homeNewsRV.visibility = View.GONE
+        homeEmptyView.visibility = View.GONE
+    }
+
+    private fun setUpScreenForSuccess(data: List<News>) {
+        homeEmptyView.visibility = View.GONE
+        homeLoadingIndicator.visibility = View.GONE
+
+        if (data.isNullOrEmpty()) {
+            homeEmptyView.visibility = View.VISIBLE
+            homeEmptyView.text = "No Data was found 😑😑"
+        } else {
+            homeNewsRV.visibility = View.VISIBLE
+            newsAdapter.submitList(data)
+        }
+    }
+
+    private fun setUpScreenForError(exception: Exception) {
+        homeLoadingIndicator.visibility = View.GONE
+        homeNewsRV.visibility = View.GONE
+        homeEmptyView.visibility = View.VISIBLE
+        homeEmptyView.text = exception.localizedMessage
+    }
 }

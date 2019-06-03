@@ -17,8 +17,8 @@
 package io.devbits.newsfeed.data
 
 import io.devbits.newsfeed.api.guardian.GuardianApiService
-import io.devbits.newsfeed.api.guardian.model.mapToNews
 import io.devbits.newsfeed.api.news.NewsApiService
+import io.devbits.newsfeed.api.news.model.mapToNews
 import io.devbits.newsfeed.ui.state.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -31,7 +31,7 @@ class NewsRepository(
     suspend fun getListOfNews(): Result<List<News>> = withContext(Dispatchers.IO) {
         Result.Loading
         try {
-            val news = guardianApiService.getNewsResponseAsync("technology")
+            val news = newsApiService.getNewsResponseAsync()
                 .await()
                 .mapToNews()
             Result.Success(news)

@@ -27,9 +27,7 @@ import io.devbits.newsfeed.data.News
  * Created by EtonOtieno on 2/15/2018
  */
 
-class NewsAdapter(
-    private val onItemClick: (News) -> Unit
-) : ListAdapter<News, NewsViewHolder>(COMPARATOR) {
+class NewsAdapter : ListAdapter<News, NewsViewHolder>(COMPARATOR) {
 
     companion object {
         private val COMPARATOR: DiffUtil.ItemCallback<News> = object : DiffUtil.ItemCallback<News>() {
@@ -51,6 +49,6 @@ class NewsAdapter(
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val currentNews = getItem(position)
-        holder.bind(currentNews, onItemClick)
+        holder.bind(currentNews)
     }
 }

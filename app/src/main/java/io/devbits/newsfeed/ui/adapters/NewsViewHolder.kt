@@ -17,30 +17,35 @@
 package io.devbits.newsfeed.ui.adapters
 
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.News
+import io.devbits.newsfeed.ui.fragments.HomeFragmentDirections
 import io.devbits.newsfeed.utils.getFormattedTimeString
+import kotlinx.android.synthetic.main.activity_detail.view.time_text_view
+import kotlinx.android.synthetic.main.news_item.view.article_image_view
+import kotlinx.android.synthetic.main.news_item.view.headline_text_view
+import kotlinx.android.synthetic.main.news_item.view.section_text_view
 
 class NewsViewHolder(newsItemView: View) : RecyclerView.ViewHolder(newsItemView) {
 
-    fun bind(news: News, onItemClick: (news: News) -> Unit) {
-        itemView.findViewById<TextView>(R.id.headline_text_view).text = news.title
-        itemView.findViewById<TextView>(R.id.section_text_view).text = news.sectionName
+    fun bind(news: News) {
+        itemView.headline_text_view.text = news.title
+        itemView.section_text_view.text = news.sectionName
 
         val date = news.publicationDate
-        itemView.findViewById<TextView>(R.id.time_text_view).text = date.getFormattedTimeString()
+        itemView.time_text_view.text = date.getFormattedTimeString()
 
         val imageUrl = news.imageUrl
-        val articleImageView = itemView.findViewById<ImageView>(R.id.article_image_view)
+        val articleImageView = itemView.article_image_view
 
         Glide.with(itemView.context).load(imageUrl).into(articleImageView)
 
         itemView.setOnClickListener {
-            onItemClick(news)
+            val navController = it.findNavController()
+            val directions = HomeFragmentDirections.actionHomeToDetail()
+            navController.navigate(directions)
         }
     }
 }
