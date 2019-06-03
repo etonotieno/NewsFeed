@@ -35,16 +35,15 @@ val appModule = module {
         Retrofit.Builder()
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
-            .build()
     }
     single<GuardianApiService> {
-        get<Retrofit>().newBuilder()
+        get<Retrofit.Builder>()
             .baseUrl(GUARDIAN_BASE_URL)
             .build()
             .create()
     }
     single<NewsApiService> {
-        get<Retrofit>().newBuilder()
+        get<Retrofit.Builder>()
             .baseUrl(NEWS_API_BASE_URL)
             .build()
             .create()

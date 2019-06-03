@@ -47,6 +47,7 @@ fun NewsApiResponse.mapToNews(): List<News> {
                 id = "id ${article.url}",
                 imageUrl = article.imageUrl,
                 webUrl = article.url,
+                // TODO: Find out how to add a section for the News API
                 sectionName = article.source.name,
                 title = article.title,
                 bodyText = article.description,

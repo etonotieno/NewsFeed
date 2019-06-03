@@ -33,19 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/web_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Go to Website"
-                app:layout_constraintEnd_toStartOf="@+id/publication_date_textview"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/title_detail"
                 android:layout_width="0dp"
@@ -61,7 +48,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/web_button"
                 tools:text="Eton headteacher to face MPs' questions over exam malpractice. This is also a placeholder to see how the Ui will change according to the amount of text that the API has sent back." />
-
 
             <TextView
                 android:id="@+id/publication_date_textview"
@@ -79,6 +65,7 @@
                 app:layout_constraintStart_toEndOf="@+id/web_button"
                 app:layout_constraintTop_toTopOf="@+id/web_button"
                 tools:text="24-03-2018" />
+
 
             <TextView
                 android:id="@+id/description_detail"
@@ -111,6 +98,18 @@
                 app:layout_constraintStart_toEndOf="@+id/publication_date_textview"
                 app:layout_constraintTop_toTopOf="@+id/publication_date_textview"
                 tools:text="50 Minutes Ago" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/web_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Go to Website"
+                app:layout_constraintEnd_toStartOf="@+id/publication_date_textview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

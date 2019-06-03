@@ -35,7 +35,7 @@ class NewsRepository(
             val guardianNews = guardianApiService.getNewsResponseAsync("technology").await().mapToNews()
             val news = newsApiService.getNewsResponseAsync().await().mapToNews()
             val merged = news.plus(guardianNews)
-                .sortedBy {
+                .sortedByDescending {
                     it.publicationDate
                 }
             Result.Success(merged)
