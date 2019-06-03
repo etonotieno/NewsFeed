@@ -16,6 +16,7 @@
 
 package io.devbits.newsfeed.api.guardian
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import io.devbits.newsfeed.BuildConfig
 import io.devbits.newsfeed.api.guardian.model.GuardianMain
 import kotlinx.coroutines.Deferred
@@ -44,6 +45,7 @@ interface GuardianApiService {
         operator fun invoke(): GuardianApiService {
             val retrofit = Retrofit.Builder()
                 .baseUrl(GUARDIAN_BASE_URL)
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
             return retrofit.create()

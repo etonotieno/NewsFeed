@@ -19,6 +19,7 @@ package io.devbits.newsfeed.data
 import io.devbits.newsfeed.api.guardian.GuardianApiService
 import io.devbits.newsfeed.api.guardian.model.mapToNews
 import io.devbits.newsfeed.api.news.NewsApiService
+import io.devbits.newsfeed.ui.state.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -27,10 +28,16 @@ class NewsRepository(
     private val newsApiService: NewsApiService
 ) {
 
-    suspend fun getListOfNews() = withContext(Dispatchers.IO) {
-        guardianApiService.getNewsResponseAsync("technology")
-            .await()
-            .mapToNews()
+    suspend fun getListOfNews(): Result<List<News>> = withContext(Dispatchers.IO) {
+        Result.Loading
+        try {
+            val news = guardianApiService.getNewsResponseAsync("technology")
+                .await()
+                .mapToNews()
+            Result.Success(news)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
     }
 
 }

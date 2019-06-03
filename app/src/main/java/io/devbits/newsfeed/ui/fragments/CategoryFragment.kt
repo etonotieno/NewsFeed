@@ -21,13 +21,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
 import io.devbits.newsfeed.R
-import io.devbits.newsfeed.utils.bindView
 
 class CategoryFragment : Fragment() {
-
-    private val viewPager by bindView<ViewPager>(R.id.categories_container)
 
     override fun onCreateView(
         inflater: LayoutInflater,

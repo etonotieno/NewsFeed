@@ -24,17 +24,17 @@ class GuardianMain(@field:SerializedName("response") val response: GuardianRespo
 fun GuardianMain.mapToNews(): List<News> {
     val results = this.response.results
     val articles = mutableListOf<News>()
-    results.forEach {
+    for (result in results) {
         articles.add(
             News(
-                id = it.id,
-                imageUrl = it.fields.thumbnail,
-                webUrl = it.webUrl,
-                sectionName = it.sectionName,
-                title = it.webTitle,
-                trailText = it.fields.trailText,
-                bodyText = it.fields.bodyText,
-                publicationDate = it.webPublicationDate
+                id = result.id,
+                imageUrl = result.fields.thumbnail,
+                webUrl = result.webUrl,
+                sectionName = result.sectionName,
+                title = result.webTitle,
+                trailText = result.fields.trailText,
+                bodyText = result.fields.bodyText,
+                publicationDate = result.webPublicationDate
             )
         )
     }

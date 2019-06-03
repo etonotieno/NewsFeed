@@ -18,56 +18,24 @@ package io.devbits.newsfeed.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import io.devbits.newsfeed.R
-import io.devbits.newsfeed.ui.fragments.BookmarkedFragment
-import io.devbits.newsfeed.ui.fragments.CategoryFragment
-import io.devbits.newsfeed.ui.fragments.HomeFragment
-import io.devbits.newsfeed.utils.bindView
+import kotlinx.android.synthetic.main.activity_main.mainNavView
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var currentFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val mainNavView by bindView<BottomNavigationView>(R.id.main_nav_view)
 
-        mainNavView.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.menu_home -> replaceFragment(HomeFragment())
-                R.id.menu_category -> replaceFragment(CategoryFragment())
-                R.id.menu_bookmarked -> replaceFragment(BookmarkedFragment())
-                else -> false
-            }
-        }
-
+        val navController = findNavController(R.id.fragment_container)
+        setupActionBarWithNavController(navController)
+        mainNavView.setupWithNavController(navController)
         // Add a listener to prevent reselects from being treated as selects.
         mainNavView.setOnNavigationItemReselectedListener {}
-
-        if (savedInstanceState == null) {
-            // Show the Home page when the screen is opened
-            mainNavView.selectedItemId = R.id.menu_home
-        } else {
-            // Find the current fragment
-            currentFragment =
-                    supportFragmentManager.findFragmentById(FRAGMENT_ID)
-                            ?: throw IllegalStateException("Activity recreated, but no fragment found!")
-        }
     }
 
-    // Replace Fragment and return true after transaction
-    private fun replaceFragment(fragment: Fragment): Boolean {
-        currentFragment = fragment
-        supportFragmentManager.beginTransaction()
-                .replace(FRAGMENT_ID, fragment)
-                .commit()
-        return true
-    }
-
-    companion object {
-        private const val FRAGMENT_ID = R.id.fragment_container
-    }
+    override fun onSupportNavigateUp(): Boolean = findNavController(R.id.fragment_container).navigateUp()
 }

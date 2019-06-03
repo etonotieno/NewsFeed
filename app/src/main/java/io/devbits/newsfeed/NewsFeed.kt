@@ -16,11 +16,10 @@
 
 package io.devbits.newsfeed
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import io.devbits.newsfeed.di.appModule
 import net.danlew.android.joda.JodaTimeAndroid
 import org.koin.android.ext.android.startKoin
-import androidx.multidex.MultiDexApplication
 
 /**
  * Created by EtonOtieno on 3/13/2018

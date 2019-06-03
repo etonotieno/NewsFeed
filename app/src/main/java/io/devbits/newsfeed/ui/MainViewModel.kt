@@ -16,12 +16,28 @@
 
 package io.devbits.newsfeed.ui
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.data.NewsRepository
+import io.devbits.newsfeed.ui.state.Result
+import kotlinx.coroutines.launch
 
 /**
  * This is the MainViewModel that contains the data needed in the app.
  */
 class MainViewModel(private val repository: NewsRepository) : ViewModel() {
+
+    private val _newsLiveData = MutableLiveData<Result<List<News>>>()
+    val newsLiveData: LiveData<Result<List<News>>>
+        get() = _newsLiveData
+
+    init {
+        viewModelScope.launch {
+            _newsLiveData.value = repository.getListOfNews()
+        }
+    }
 
 }

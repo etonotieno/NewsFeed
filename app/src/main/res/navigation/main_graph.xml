@@ -16,6 +16,31 @@
   -->
 
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="io.devbits.newsfeed.ui.fragments.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/actionHomeToDetail"
+            app:destination="@id/detailActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/detailActivity"
+        android:name="io.devbits.newsfeed.ui.activities.DetailActivity"
+        android:label="activity_detail"
+        tools:layout="@layout/activity_detail" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="io.devbits.newsfeed.ui.fragments.CategoryFragment"
+        android:label="CategoryFragment" />
+    <fragment
+        android:id="@+id/bookmarkedFragment"
+        android:name="io.devbits.newsfeed.ui.fragments.BookmarkedFragment"
+        android:label="fragment_bookmarked"
+        tools:layout="@layout/fragment_bookmarked" />
 </navigation>

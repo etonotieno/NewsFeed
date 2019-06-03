@@ -21,9 +21,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.devbits.newsfeed.R
@@ -31,8 +30,11 @@ import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.ui.MainViewModel
 import io.devbits.newsfeed.ui.activities.DetailActivity
 import io.devbits.newsfeed.ui.adapters.NewsAdapter
-import io.devbits.newsfeed.ui.state.NewsState
-import io.devbits.newsfeed.utils.bindView
+import io.devbits.newsfeed.ui.state.Result
+import kotlinx.android.synthetic.main.fragment_home.homeEmptyView
+import kotlinx.android.synthetic.main.fragment_home.homeLoadingIndicator
+import kotlinx.android.synthetic.main.fragment_home.homeNewsRV
+import kotlinx.android.synthetic.main.fragment_home.view.homeNewsRV
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class HomeFragment : Fragment() {
@@ -42,10 +44,6 @@ class HomeFragment : Fragment() {
         startActivity(intent)
     }
 
-    private val homeNewsRecyclerView by bindView<RecyclerView>(R.id.news_list_recycler_view)
-    private val homeEmptyView by bindView<TextView>(R.id.news_empty_view)
-    private val homeLoadingIndicator by bindView<ProgressBar>(R.id.news_loading_indicator)
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,28 +51,31 @@ class HomeFragment : Fragment() {
     ): View? = inflater.inflate(R.layout.fragment_home, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        homeNewsRecyclerView.apply {
+        view.homeNewsRV.run {
             layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             setHasFixedSize(true)
             adapter = newsAdapter
         }
         val viewModel = getViewModel<MainViewModel>()
+        viewModel.newsLiveData.observe(viewLifecycleOwner, Observer {
+            handleState(it)
+        })
     }
 
-    private fun handleState(newsState: NewsState) {
-        when (newsState) {
-            is NewsState.Loading -> setUpScreenForLoadingState()
-            is NewsState.Success -> setUpScreenForSuccess(newsState.data)
-            is NewsState.Error -> setUpScreenForError(newsState.error)
+    private fun handleState(result: Result<List<News>>) {
+        when (result) {
+            is Result.Loading -> setUpScreenForLoadingState()
+            is Result.Success -> setUpScreenForSuccess(result.data)
+            is Result.Error -> setUpScreenForError(result.exception)
         }
     }
 
-    private fun setUpScreenForError(errorMessage: String?) {
+    private fun setUpScreenForError(error: Exception) {
         // Show the Error View and Hide the loading, Empty and Recycler Views
         homeLoadingIndicator.visibility = View.GONE
-        homeNewsRecyclerView.visibility = View.GONE
+        homeNewsRV.visibility = View.GONE
         homeEmptyView.visibility = View.VISIBLE
-        errorMessage?.let { homeEmptyView.text = it }
+        homeEmptyView.text = "There was an error loading the results."
     }
 
     private fun setUpScreenForSuccess(data: List<News>?) {
@@ -89,14 +90,14 @@ class HomeFragment : Fragment() {
         } else {
             newsAdapter.submitList(data)
             // Show the RecyclerView
-            homeNewsRecyclerView.visibility = View.VISIBLE
+            homeNewsRV.visibility = View.VISIBLE
         }
     }
 
     private fun setUpScreenForLoadingState() {
         // Show the Progress View and hide the RecyclerView, EmptyView and LoadingView
         homeLoadingIndicator.visibility = View.VISIBLE
-        homeNewsRecyclerView.visibility = View.GONE
+        homeNewsRV.visibility = View.GONE
         homeEmptyView.visibility = View.GONE
     }
 }

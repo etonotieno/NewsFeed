@@ -16,6 +16,7 @@
 
 package io.devbits.newsfeed.api.news
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import io.devbits.newsfeed.BuildConfig
 import io.devbits.newsfeed.api.news.model.NewsApiResponse
 import kotlinx.coroutines.Deferred
@@ -39,6 +40,7 @@ interface NewsApiService {
         operator fun invoke(): NewsApiService {
             val retrofit = Retrofit.Builder()
                 .baseUrl(NEWS_API_BASE_URL)
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
             return retrofit.create()
