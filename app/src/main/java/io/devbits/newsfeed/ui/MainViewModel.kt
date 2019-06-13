@@ -35,10 +35,14 @@ class MainViewModel(private val repository: NewsRepository) : ViewModel() {
     val newsLiveData: LiveData<Result<List<News>>>
         get() = _newsLiveData
 
-    init {
+    private val _data = MutableLiveData<List<News>>()
+    val data: LiveData<List<News>>
+        get() = _data
+
+    fun triggerDataFetch() {
         viewModelScope.launch {
             repository.getListOfNews().collect {
-                _newsLiveData.value = it
+                _data.value = it
             }
         }
     }

@@ -46,8 +46,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.homeNewsRV.adapter = newsAdapter
         val viewModel = getViewModel<MainViewModel>()
-        viewModel.newsLiveData.observe(this, Observer {
-            handleState(it)
+//        viewModel.newsLiveData.observe(this, Observer {
+//            handleState(it)
+//        })
+        viewModel.triggerDataFetch()
+        viewModel.data.observe(this, Observer {
+            setUpScreenForSuccess(it)
         })
     }
 
