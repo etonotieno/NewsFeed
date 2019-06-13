@@ -35,7 +35,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class HomeFragment : Fragment() {
 
-    private val newsAdapter by lazy { NewsAdapter() }
+    private val newsAdapter = NewsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,

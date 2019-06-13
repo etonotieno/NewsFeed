@@ -24,6 +24,7 @@ import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.data.NewsRepository
 import io.devbits.newsfeed.ui.state.Result
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combineLatest
 import kotlinx.coroutines.launch
 
 /**
@@ -41,9 +42,15 @@ class MainViewModel(private val repository: NewsRepository) : ViewModel() {
 
     fun triggerDataFetch() {
         viewModelScope.launch {
-            repository.getListOfNews().collect {
-                _data.value = it
-            }
+            repository.getNewsApiResult()
+                .combineLatest(repository.getGuardianApiResult()) { newsApiResults, guardianResults ->
+                    newsApiResults.plus(guardianResults)
+                        .sortedByDescending {
+                            it.publicationDate
+                        }
+                }.collect {
+                    _data.value = it
+                }
         }
     }
 

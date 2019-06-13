@@ -17,6 +17,7 @@
 package io.devbits.newsfeed.data
 
 import io.devbits.newsfeed.api.guardian.GuardianApiService
+import io.devbits.newsfeed.api.guardian.model.mapToNews
 import io.devbits.newsfeed.api.news.NewsApiService
 import io.devbits.newsfeed.api.news.model.mapToNews
 import kotlinx.coroutines.Dispatchers
@@ -29,9 +30,11 @@ class NewsRepository(
     private val newsApiService: NewsApiService
 ) {
 
-    fun getListOfNews(): Flow<List<News>> = newsApiService.getNewsResponseAsync("techcrunch")
+    fun getNewsApiResult(): Flow<List<News>> = newsApiService.getNewsResponseAsync()
         .map { it.mapToNews() }
         .flowOn(Dispatchers.IO)
 
-
+    fun getGuardianApiResult(): Flow<List<News>> = guardianApiService.getNewsResponseAsync("technology")
+        .map { it.mapToNews() }
+        .flowOn(Dispatchers.IO)
 }
