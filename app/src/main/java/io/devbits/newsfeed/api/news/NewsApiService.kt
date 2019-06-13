@@ -18,7 +18,7 @@ package io.devbits.newsfeed.api.news
 
 import io.devbits.newsfeed.BuildConfig
 import io.devbits.newsfeed.api.news.model.NewsApiResponse
-import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
@@ -30,6 +30,6 @@ interface NewsApiService {
     fun getNewsResponseAsync(
         @Query("sources") source: String = "techcrunch",
         @Query("language") language: String = "en"
-    ): Deferred<NewsApiResponse>
+    ): Flow<NewsApiResponse>
 
 }

@@ -23,6 +23,7 @@ import androidx.lifecycle.viewModelScope
 import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.data.NewsRepository
 import io.devbits.newsfeed.ui.state.Result
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
@@ -36,7 +37,9 @@ class MainViewModel(private val repository: NewsRepository) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            _newsLiveData.value = repository.getListOfNews()
+            repository.getListOfNews().collect {
+                _newsLiveData.value = it
+            }
         }
     }
 

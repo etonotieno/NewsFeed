@@ -18,7 +18,7 @@ package io.devbits.newsfeed.api.guardian
 
 import io.devbits.newsfeed.BuildConfig
 import io.devbits.newsfeed.api.guardian.model.GuardianMain
-import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -35,6 +35,6 @@ interface GuardianApiService {
         @Query("show-fields") fields: String = "all",
         @Query("format") format: String = "json",
         @Query("api-key") apiKey: String = BuildConfig.GUARDIAN_API_KEY
-    ): Deferred<GuardianMain>
+    ): Flow<GuardianMain>
 
 }

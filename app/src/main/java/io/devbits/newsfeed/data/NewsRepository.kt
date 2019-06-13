@@ -17,31 +17,51 @@
 package io.devbits.newsfeed.data
 
 import io.devbits.newsfeed.api.guardian.GuardianApiService
-import io.devbits.newsfeed.api.guardian.model.mapToNews
 import io.devbits.newsfeed.api.news.NewsApiService
 import io.devbits.newsfeed.api.news.model.mapToNews
 import io.devbits.newsfeed.ui.state.Result
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.AbstractFlow
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 
 class NewsRepository(
     private val guardianApiService: GuardianApiService,
     private val newsApiService: NewsApiService
 ) {
 
-    suspend fun getListOfNews(): Result<List<News>> = withContext(Dispatchers.IO) {
-        Result.Loading
-        try {
-            val guardianNews = guardianApiService.getNewsResponseAsync("technology").await().mapToNews()
-            val news = newsApiService.getNewsResponseAsync().await().mapToNews()
-            val merged = news.plus(guardianNews)
-                .sortedByDescending {
-                    it.publicationDate
-                }
-            Result.Success(merged)
-        } catch (e: Exception) {
-            Result.Error(e)
+    fun getListOfNews(): NewsResultFlow = NewsResultFlow()
+
+    inner class NewsResultFlow : AbstractFlow<Result<List<News>>>() {
+
+        override suspend fun collectSafely(collector: FlowCollector<Result<List<News>>>) {
+            collector.emit(Result.Loading)
+            try {
+//                val guardianNews = guardianApiService.getNewsResponseAsync("technology")
+//                    .map {
+//                        it.mapToNews()
+//                    }
+//                    .buffer(Channel.CONFLATED)
+//                    .flowOn(Dispatchers.IO)
+
+                newsApiService.getNewsResponseAsync()
+                    .map {
+                        it.mapToNews()
+                    }
+                    .buffer(Channel.CONFLATED)
+                    .flowOn(Dispatchers.IO)
+                    .collect {
+                        collector.emit(Result.Success(it))
+                    }
+            } catch (e: Exception) {
+                collector.emit(Result.Error(e))
+            }
         }
+
     }
 
 }
