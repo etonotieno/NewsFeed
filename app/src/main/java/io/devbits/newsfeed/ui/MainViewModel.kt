@@ -22,25 +22,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.data.NewsRepository
-import io.devbits.newsfeed.ui.state.Result
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combineLatest
 import kotlinx.coroutines.launch
 
 /**
- * This is the MainViewModel that contains the data needed in the app.
+ * This is the MainViewModel that contains the newsLiveData needed in the app.
  */
 class MainViewModel(private val repository: NewsRepository) : ViewModel() {
 
-    private val _newsLiveData = MutableLiveData<Result<List<News>>>()
-    val newsLiveData: LiveData<Result<List<News>>>
+    private val _newsLiveData = MutableLiveData<List<News>>()
+    val newsLiveData: LiveData<List<News>>
         get() = _newsLiveData
 
-    private val _data = MutableLiveData<List<News>>()
-    val data: LiveData<List<News>>
-        get() = _data
-
-    fun triggerDataFetch() {
+    init {
         viewModelScope.launch {
             repository.getNewsApiResult()
                 .combineLatest(repository.getGuardianApiResult()) { newsApiResults, guardianResults ->
@@ -49,7 +44,7 @@ class MainViewModel(private val repository: NewsRepository) : ViewModel() {
                             it.publicationDate
                         }
                 }.collect {
-                    _data.value = it
+                    _newsLiveData.value = it
                 }
         }
     }

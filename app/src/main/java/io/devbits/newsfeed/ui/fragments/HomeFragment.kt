@@ -21,21 +21,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.News
+import io.devbits.newsfeed.ui.Factory
 import io.devbits.newsfeed.ui.MainViewModel
 import io.devbits.newsfeed.ui.adapters.NewsAdapter
 import io.devbits.newsfeed.ui.state.Result
 import kotlinx.android.synthetic.main.fragment_home.homeEmptyView
 import kotlinx.android.synthetic.main.fragment_home.homeLoadingIndicator
 import kotlinx.android.synthetic.main.fragment_home.homeNewsRV
+import kotlinx.android.synthetic.main.fragment_home.view.homeEmptyView
+import kotlinx.android.synthetic.main.fragment_home.view.homeLoadingIndicator
 import kotlinx.android.synthetic.main.fragment_home.view.homeNewsRV
-import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.android.ext.android.get
 
 class HomeFragment : Fragment() {
 
     private val newsAdapter = NewsAdapter()
+    private val viewModel by viewModels<MainViewModel> { Factory(get()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,23 +49,19 @@ class HomeFragment : Fragment() {
     ): View? = inflater.inflate(R.layout.fragment_home, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        view.homeNewsRV.adapter = newsAdapter
-        val viewModel = getViewModel<MainViewModel>()
-//        viewModel.newsLiveData.observe(this, Observer {
-//            handleState(it)
-//        })
-        viewModel.triggerDataFetch()
-        viewModel.data.observe(this, Observer {
-            setUpScreenForSuccess(it)
+        homeNewsRV.adapter = newsAdapter
+
+        viewModel.newsLiveData.observe(viewLifecycleOwner, Observer {
+            setUpScreenForSuccess(it, view)
         })
     }
 
     private fun handleState(result: Result<List<News>>) {
-        when (result) {
-            is Result.Loading -> setUpScreenForLoadingState()
-            is Result.Success -> setUpScreenForSuccess(result.data)
-            is Result.Error -> setUpScreenForError(result.exception)
-        }
+//        when (result) {
+//            is Result.Loading -> setUpScreenForLoadingState()
+//            is Result.Success -> setUpScreenForSuccess(result.newsLiveData)
+//            is Result.Error -> setUpScreenForError(result.exception)
+//        }
     }
 
     private fun setUpScreenForLoadingState() {
@@ -69,15 +70,15 @@ class HomeFragment : Fragment() {
         homeEmptyView.visibility = View.GONE
     }
 
-    private fun setUpScreenForSuccess(data: List<News>) {
-        homeEmptyView.visibility = View.GONE
-        homeLoadingIndicator.visibility = View.GONE
+    private fun setUpScreenForSuccess(data: List<News>, view: View) {
+        view.homeEmptyView.visibility = View.GONE
+        view.homeLoadingIndicator.visibility = View.GONE
 
         if (data.isNullOrEmpty()) {
-            homeEmptyView.visibility = View.VISIBLE
-            homeEmptyView.text = "No Data was found 😑😑"
+            view.homeEmptyView.visibility = View.VISIBLE
+            view.homeEmptyView.text = "No Data was found 😑😑"
         } else {
-            homeNewsRV.visibility = View.VISIBLE
+            view.homeNewsRV.visibility = View.VISIBLE
             newsAdapter.submitList(data)
         }
     }

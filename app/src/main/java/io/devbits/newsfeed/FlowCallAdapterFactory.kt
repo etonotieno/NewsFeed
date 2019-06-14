@@ -85,7 +85,7 @@ class FlowCallAdapterFactory private constructor() : CallAdapter.Factory() {
                     if (response.isSuccessful) {
                         offer(response.body()!!)
                     } else {
-                        cancel(CancellationException("There was an error making the request.", HttpException(response)))
+                        channel.close(HttpException(response))
                     }
                 }
             })
