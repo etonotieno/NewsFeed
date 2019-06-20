@@ -32,10 +32,6 @@ import io.devbits.newsfeed.ui.state.Result
 import kotlinx.android.synthetic.main.fragment_home.homeEmptyView
 import kotlinx.android.synthetic.main.fragment_home.homeLoadingIndicator
 import kotlinx.android.synthetic.main.fragment_home.homeNewsRV
-import kotlinx.android.synthetic.main.fragment_home.view.homeEmptyView
-import kotlinx.android.synthetic.main.fragment_home.view.homeLoadingIndicator
-import kotlinx.android.synthetic.main.fragment_home.view.homeNewsRV
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.ext.android.get
 
 class HomeFragment : Fragment() {
@@ -53,16 +49,16 @@ class HomeFragment : Fragment() {
         homeNewsRV.adapter = newsAdapter
 
         viewModel.newsLiveData.observe(viewLifecycleOwner, Observer {
-            setUpScreenForSuccess(it, view)
+            handleState(it)
         })
     }
 
     private fun handleState(result: Result<List<News>>) {
-        //when (result) {
-        //is Result.Loading -> setUpScreenForLoadingState()
-        //is Result.Success -> setUpScreenForSuccess(result.newsLiveData)
-        //is Result.Error -> setUpScreenForError(result.exception)
-        //}
+        when (result) {
+            is Result.Loading -> setUpScreenForLoadingState()
+            is Result.Success -> setUpScreenForSuccess(result.data)
+            is Result.Error -> setUpScreenForError(result.exception)
+        }
     }
 
     private fun setUpScreenForLoadingState() {
@@ -71,15 +67,15 @@ class HomeFragment : Fragment() {
         homeEmptyView.visibility = View.GONE
     }
 
-    private fun setUpScreenForSuccess(data: List<News>, view: View) {
-        view.homeEmptyView.visibility = View.GONE
-        view.homeLoadingIndicator.visibility = View.GONE
+    private fun setUpScreenForSuccess(data: List<News>) {
+        homeEmptyView.visibility = View.GONE
+        homeLoadingIndicator.visibility = View.GONE
 
         if (data.isNullOrEmpty()) {
-            view.homeEmptyView.visibility = View.VISIBLE
-            view.homeEmptyView.text = "No Data was found 😑😑"
+            homeEmptyView.visibility = View.VISIBLE
+            homeEmptyView.text = "No Data was found 😑😑"
         } else {
-            view.homeNewsRV.visibility = View.VISIBLE
+            homeNewsRV.visibility = View.VISIBLE
             newsAdapter.submitList(data)
         }
     }

@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.data.NewsRepository
+import io.devbits.newsfeed.ui.state.Result
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -30,14 +31,14 @@ import kotlinx.coroutines.launch
  */
 class MainViewModel(private val repository: NewsRepository) : ViewModel() {
 
-    private val _newsLiveData = MutableLiveData<List<News>>()
-    val newsLiveData: LiveData<List<News>>
+    private val _newsLiveData = MutableLiveData<Result<List<News>>>()
+    val newsLiveData: LiveData<Result<List<News>>>
         get() = _newsLiveData
 
     init {
         viewModelScope.launch {
-            repository.getGuardianApiResult()
-               .collect {
+            repository.guardianApiFlow()
+                .collect {
                     _newsLiveData.value = it
                 }
         }

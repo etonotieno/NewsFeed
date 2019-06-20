@@ -19,25 +19,28 @@ package io.devbits.newsfeed.data
 import io.devbits.newsfeed.api.guardian.GuardianApiService
 import io.devbits.newsfeed.api.guardian.model.mapToNews
 import io.devbits.newsfeed.api.news.NewsApiService
-import io.devbits.newsfeed.api.news.model.mapToNews
+import io.devbits.newsfeed.ui.state.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 
 class NewsRepository(
     private val guardianApiService: GuardianApiService,
     private val newsApiService: NewsApiService
 ) {
 
-    fun getNewsApiResult(): Flow<List<News>> = newsApiService.getNewsResponseAsync()
-        .map { it.mapToNews() }
-        .flowOn(Dispatchers.IO)
+    fun guardianApiFlow(): Flow<Result<List<News>>> = channelFlow {
+        send(Result.Loading)
+        try {
+            val result = guardianApiService.getNewsResponseAsync("technology")
+                .mapToNews()
+                .sortedByDescending { it.publicationDate }
 
-    fun getGuardianApiResult(): Flow<List<News>> = guardianApiService.getNewsResponseAsync("technology")
-        .map {
-            it.mapToNews().sortedByDescending { news ->
-                news.publicationDate
-            }
-        }.flowOn(Dispatchers.IO)
+            send(Result.Success(result))
+        } catch (e: Exception) {
+            send(Result.Error(e))
+        }
+    }.flowOn(Dispatchers.IO)
+
 }
