@@ -23,7 +23,6 @@ import androidx.lifecycle.viewModelScope
 import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.data.NewsRepository
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.combineLatest
 import kotlinx.coroutines.launch
 
 /**
@@ -37,13 +36,8 @@ class MainViewModel(private val repository: NewsRepository) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            repository.getNewsApiResult()
-                .combineLatest(repository.getGuardianApiResult()) { newsApiResults, guardianResults ->
-                    newsApiResults.plus(guardianResults)
-                        .sortedByDescending {
-                            it.publicationDate
-                        }
-                }.collect {
+            repository.getGuardianApiResult()
+               .collect {
                     _newsLiveData.value = it
                 }
         }

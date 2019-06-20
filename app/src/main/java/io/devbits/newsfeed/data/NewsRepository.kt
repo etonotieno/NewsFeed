@@ -35,6 +35,9 @@ class NewsRepository(
         .flowOn(Dispatchers.IO)
 
     fun getGuardianApiResult(): Flow<List<News>> = guardianApiService.getNewsResponseAsync("technology")
-        .map { it.mapToNews() }
-        .flowOn(Dispatchers.IO)
+        .map {
+            it.mapToNews().sortedByDescending { news ->
+                news.publicationDate
+            }
+        }.flowOn(Dispatchers.IO)
 }

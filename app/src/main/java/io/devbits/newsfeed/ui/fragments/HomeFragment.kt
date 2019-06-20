@@ -35,6 +35,7 @@ import kotlinx.android.synthetic.main.fragment_home.homeNewsRV
 import kotlinx.android.synthetic.main.fragment_home.view.homeEmptyView
 import kotlinx.android.synthetic.main.fragment_home.view.homeLoadingIndicator
 import kotlinx.android.synthetic.main.fragment_home.view.homeNewsRV
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.ext.android.get
 
 class HomeFragment : Fragment() {
@@ -57,11 +58,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun handleState(result: Result<List<News>>) {
-//        when (result) {
-//            is Result.Loading -> setUpScreenForLoadingState()
-//            is Result.Success -> setUpScreenForSuccess(result.newsLiveData)
-//            is Result.Error -> setUpScreenForError(result.exception)
-//        }
+        //when (result) {
+        //is Result.Loading -> setUpScreenForLoadingState()
+        //is Result.Success -> setUpScreenForSuccess(result.newsLiveData)
+        //is Result.Error -> setUpScreenForError(result.exception)
+        //}
     }
 
     private fun setUpScreenForLoadingState() {
