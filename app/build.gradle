@@ -98,7 +98,6 @@ dependencies {
     implementation 'net.danlew:android.joda:2.10.1.2'
     implementation "com.android.support:multidex:1.0.3"
     implementation 'com.squareup.leakcanary:leaksentry:2.0-alpha-2'
-    testImplementation "androidx.room:room-testing:2.1.0"
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
     androidTestImplementation "com.squareup.leakcanary:leakcanary-android-instrumentation:2.0-alpha-2"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
