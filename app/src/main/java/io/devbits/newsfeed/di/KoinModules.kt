@@ -16,7 +16,6 @@
 
 package io.devbits.newsfeed.di
 
-import io.devbits.newsfeed.FlowCallAdapterFactory
 import io.devbits.newsfeed.api.guardian.GuardianApiService
 import io.devbits.newsfeed.api.news.NewsApiService
 import io.devbits.newsfeed.data.NewsRepository
@@ -33,7 +32,6 @@ private const val NEWS_API_BASE_URL = "https://newsapi.org/v2/"
 val appModule = module {
     single {
         Retrofit.Builder()
-            .addCallAdapterFactory(FlowCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
     }
     single<GuardianApiService> {
