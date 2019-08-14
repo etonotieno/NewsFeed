@@ -29,9 +29,6 @@ jobs:
       - run:
           name: Build Debug
           command: ./gradlew assembleDebug
-      - run:
-          name: Run KtlintFormat
-          command: ./gradlew ktlintFormat
       - store_artifacts:
           path: app/build/reports
           destination: reports
