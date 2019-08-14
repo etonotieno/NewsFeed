@@ -8,6 +8,12 @@ jobs:
       JVM_OPTS: -Xmx2g
     steps:
       - checkout
+      - run:
+          name: Get Guardian API Key
+          command: echo "GUARDIAN_API_KEY=$GUARDIAN_API_KEY" >> ~/News-Feed/secrets.properties
+      - run:
+          name: Get News API Key
+          command: echo "NEWS_API_KEY=$NEWS_API_KEY" >> ~/News-Feed/secrets.properties
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:

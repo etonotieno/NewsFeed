@@ -33,8 +33,8 @@ static def getFromProperties(Properties properties, String name) {
 }
 
 def SECRETS_FILE = getProperties(rootProject.file("secrets.properties").path)
-def GUARDIAN_API_KEY = getFromProperties(SECRETS_FILE, "GUARDIAN_KEY")
-def NEWS_API_KEY = getFromProperties(SECRETS_FILE, "NEWS_KEY")
+def GUARDIAN_API_KEY = getFromProperties(SECRETS_FILE, "GUARDIAN_API_KEY")
+def NEWS_API_KEY = getFromProperties(SECRETS_FILE, "NEWS_API_KEY")
 
 android {
     compileSdkVersion 28
