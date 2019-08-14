@@ -19,7 +19,7 @@ package io.devbits.newsfeed
 import androidx.multidex.MultiDexApplication
 import io.devbits.newsfeed.di.appModule
 import net.danlew.android.joda.JodaTimeAndroid
-import org.koin.android.ext.android.startKoin
+import org.koin.core.context.startKoin
 
 /**
  * Created by EtonOtieno on 3/13/2018
@@ -29,7 +29,9 @@ class NewsFeed : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        startKoin(this, listOf(appModule))
+        startKoin {
+            modules(appModule)
+        }
         JodaTimeAndroid.init(this)
     }
 }

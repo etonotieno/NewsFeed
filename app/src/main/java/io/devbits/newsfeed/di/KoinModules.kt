@@ -21,8 +21,8 @@ import io.devbits.newsfeed.api.guardian.GuardianApiService
 import io.devbits.newsfeed.api.news.NewsApiService
 import io.devbits.newsfeed.data.NewsRepository
 import io.devbits.newsfeed.ui.MainViewModel
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
