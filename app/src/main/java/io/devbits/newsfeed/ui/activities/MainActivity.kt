@@ -20,9 +20,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import io.devbits.newsfeed.R
-import kotlinx.android.synthetic.main.activity_main.mainNavView
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,9 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.fragment_container)
         setupActionBarWithNavController(navController)
-        mainNavView.setupWithNavController(navController)
-        // Add a listener to prevent reselects from being treated as selects.
-        mainNavView.setOnNavigationItemReselectedListener {}
     }
 
     override fun onSupportNavigateUp(): Boolean = findNavController(R.id.fragment_container).navigateUp()
