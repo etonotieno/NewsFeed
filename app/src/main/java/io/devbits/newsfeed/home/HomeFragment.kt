@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.ui.fragments
+package io.devbits.newsfeed.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,11 +25,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import io.devbits.newsfeed.R
+import io.devbits.newsfeed.ViewModelFactory
 import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.ui.Factory
-import io.devbits.newsfeed.ui.MainViewModel
-import io.devbits.newsfeed.ui.adapters.NewsAdapter
-import io.devbits.newsfeed.ui.state.Result
+import io.devbits.newsfeed.data.Result
 import kotlinx.android.synthetic.main.fragment_home.homeEmptyView
 import kotlinx.android.synthetic.main.fragment_home.homeLoadingIndicator
 import kotlinx.android.synthetic.main.fragment_home.homeNewsRV
@@ -38,7 +36,7 @@ import org.koin.android.ext.android.get
 class HomeFragment : Fragment() {
 
     private val newsAdapter = NewsAdapter()
-    private val viewModel by viewModels<MainViewModel> { Factory(get()) }
+    private val viewModel by viewModels<NewsViewModel> { ViewModelFactory(get()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

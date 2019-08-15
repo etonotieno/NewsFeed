@@ -14,23 +14,20 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.ui.activities
+package io.devbits.newsfeed.category
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import io.devbits.newsfeed.R
 
-class MainActivity : AppCompatActivity() {
+class CategoryFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        val navController = findNavController(R.id.fragment_container)
-        setupActionBarWithNavController(navController)
-    }
-
-    override fun onSupportNavigateUp(): Boolean = findNavController(R.id.fragment_container).navigateUp()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_category, container, false)
 }

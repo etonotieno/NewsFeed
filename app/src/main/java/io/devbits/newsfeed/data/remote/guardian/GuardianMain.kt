@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.api.guardian.model
+package io.devbits.newsfeed.data.remote.guardian
 
 import com.google.gson.annotations.SerializedName
 import io.devbits.newsfeed.data.News

@@ -14,25 +14,20 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.ui.activities
+package io.devbits.newsfeed.bookmark
 
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NavUtils
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import io.devbits.newsfeed.R
 
-class DetailActivity : AppCompatActivity() {
+class BookmarkedFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> NavUtils.navigateUpFromSameTask(this)
-        }
-        return super.onOptionsItemSelected(item)
-    }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_bookmarked, container, false)
 }

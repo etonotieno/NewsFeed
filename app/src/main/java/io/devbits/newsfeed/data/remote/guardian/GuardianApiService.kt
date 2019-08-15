@@ -14,10 +14,9 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.api.guardian
+package io.devbits.newsfeed.data.remote.guardian
 
 import io.devbits.newsfeed.BuildConfig
-import io.devbits.newsfeed.api.guardian.model.GuardianMain
 import retrofit2.http.GET
 import retrofit2.http.Query
 

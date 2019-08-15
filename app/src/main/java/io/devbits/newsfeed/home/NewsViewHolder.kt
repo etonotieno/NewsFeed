@@ -14,14 +14,13 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.ui.adapters
+package io.devbits.newsfeed.home
 
 import android.view.View
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.ui.fragments.HomeFragmentDirections
 import io.devbits.newsfeed.utils.getFormattedTimeString
 import kotlinx.android.synthetic.main.activity_detail.view.time_text_view
 import kotlinx.android.synthetic.main.news_item.view.article_image_view

@@ -16,10 +16,9 @@
 
 package io.devbits.newsfeed.data
 
-import io.devbits.newsfeed.api.guardian.GuardianApiService
-import io.devbits.newsfeed.api.guardian.model.mapToNews
-import io.devbits.newsfeed.api.news.NewsApiService
-import io.devbits.newsfeed.ui.state.Result
+import io.devbits.newsfeed.data.remote.guardian.GuardianApiService
+import io.devbits.newsfeed.data.remote.guardian.mapToNews
+import io.devbits.newsfeed.data.remote.news.NewsApiService
 
 class NewsRepository(
     private val guardianApiService: GuardianApiService,

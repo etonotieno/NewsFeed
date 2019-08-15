@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.ui.adapters
+package io.devbits.newsfeed.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

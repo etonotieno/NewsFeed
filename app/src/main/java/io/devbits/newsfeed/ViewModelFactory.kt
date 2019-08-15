@@ -14,10 +14,18 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.ui.state
+package io.devbits.newsfeed
 
-sealed class Result<out T : Any> {
-    data class Success<out T : Any>(val data: T) : Result<T>()
-    data class Error(val exception: Exception) : Result<Nothing>()
-    object Loading : Result<Nothing>()
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import io.devbits.newsfeed.data.NewsRepository
+import io.devbits.newsfeed.home.NewsViewModel
+
+@Suppress("UNCHECKED_CAST")
+class ViewModelFactory(private val repository: NewsRepository) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return NewsViewModel(repository) as T
+    }
+
 }

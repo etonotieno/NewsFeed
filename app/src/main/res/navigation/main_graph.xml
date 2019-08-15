@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/destination_home"
-        android:name="io.devbits.newsfeed.ui.fragments.HomeFragment"
+        android:name="io.devbits.newsfeed.home.HomeFragment"
         android:label="Home" >
         <action
             android:id="@+id/actionHomeToDetail"
@@ -31,16 +31,16 @@
     </fragment>
     <activity
         android:id="@+id/detailActivity"
-        android:name="io.devbits.newsfeed.ui.activities.DetailActivity"
+        android:name="io.devbits.newsfeed.newsdetail.DetailActivity"
         android:label="Details"
         tools:layout="@layout/activity_detail" />
     <fragment
         android:id="@+id/destination_category"
-        android:name="io.devbits.newsfeed.ui.fragments.CategoryFragment"
+        android:name="io.devbits.newsfeed.category.CategoryFragment"
         android:label="Categories" />
     <fragment
         android:id="@+id/destination_bookmarked"
-        android:name="io.devbits.newsfeed.ui.fragments.BookmarkedFragment"
+        android:name="io.devbits.newsfeed.bookmark.BookmarkedFragment"
         android:label="Bookmarked"
         tools:layout="@layout/fragment_bookmarked" />
 </navigation>

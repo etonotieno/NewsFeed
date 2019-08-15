@@ -16,10 +16,10 @@
 
 package io.devbits.newsfeed.di
 
-import io.devbits.newsfeed.api.guardian.GuardianApiService
-import io.devbits.newsfeed.api.news.NewsApiService
+import io.devbits.newsfeed.data.remote.guardian.GuardianApiService
+import io.devbits.newsfeed.data.remote.news.NewsApiService
 import io.devbits.newsfeed.data.NewsRepository
-import io.devbits.newsfeed.ui.MainViewModel
+import io.devbits.newsfeed.home.NewsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -47,5 +47,5 @@ val appModule = module {
             .create()
     }
     single { NewsRepository(get(), get()) }
-    viewModel { MainViewModel(get()) }
+    viewModel { NewsViewModel(get()) }
 }

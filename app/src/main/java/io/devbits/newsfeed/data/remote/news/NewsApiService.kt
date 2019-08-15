@@ -14,12 +14,20 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.api.guardian.model
+package io.devbits.newsfeed.data.remote.news
 
-import com.google.gson.annotations.SerializedName
+import io.devbits.newsfeed.BuildConfig
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.Query
 
-class GuardianFields(
-    @field:SerializedName("thumbnail") val thumbnail: String,
-    @field:SerializedName("body") val bodyText: String,
-    @field:SerializedName("trailText") val trailText: String
-)
+interface NewsApiService {
+
+    @Headers("X-Api-Key: ${BuildConfig.NEWS_API_KEY}")
+    @GET("everything")
+    suspend fun getNewsResponseAsync(
+        @Query("sources") source: String = "techcrunch",
+        @Query("language") language: String = "en"
+    ): NewsApiResponse
+
+}
