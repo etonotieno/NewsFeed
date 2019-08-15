@@ -16,10 +16,13 @@
 
 package io.devbits.newsfeed.home
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.utils.getFormattedTimeString
 import kotlinx.android.synthetic.main.activity_detail.view.time_text_view
@@ -27,7 +30,9 @@ import kotlinx.android.synthetic.main.news_item.view.article_image_view
 import kotlinx.android.synthetic.main.news_item.view.headline_text_view
 import kotlinx.android.synthetic.main.news_item.view.section_text_view
 
-class NewsViewHolder(newsItemView: View) : RecyclerView.ViewHolder(newsItemView) {
+class NewsViewHolder private constructor(
+    newsItemView: View
+) : RecyclerView.ViewHolder(newsItemView) {
 
     fun bind(news: News) {
         itemView.headline_text_view.text = news.title
@@ -45,6 +50,14 @@ class NewsViewHolder(newsItemView: View) : RecyclerView.ViewHolder(newsItemView)
             val navController = it.findNavController()
             val directions = HomeFragmentDirections.actionHomeToDetail()
             navController.navigate(directions)
+        }
+    }
+
+    companion object {
+        fun create(parent: ViewGroup): NewsViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.news_item, parent, false)
+            return NewsViewHolder(view)
         }
     }
 }

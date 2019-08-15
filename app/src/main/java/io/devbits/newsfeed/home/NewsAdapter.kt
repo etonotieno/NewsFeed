@@ -16,39 +16,30 @@
 
 package io.devbits.newsfeed.home
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.News
-
-/**
- * Created by EtonOtieno on 2/15/2018
- */
 
 class NewsAdapter : ListAdapter<News, NewsViewHolder>(COMPARATOR) {
 
-    companion object {
-        private val COMPARATOR: DiffUtil.ItemCallback<News> = object : DiffUtil.ItemCallback<News>() {
-            override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
-                return oldItem == newItem
-            }
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.news_item, parent, false)
-        return NewsViewHolder(view)
+        return NewsViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val currentNews = getItem(position)
         holder.bind(currentNews)
     }
+
+    companion object COMPARATOR : DiffUtil.ItemCallback<News>() {
+        override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
+            return oldItem == newItem
+        }
+    }
+
 }
