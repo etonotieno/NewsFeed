@@ -33,6 +33,7 @@
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
         <item name="colorOnError">@color/colorOnError</item>
 
+        <item name="android:fontFamily">@font/rubik_regular</item>
         <!--Remap legacy AppCompat attributes to MaterialComponent attributes-->
         <item name="colorPrimaryDark">?colorPrimaryVariant</item>
         <item name="colorAccent">?colorSecondary</item>
