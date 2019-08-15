@@ -14,28 +14,24 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.home
+package io.devbits.newsfeed.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.data.repository.NewsRepositoryImpl
 import io.devbits.newsfeed.data.Result
-import kotlinx.coroutines.launch
+import io.devbits.newsfeed.data.remote.NewsRemoteDataSource
 
-class NewsViewModel(private val newsRepository: NewsRepositoryImpl) : ViewModel() {
+/**
+ * This class loads news articles from the remote data source.
+ *
+ * In the future this class will load data from the cache and the network.
+ */
+class NewsRepositoryImpl(
+    // TODO: Inject the interface version
+    private val newsRemoteDataSource: NewsRemoteDataSource
+) : NewsRepository {
 
-    private val _newsLiveData = MutableLiveData<Result<List<News>>>()
-    val newsLiveData: LiveData<Result<List<News>>>
-        get() = _newsLiveData
-
-    init {
-        viewModelScope.launch {
-            val guardianNews = newsRepository.getNewsResults()
-            _newsLiveData.postValue(guardianNews)
-        }
+    override suspend fun getNewsResults(): Result<List<News>> {
+        return newsRemoteDataSource.getNewsResults()
     }
 
 }

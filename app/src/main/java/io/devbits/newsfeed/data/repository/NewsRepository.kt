@@ -14,28 +14,12 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.home
+package io.devbits.newsfeed.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.data.repository.NewsRepositoryImpl
 import io.devbits.newsfeed.data.Result
-import kotlinx.coroutines.launch
 
-class NewsViewModel(private val newsRepository: NewsRepositoryImpl) : ViewModel() {
+interface NewsRepository {
 
-    private val _newsLiveData = MutableLiveData<Result<List<News>>>()
-    val newsLiveData: LiveData<Result<List<News>>>
-        get() = _newsLiveData
-
-    init {
-        viewModelScope.launch {
-            val guardianNews = newsRepository.getNewsResults()
-            _newsLiveData.postValue(guardianNews)
-        }
-    }
-
+    suspend fun getNewsResults(): Result<List<News>>
 }

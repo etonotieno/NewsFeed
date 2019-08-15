@@ -18,11 +18,11 @@ package io.devbits.newsfeed
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import io.devbits.newsfeed.data.NewsRepository
+import io.devbits.newsfeed.data.repository.NewsRepositoryImpl
 import io.devbits.newsfeed.home.NewsViewModel
 
 @Suppress("UNCHECKED_CAST")
-class ViewModelFactory(private val repository: NewsRepository) : ViewModelProvider.Factory {
+class ViewModelFactory(private val repository: NewsRepositoryImpl) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return NewsViewModel(repository) as T

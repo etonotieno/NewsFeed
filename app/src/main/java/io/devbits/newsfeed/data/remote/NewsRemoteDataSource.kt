@@ -14,18 +14,23 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data
+package io.devbits.newsfeed.data.remote
 
+import io.devbits.newsfeed.data.News
+import io.devbits.newsfeed.data.source.NewsDataSource
+import io.devbits.newsfeed.data.Result
 import io.devbits.newsfeed.data.remote.guardian.GuardianApiService
 import io.devbits.newsfeed.data.remote.guardian.mapToNews
 import io.devbits.newsfeed.data.remote.news.NewsApiService
 
-class NewsRepository(
+class NewsRemoteDataSource(
     private val guardianApiService: GuardianApiService,
     private val newsApiService: NewsApiService
-) {
+) : NewsDataSource {
 
-    suspend fun getGuardianNews(): Result<List<News>> {
+    // TODO: Use both APIs to get news results and merge them
+    // No need to use withContext since Retrofit handles this
+    override suspend fun getNewsResults(): Result<List<News>> {
         return try {
             Result.Loading
             val news = guardianApiService.getNewsResponseAsync("technology")
@@ -37,4 +42,8 @@ class NewsRepository(
         }
     }
 
+    // This functionality is not supported for a remote data source
+    override suspend fun getNewsById(newsId: String): Result<News> {
+        TODO("This functionality is not supported for a remote data source")
+    }
 }
