@@ -27,5 +27,5 @@ class GuardianResponse(
     @field:SerializedName("currentPage") val currentPage: Int,
     @field:SerializedName("pages") val pages: Int,
     @field:SerializedName("orderBy") val orderBy: String,
-    @field:SerializedName("results") val results: List<GuardianResult> = ArrayList()
+    @field:SerializedName("results") val results: List<GuardianResult>
 )
