@@ -25,5 +25,10 @@ data class News(
     val bodyText: String,
     val publicationDate: String,
     val source: String,
-    val summary: String
+    val summary: String,
+    val origin: Origin
 )
+
+enum class Origin {
+    GUARDIAN_API, NEWS_API
+}

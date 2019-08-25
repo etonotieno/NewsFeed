@@ -18,6 +18,7 @@ package io.devbits.newsfeed.data.remote.news
 
 import com.google.gson.annotations.SerializedName
 import io.devbits.newsfeed.data.News
+import io.devbits.newsfeed.data.Origin
 
 data class NewsApiResponse(
     @field:SerializedName("articles") val articles: List<NewsApiArticle>
@@ -55,7 +56,8 @@ fun NewsApiResponse.mapToNews(): List<News> {
                 bodyText = article.content,
                 publicationDate = article.publicationTime,
                 source = article.source.name,
-                summary = article.description
+                summary = article.description,
+                origin = Origin.NEWS_API
             )
         )
     }

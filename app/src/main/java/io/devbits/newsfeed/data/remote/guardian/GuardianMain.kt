@@ -18,6 +18,7 @@ package io.devbits.newsfeed.data.remote.guardian
 
 import com.google.gson.annotations.SerializedName
 import io.devbits.newsfeed.data.News
+import io.devbits.newsfeed.data.Origin
 
 class GuardianMain(@field:SerializedName("response") val response: GuardianResponse)
 
@@ -33,7 +34,8 @@ fun GuardianMain.mapToNews(): List<News> {
             bodyText = result.fields.textBody,
             publicationDate = result.webPublicationDate,
             source = result.fields.publication,
-            summary = result.fields.trailText
+            summary = result.fields.trailText,
+            origin = Origin.GUARDIAN_API
         )
     }
 }
