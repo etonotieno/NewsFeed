@@ -16,10 +16,6 @@
 
 package io.devbits.newsfeed.data
 
-/**
- * Created by EtonOtieno on 3/21/2018
- */
-
 data class News(
     val id: String,
     val imageUrl: String?,
@@ -27,5 +23,7 @@ data class News(
     val sectionName: String,
     val title: String,
     val bodyText: String,
-    val publicationDate: String
+    val publicationDate: String,
+    val source: String,
+    val summary: String
 )

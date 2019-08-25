@@ -20,6 +20,9 @@ import com.google.gson.annotations.SerializedName
 
 class GuardianFields(
     @field:SerializedName("thumbnail") val thumbnail: String,
-    @field:SerializedName("body") val bodyText: String,
-    @field:SerializedName("trailText") val trailText: String
+    @field:SerializedName("headline") val headline: String,
+    @field:SerializedName("body") val htmlBody: String,
+    @field:SerializedName("bodyText") val textBody: String,
+    @field:SerializedName("trailText") val trailText: String,
+    @field:SerializedName("publication") val publication: String
 )

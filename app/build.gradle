@@ -47,6 +47,7 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
+        vectorDrawables.useSupportLibrary = true
         buildConfigField("String", "GUARDIAN_API_KEY", GUARDIAN_API_KEY)
         buildConfigField("String", "NEWS_API_KEY", NEWS_API_KEY)
     }

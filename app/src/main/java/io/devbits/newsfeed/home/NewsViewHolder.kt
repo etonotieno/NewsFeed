@@ -24,28 +24,37 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.utils.getFormattedTimeString
-import kotlinx.android.synthetic.main.activity_detail.view.time_text_view
-import kotlinx.android.synthetic.main.news_item.view.article_image_view
-import kotlinx.android.synthetic.main.news_item.view.headline_text_view
-import kotlinx.android.synthetic.main.news_item.view.section_text_view
+import kotlinx.android.synthetic.main.news_item.view.dateTextView
+import kotlinx.android.synthetic.main.news_item.view.newsSourceTextView
+import kotlinx.android.synthetic.main.news_item.view.summaryTextView
+import kotlinx.android.synthetic.main.news_item.view.thumbnailImageView
+import kotlinx.android.synthetic.main.news_item.view.titleTextView
+import org.joda.time.DateTimeZone
+import org.joda.time.format.ISODateTimeFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NewsViewHolder private constructor(
     newsItemView: View
 ) : RecyclerView.ViewHolder(newsItemView) {
 
     fun bind(news: News) {
-        itemView.headline_text_view.text = news.title
-        itemView.section_text_view.text = news.sectionName
+        Glide.with(itemView)
+            .load(news.imageUrl)
+            .centerCrop()
+            .into(itemView.thumbnailImageView)
 
-        val date = news.publicationDate
-        itemView.time_text_view.text = date.getFormattedTimeString()
+        itemView.newsSourceTextView.text = news.source
+        itemView.titleTextView.text = news.title
 
-        val imageUrl = news.imageUrl
-        val articleImageView = itemView.article_image_view
+        val dateTime = ISODateTimeFormat.dateTimeParser().parseDateTime(news.publicationDate)
+        dateTime.withZone(DateTimeZone.forTimeZone(TimeZone.getDefault()))
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val time = Calendar.getInstance().apply { timeInMillis = dateTime.millis }.time
+        val date = simpleDateFormat.format(time)
+        itemView.dateTextView.text = date
 
-        Glide.with(itemView.context).load(imageUrl).into(articleImageView)
-
+        itemView.summaryTextView.text = news.summary
         itemView.setOnClickListener {
             val navController = it.findNavController()
             val directions = HomeFragmentDirections.actionHomeToDetail()

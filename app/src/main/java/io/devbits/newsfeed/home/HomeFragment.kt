@@ -23,8 +23,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import io.devbits.newsfeed.R
+import io.devbits.newsfeed.SpaceItemDecoration
 import io.devbits.newsfeed.ViewModelFactory
 import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.data.Result
@@ -36,6 +36,7 @@ import org.koin.android.ext.android.get
 class HomeFragment : Fragment() {
 
     private val newsAdapter = NewsAdapter()
+    private lateinit var spaceItemDecoration: SpaceItemDecoration
     private val viewModel by viewModels<NewsViewModel> { ViewModelFactory(get()) }
 
     override fun onCreateView(
@@ -45,8 +46,8 @@ class HomeFragment : Fragment() {
     ): View? = inflater.inflate(R.layout.fragment_home, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val gridManager = GridLayoutManager(requireContext(), 2)
-        homeNewsRV.layoutManager = gridManager
+        spaceItemDecoration = SpaceItemDecoration()
+        homeNewsRV.addItemDecoration(spaceItemDecoration)
         homeNewsRV.adapter = newsAdapter
 
         viewModel.newsLiveData.observe(viewLifecycleOwner, Observer {

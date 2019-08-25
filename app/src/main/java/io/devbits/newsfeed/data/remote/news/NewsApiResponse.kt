@@ -30,7 +30,8 @@ data class NewsApiArticle(
     @field:SerializedName("description") val description: String,
     @field:SerializedName("url") val url: String,
     @field:SerializedName("urlToImage") val imageUrl: String,
-    @field:SerializedName("publishedAt") val publicationTime: String
+    @field:SerializedName("publishedAt") val publicationTime: String,
+    @field:SerializedName("content") val content: String
 )
 
 data class NewsApiSource(
@@ -44,14 +45,17 @@ fun NewsApiResponse.mapToNews(): List<News> {
     for (article in newsArticles) {
         articles.add(
             News(
-                id = "id ${article.url}",
+                id = article.url,
                 imageUrl = article.imageUrl,
                 webUrl = article.url,
                 // TODO: Find out how to add a section for the News API
                 sectionName = article.source.name,
                 title = article.title,
-                bodyText = article.description,
-                publicationDate = article.publicationTime
+                // TODO: Launch a webview instead of a Details screen since this is truncated
+                bodyText = article.content,
+                publicationDate = article.publicationTime,
+                source = article.source.name,
+                summary = article.description
             )
         )
     }

@@ -14,25 +14,20 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data.remote.guardian
+package io.devbits.newsfeed
 
-import io.devbits.newsfeed.BuildConfig
-import retrofit2.http.GET
-import retrofit2.http.Query
+import android.graphics.Rect
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
-/**
- * Created by EtonOtieno on 3/2/2018
- */
+class SpaceItemDecoration : RecyclerView.ItemDecoration() {
 
-interface GuardianApiService {
-
-    @GET("search")
-   suspend fun getNewsResponseAsync(
-        @Query("section") category: String?,
-        @Query("page-size") pageSize: String = "20",
-        @Query("show-fields") fields: String = "all",
-        @Query("format") format: String = "json",
-        @Query("api-key") apiKey: String = BuildConfig.GUARDIAN_API_KEY
-    ): GuardianMain
-
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        outRect.set(8, 8, 8, 8)
+    }
 }
