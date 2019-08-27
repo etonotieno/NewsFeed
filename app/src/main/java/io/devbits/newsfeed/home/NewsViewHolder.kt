@@ -22,6 +22,8 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.News
 import kotlinx.android.synthetic.main.news_item.view.dateTextView
@@ -41,6 +43,8 @@ class NewsViewHolder private constructor(
         Glide.with(itemView)
             .load(news.imageUrl)
             .centerCrop()
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(itemView.thumbnailImageView)
 
         itemView.newsSourceTextView.text = news.source

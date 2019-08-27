@@ -16,10 +16,10 @@
 
 package io.devbits.newsfeed.di
 
-import io.devbits.newsfeed.data.repository.NewsRepositoryImpl
 import io.devbits.newsfeed.data.remote.NewsRemoteDataSource
 import io.devbits.newsfeed.data.remote.guardian.GuardianApiService
 import io.devbits.newsfeed.data.remote.news.NewsApiService
+import io.devbits.newsfeed.data.repository.NewsRepositoryImpl
 import io.devbits.newsfeed.home.NewsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -28,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
 private const val GUARDIAN_BASE_URL = "https://content.guardianapis.com/"
-private const val NEWS_API_BASE_URL = "https://newsapi.org/v2/"
+private const val NEWS_API_BASE_URL = "https://newsapi.org/"
 
 val appModule = module {
     single {
