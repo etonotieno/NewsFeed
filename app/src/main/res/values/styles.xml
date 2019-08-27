@@ -18,14 +18,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="NewsFeed" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="NewsFeed" parent="Theme.MaterialComponents.Light.NoActionBar">
 
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
 
-        <item name="android:colorBackground">@color/colorBackground</item>
         <item name="colorSurface">@color/colorSurface</item>
         <item name="colorError">@color/colorError</item>
 

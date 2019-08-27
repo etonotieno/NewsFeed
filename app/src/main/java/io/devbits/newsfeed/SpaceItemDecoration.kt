@@ -28,6 +28,6 @@ class SpaceItemDecoration : RecyclerView.ItemDecoration() {
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        outRect.set(8, 8, 8, 8)
+        outRect.set(16, 8, 16, 8)
     }
 }

@@ -36,7 +36,6 @@ import org.koin.android.ext.android.get
 class HomeFragment : Fragment() {
 
     private val newsAdapter = NewsAdapter()
-    private lateinit var spaceItemDecoration: SpaceItemDecoration
     private val viewModel by viewModels<NewsViewModel> { ViewModelFactory(get()) }
 
     override fun onCreateView(
@@ -46,7 +45,7 @@ class HomeFragment : Fragment() {
     ): View? = inflater.inflate(R.layout.fragment_home, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        spaceItemDecoration = SpaceItemDecoration()
+        val spaceItemDecoration = SpaceItemDecoration()
         homeNewsRV.addItemDecoration(spaceItemDecoration)
         homeNewsRV.adapter = newsAdapter
 

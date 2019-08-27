@@ -21,6 +21,5 @@
     android:layout_height="match_parent"
     tools:context=".bookmark.BookmarkedFragment">
 
-    <include layout="@layout/news_list_content" />
 
 </FrameLayout>
