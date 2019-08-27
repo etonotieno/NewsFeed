@@ -53,7 +53,7 @@ fun NewsApiResponse.mapToNews(): List<News> {
                 sectionName = article.source.name,
                 title = article.title,
                 // TODO: Launch a webview instead of a Details screen since this is truncated
-                bodyText = article.content,
+                body = article.content,
                 publicationDate = article.publicationTime,
                 source = article.source.name,
                 summary = article.description,

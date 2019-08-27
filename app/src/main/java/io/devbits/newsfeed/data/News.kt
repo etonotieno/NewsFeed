@@ -26,7 +26,7 @@ data class News(
     val webUrl: String,
     val sectionName: String,
     val title: String,
-    val bodyText: String,
+    val body: String,
     val publicationDate: String,
     val source: String,
     val summary: String,

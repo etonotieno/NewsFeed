@@ -31,7 +31,7 @@ fun GuardianMain.mapToNews(): List<News> {
             webUrl = result.webUrl,
             sectionName = result.sectionName,
             title = result.webTitle,
-            bodyText = result.fields.textBody,
+            body = result.fields.htmlBody,
             publicationDate = result.webPublicationDate,
             source = result.fields.publication,
             summary = result.fields.trailText,
