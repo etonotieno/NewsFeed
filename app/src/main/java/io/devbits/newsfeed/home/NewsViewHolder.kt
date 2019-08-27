@@ -26,7 +26,6 @@ import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.News
 import kotlinx.android.synthetic.main.news_item.view.dateTextView
 import kotlinx.android.synthetic.main.news_item.view.newsSourceTextView
-import kotlinx.android.synthetic.main.news_item.view.summaryTextView
 import kotlinx.android.synthetic.main.news_item.view.thumbnailImageView
 import kotlinx.android.synthetic.main.news_item.view.titleTextView
 import org.joda.time.DateTimeZone
@@ -47,14 +46,8 @@ class NewsViewHolder private constructor(
         itemView.newsSourceTextView.text = news.source
         itemView.titleTextView.text = news.title
 
-        val dateTime = ISODateTimeFormat.dateTimeParser().parseDateTime(news.publicationDate)
-        dateTime.withZone(DateTimeZone.forTimeZone(TimeZone.getDefault()))
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val time = Calendar.getInstance().apply { timeInMillis = dateTime.millis }.time
-        val date = simpleDateFormat.format(time)
-        itemView.dateTextView.text = date
+        itemView.dateTextView.text = getFormattedDate(news.publicationDate)
 
-        itemView.summaryTextView.text = news.summary
         itemView.setOnClickListener {
             val navController = it.findNavController()
             val directions = HomeFragmentDirections.actionHomeToDetail()
@@ -68,5 +61,13 @@ class NewsViewHolder private constructor(
                 .inflate(R.layout.news_item, parent, false)
             return NewsViewHolder(view)
         }
+    }
+
+    private fun getFormattedDate(date: String): String {
+        val dateTime = ISODateTimeFormat.dateTimeParser().parseDateTime(date)
+        dateTime.withZone(DateTimeZone.forTimeZone(TimeZone.getDefault()))
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val time = Calendar.getInstance().apply { timeInMillis = dateTime.millis }.time
+        return simpleDateFormat.format(time)
     }
 }

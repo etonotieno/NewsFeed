@@ -19,26 +19,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="8dp"
-    app:strokeColor="?attr/colorSecondary"
-    app:strokeWidth="1dp"
-    tools:ignore="RtlCompat">
+    app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/thumbnailImageView"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceCaption"
+            app:layout_constraintBottom_toTopOf="@+id/bottomGuideline"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            app:layout_constraintStart_toEndOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            tools:text="2019/08/20" />
+
         <TextView
             android:id="@+id/newsSourceTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
             android:textAppearance="?attr/textAppearanceOverline"
             android:textColor="?attr/colorPrimary"
-            app:layout_constraintEnd_toStartOf="@id/imageCardView"
+            app:layout_constraintEnd_toStartOf="@+id/endGuideline"
             app:layout_constraintStart_toEndOf="@id/startGuideline"
-            app:layout_constraintTop_toBottomOf="@id/topGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/thumbnailImageView"
             tools:text="The Observer" />
 
         <TextView
@@ -46,57 +65,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
             android:textAppearance="?attr/textAppearanceHeadline6"
-            app:layout_constraintEnd_toStartOf="@id/imageCardView"
+            app:layout_constraintEnd_toStartOf="@+id/endGuideline"
             app:layout_constraintStart_toEndOf="@id/startGuideline"
             app:layout_constraintTop_toBottomOf="@id/newsSourceTextView"
             tools:text="Does Amazon have answers for the future of the NHS?" />
-
-        <TextView
-            android:id="@+id/dateTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:textAppearance="?attr/textAppearanceCaption"
-            app:layout_constraintEnd_toStartOf="@id/imageCardView"
-            app:layout_constraintStart_toEndOf="@id/startGuideline"
-            app:layout_constraintTop_toBottomOf="@id/titleTextView"
-            tools:text="2019-08-20" />
-
-        <TextView
-            android:id="@+id/summaryTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textAppearance="?attr/textAppearanceCaption"
-            app:layout_constraintBottom_toBottomOf="@id/bottomGuideline"
-            app:layout_constraintEnd_toStartOf="@id/endGuideline"
-            app:layout_constraintStart_toEndOf="@id/startGuideline"
-            app:layout_constraintTop_toBottomOf="@id/topBarrier"
-            tools:text="Amazon is preparing a move into the healthcare market, but critics fear profit will come before patients and privacy" />
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/topBarrier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="imageCardView,dateTextView" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/topGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="16dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/bottomGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_end="16dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/startGuideline"
@@ -112,29 +85,19 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="16dp" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/imageCardView"
-            android:layout_width="100dp"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/endGuideline"
-            app:layout_constraintTop_toBottomOf="@id/topGuideline"
-            app:strokeColor="?attr/colorOnSurface"
-            app:strokeWidth="1dp">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/topGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="16dp" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:tint="?attr/colorOnSurface"
-                app:srcCompat="@drawable/ic_image" />
-
-            <ImageView
-                android:id="@+id/thumbnailImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </com.google.android.material.card.MaterialCardView>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bottomGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
