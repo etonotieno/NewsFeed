@@ -18,13 +18,17 @@ package io.devbits.newsfeed.newsdetail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.navArgs
 import io.devbits.newsfeed.R
 
 class DetailActivity : AppCompatActivity() {
 
+    private val args by navArgs<DetailActivityArgs>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
     }
 
 }

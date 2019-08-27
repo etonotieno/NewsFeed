@@ -54,7 +54,7 @@ class NewsViewHolder private constructor(
 
         itemView.setOnClickListener {
             val navController = it.findNavController()
-            val directions = HomeFragmentDirections.actionHomeToDetail()
+            val directions = HomeFragmentDirections.actionHomeToDetail(news)
             navController.navigate(directions)
         }
     }

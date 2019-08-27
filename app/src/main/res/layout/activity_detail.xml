@@ -41,7 +41,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Eton headteacher to face MPs' questions over exam malpractice. This is also a placeholder to see how the Ui will change according to the amount of text that the API has sent back." />
+                tools:text="This is the first phone with a 64-megapixel camera" />
 
             <TextView
                 android:id="@+id/newsDetailBodyTextView"
