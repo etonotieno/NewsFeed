@@ -52,9 +52,8 @@ android {
         buildConfigField("String", "NEWS_API_KEY", NEWS_API_KEY)
     }
     buildTypes {
-        debug {
-            shrinkResources = false
-            minifyEnabled = false
+        release {
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

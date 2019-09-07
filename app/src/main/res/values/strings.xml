@@ -59,5 +59,7 @@
     <string name="tab_text_3">Tab 3</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="go_to_website_string">Go to Website</string>
+    <string name="article_poster_cd">Article Poster</string>
 
 </resources>

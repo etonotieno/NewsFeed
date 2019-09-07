@@ -26,12 +26,12 @@ data class News(
     val webUrl: String,
     val sectionName: String,
     val title: String,
-    val body: String,
+    val body: String?,
     val publicationDate: String,
     val source: String,
     val summary: String,
     val origin: Origin
-): Parcelable
+) : Parcelable
 
 enum class Origin {
     GUARDIAN_API, NEWS_API

@@ -48,10 +48,12 @@ class DetailActivity : AppCompatActivity() {
             .into(detail_image_view)
 
         val body = when (newsItem.origin) {
-            Origin.GUARDIAN_API -> HtmlCompat.fromHtml(
-                newsItem.body,
-                HtmlCompat.FROM_HTML_MODE_COMPACT
-            ).toString()
+            Origin.GUARDIAN_API -> newsItem.body?.let {
+                HtmlCompat.fromHtml(
+                    it,
+                    HtmlCompat.FROM_HTML_MODE_COMPACT
+                ).toString()
+            }
             Origin.NEWS_API -> newsItem.body
         }
         newsDetailBodyTextView.text = body
