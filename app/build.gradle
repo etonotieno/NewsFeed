@@ -47,13 +47,13 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
+        vectorDrawables.useSupportLibrary = true
         buildConfigField("String", "GUARDIAN_API_KEY", GUARDIAN_API_KEY)
         buildConfigField("String", "NEWS_API_KEY", NEWS_API_KEY)
     }
     buildTypes {
-        debug {
-            shrinkResources = false
-            minifyEnabled = false
+        release {
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -67,30 +67,31 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.41"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0-RC2"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0-RC2"
-    implementation "org.koin:koin-android:2.0.0"
-    implementation "org.koin:koin-androidx-scope:2.0.0"
-    implementation "org.koin:koin-androidx-viewmodel:2.0.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0"
+    implementation "org.koin:koin-android:2.0.1"
+    implementation "org.koin:koin-androidx-scope:2.0.1"
+    implementation "org.koin:koin-androidx-viewmodel:2.0.1"
     implementation 'com.google.dagger:dagger:2.24'
     kapt 'com.google.dagger:dagger-compiler:2.24'
     implementation "androidx.activity:activity-ktx:1.1.0-alpha02"
     implementation "androidx.fragment:fragment-ktx:1.2.0-alpha02"
     implementation "com.google.android.material:material:1.1.0-alpha09"
-    implementation "androidx.recyclerview:recyclerview:1.1.0-beta02"
+    implementation "androidx.recyclerview:recyclerview:1.1.0-beta03"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha03"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-alpha03"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha03"
-    implementation "androidx.room:room-runtime:2.2.0-alpha02"
-    implementation "androidx.room:room-ktx:2.2.0-alpha02"
-    kapt "androidx.room:room-compiler:2.2.0-alpha02"
+    implementation "androidx.room:room-runtime:2.2.0-beta01"
+    implementation "androidx.room:room-ktx:2.2.0-beta01"
+    kapt "androidx.room:room-compiler:2.2.0-beta01"
     implementation "androidx.navigation:navigation-fragment-ktx:2.2.0-alpha01"
     implementation "androidx.navigation:navigation-ui-ktx:2.2.0-alpha01"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
     implementation "androidx.viewpager2:viewpager2:1.0.0-beta03"
     implementation "com.github.bumptech.glide:glide:4.9.0"
     kapt "com.github.bumptech.glide:compiler:4.9.0"
+    implementation("io.coil-kt:coil:0.6.1")
     implementation "com.squareup.retrofit2:retrofit:2.6.1"
     implementation "com.squareup.retrofit2:converter-gson:2.6.1"
     implementation 'net.danlew:android.joda:2.10.2'

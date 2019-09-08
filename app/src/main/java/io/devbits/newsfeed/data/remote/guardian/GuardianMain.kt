@@ -18,24 +18,24 @@ package io.devbits.newsfeed.data.remote.guardian
 
 import com.google.gson.annotations.SerializedName
 import io.devbits.newsfeed.data.News
+import io.devbits.newsfeed.data.Origin
 
 class GuardianMain(@field:SerializedName("response") val response: GuardianResponse)
 
 fun GuardianMain.mapToNews(): List<News> {
     val results = this.response.results
-    val articles = mutableListOf<News>()
-    for (result in results) {
-        articles.add(
-            News(
-                id = result.id,
-                imageUrl = result.fields.thumbnail,
-                webUrl = result.webUrl,
-                sectionName = result.sectionName,
-                title = result.webTitle,
-                bodyText = result.fields.bodyText,
-                publicationDate = result.webPublicationDate
-            )
+    return results.map { result ->
+        News(
+            id = result.id,
+            imageUrl = result.fields.thumbnail,
+            webUrl = result.webUrl,
+            sectionName = result.sectionName,
+            title = result.webTitle,
+            body = result.fields.htmlBody,
+            publicationDate = result.webPublicationDate,
+            source = result.fields.publication,
+            summary = result.fields.trailText,
+            origin = Origin.GUARDIAN_API
         )
     }
-    return articles
 }

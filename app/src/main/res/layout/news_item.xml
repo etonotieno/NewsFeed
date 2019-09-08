@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~  Copyright (C) 2019 Eton Otieno
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,57 +19,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    app:cardCornerRadius="2dp">
+    app:cardCornerRadius="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/article_image_view"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:contentDescription="@string/article_image_description"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/thumbnailImageView"
+            android:layout_width="150dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic[7]" />
+            tools:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/backgrounds/scenic[5]" />
 
         <TextView
-            android:id="@+id/headline_text_view"
+            android:id="@+id/dateTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceCaption"
+            app:layout_constraintBottom_toTopOf="@+id/bottomGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/startGuideline"
+            tools:text="2019/08/20" />
+
+        <TextView
+            android:id="@+id/newsSourceTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceOverline"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/startGuideline"
+            app:layout_constraintTop_toTopOf="@+id/topGuideline"
+            tools:text="The Observer" />
+
+        <TextView
+            android:id="@+id/titleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            app:layout_constraintBottom_toTopOf="@+id/dateTextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/section_text_view"
-            tools:text="Eton headteacher to face MPs' questions over exam malpractice. This is also a placeholder to see how the Ui will change according to the amount of text that the API has sent back." />
+            app:layout_constraintStart_toEndOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/newsSourceTextView"
+            tools:text="Does Amazon have answers for the future of the NHS?" />
 
-        <TextView
-            android:id="@+id/time_text_view"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/startGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="?colorSecondary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/headline_text_view"
-            tools:text="22 hours ago" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="158dp" />
 
-        <TextView
-            android:id="@+id/section_text_view"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/topGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="?colorSecondary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/article_image_view"
-            tools:text="Technology" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bottomGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

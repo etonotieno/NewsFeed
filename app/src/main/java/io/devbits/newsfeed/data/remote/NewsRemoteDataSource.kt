@@ -17,26 +17,30 @@
 package io.devbits.newsfeed.data.remote
 
 import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.data.source.NewsDataSource
 import io.devbits.newsfeed.data.Result
 import io.devbits.newsfeed.data.remote.guardian.GuardianApiService
 import io.devbits.newsfeed.data.remote.guardian.mapToNews
 import io.devbits.newsfeed.data.remote.news.NewsApiService
+import io.devbits.newsfeed.data.remote.news.mapToNews
+import io.devbits.newsfeed.data.source.NewsDataSource
 
 class NewsRemoteDataSource(
     private val guardianApiService: GuardianApiService,
     private val newsApiService: NewsApiService
 ) : NewsDataSource {
 
-    // TODO: Use both APIs to get news results and merge them
-    // No need to use withContext since Retrofit handles this
     override suspend fun getNewsResults(): Result<List<News>> {
         return try {
             Result.Loading
-            val news = guardianApiService.getNewsResponseAsync("technology")
+            val guardianApiArticles = guardianApiService.getNewsResponse("technology")
                 .mapToNews()
+            val newsApiArticles = newsApiService.getNewsResponse()
+                .mapToNews()
+
+            val finalList = guardianApiArticles.union(newsApiArticles)
                 .sortedByDescending { it.publicationDate }
-            Result.Success(news)
+
+            Result.Success(finalList)
         } catch (e: Exception) {
             Result.Error(e)
         }

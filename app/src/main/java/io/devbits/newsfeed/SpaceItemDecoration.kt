@@ -16,17 +16,18 @@
 
 package io.devbits.newsfeed
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
+import android.graphics.Rect
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity() {
+class SpaceItemDecoration : RecyclerView.ItemDecoration() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        outRect.set(16, 8, 16, 8)
     }
-
-    override fun onSupportNavigateUp(): Boolean =
-        findNavController(R.id.fragment_container).navigateUp()
 }

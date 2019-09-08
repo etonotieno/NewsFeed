@@ -46,11 +46,13 @@
         android:id="@+id/homeNewsRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/news_item" />
+        tools:listitem="@layout/news_item"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

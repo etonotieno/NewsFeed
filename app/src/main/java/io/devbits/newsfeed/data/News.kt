@@ -16,16 +16,23 @@
 
 package io.devbits.newsfeed.data
 
-/**
- * Created by EtonOtieno on 3/21/2018
- */
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class News(
     val id: String,
-    val imageUrl: String?,
+    val imageUrl: String,
     val webUrl: String,
     val sectionName: String,
     val title: String,
-    val bodyText: String,
-    val publicationDate: String
-)
+    val body: String?,
+    val publicationDate: String,
+    val source: String,
+    val summary: String,
+    val origin: Origin
+) : Parcelable
+
+enum class Origin {
+    GUARDIAN_API, NEWS_API
+}

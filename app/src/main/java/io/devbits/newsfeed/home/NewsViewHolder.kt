@@ -22,33 +22,39 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.utils.getFormattedTimeString
-import kotlinx.android.synthetic.main.activity_detail.view.time_text_view
-import kotlinx.android.synthetic.main.news_item.view.article_image_view
-import kotlinx.android.synthetic.main.news_item.view.headline_text_view
-import kotlinx.android.synthetic.main.news_item.view.section_text_view
+import kotlinx.android.synthetic.main.news_item.view.dateTextView
+import kotlinx.android.synthetic.main.news_item.view.newsSourceTextView
+import kotlinx.android.synthetic.main.news_item.view.thumbnailImageView
+import kotlinx.android.synthetic.main.news_item.view.titleTextView
+import org.joda.time.DateTimeZone
+import org.joda.time.format.ISODateTimeFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NewsViewHolder private constructor(
     newsItemView: View
 ) : RecyclerView.ViewHolder(newsItemView) {
 
     fun bind(news: News) {
-        itemView.headline_text_view.text = news.title
-        itemView.section_text_view.text = news.sectionName
+        Glide.with(itemView)
+            .load(news.imageUrl)
+            .centerCrop()
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(itemView.thumbnailImageView)
 
-        val date = news.publicationDate
-        itemView.time_text_view.text = date.getFormattedTimeString()
+        itemView.newsSourceTextView.text = news.source
+        itemView.titleTextView.text = news.title
 
-        val imageUrl = news.imageUrl
-        val articleImageView = itemView.article_image_view
-
-        Glide.with(itemView.context).load(imageUrl).into(articleImageView)
+        itemView.dateTextView.text = getFormattedDate(news.publicationDate)
 
         itemView.setOnClickListener {
             val navController = it.findNavController()
-            val directions = HomeFragmentDirections.actionHomeToDetail()
+            val directions = HomeFragmentDirections.actionHomeToDetail(news)
             navController.navigate(directions)
         }
     }
@@ -59,5 +65,13 @@ class NewsViewHolder private constructor(
                 .inflate(R.layout.news_item, parent, false)
             return NewsViewHolder(view)
         }
+    }
+
+    private fun getFormattedDate(date: String): String {
+        val dateTime = ISODateTimeFormat.dateTimeParser().parseDateTime(date)
+        dateTime.withZone(DateTimeZone.forTimeZone(TimeZone.getDefault()))
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val time = Calendar.getInstance().apply { timeInMillis = dateTime.millis }.time
+        return simpleDateFormat.format(time)
     }
 }

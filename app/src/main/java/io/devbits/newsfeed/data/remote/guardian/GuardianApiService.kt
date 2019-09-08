@@ -27,9 +27,9 @@ import retrofit2.http.Query
 interface GuardianApiService {
 
     @GET("search")
-   suspend fun getNewsResponseAsync(
+   suspend fun getNewsResponse(
         @Query("section") category: String?,
-        @Query("page-size") pageSize: String = "50",
+        @Query("page-size") pageSize: String = "20",
         @Query("show-fields") fields: String = "all",
         @Query("format") format: String = "json",
         @Query("api-key") apiKey: String = BuildConfig.GUARDIAN_API_KEY
