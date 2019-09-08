@@ -18,28 +18,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".newsdetail.DetailActivity">
+    android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/nestedScrollView"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/newsDetailTitleTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceHeadline6"
                 app:layout_constraintBottom_toTopOf="@+id/newsDetailBodyTextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+                app:layout_constraintStart_toStartOf="@+id/startGuideline"
+                app:layout_constraintTop_toTopOf="@+id/topGuideline"
                 tools:text="This is the first phone with a 64-megapixel camera" />
 
             <TextView
@@ -47,49 +45,81 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/newsDetailTitleTextView"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+                app:layout_constraintStart_toStartOf="@+id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/newsDetailTitleTextView"
                 tools:text="Simon Henderson to appear before education committee after Guardian reported exam questions had been leaked. This is a placeholder text to know how the UI will change according to the change in text." />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/startGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/endGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/topGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottomGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="16dp" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/goToWebsiteButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
+                style="?materialButtonOutlinedStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/go_to_website_string"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/bottomGuideline"
+                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+                app:layout_constraintStart_toStartOf="@+id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/newsDetailBodyTextView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="300dp"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/detail_image_view"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/article_poster_cd"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
-                tools:src="@tools:sample/backgrounds/scenic[6]"
-                android:contentDescription="@string/article_poster_cd" />
+                tools:srcCompat="@tools:sample/backgrounds/scenic[7]" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+                android:layout_height="?attr/actionBarSize"
+                tools:navigationIcon="?attr/homeAsUpIndicator" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

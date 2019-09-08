@@ -23,40 +23,38 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/thumbnailImageView"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="150dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:scaleType="centerCrop"
-            tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
+            tools:srcCompat="@tools:sample/backgrounds/scenic[5]" />
 
         <TextView
             android:id="@+id/dateTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:textAppearance="?attr/textAppearanceCaption"
             app:layout_constraintBottom_toTopOf="@+id/bottomGuideline"
-            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/startGuideline"
-            app:layout_constraintTop_toBottomOf="@id/titleTextView"
             tools:text="2019/08/20" />
 
         <TextView
             android:id="@+id/newsSourceTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:textAppearance="?attr/textAppearanceOverline"
             android:textColor="?attr/colorPrimary"
-            app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/startGuideline"
-            app:layout_constraintTop_toBottomOf="@+id/thumbnailImageView"
+            app:layout_constraintTop_toTopOf="@+id/topGuideline"
             tools:text="The Observer" />
 
         <TextView
@@ -64,9 +62,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            app:layout_constraintBottom_toTopOf="@+id/dateTextView"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/startGuideline"
             app:layout_constraintTop_toBottomOf="@id/newsSourceTextView"
             tools:text="Does Amazon have answers for the future of the NHS?" />
@@ -76,14 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="16dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/endGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="16dp" />
+            app:layout_constraintGuide_begin="158dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/topGuideline"
