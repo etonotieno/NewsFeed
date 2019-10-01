@@ -17,6 +17,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -49,7 +50,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/endGuideline"
                 app:layout_constraintStart_toStartOf="@+id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/newsDetailTitleTextView"
-                tools:text="Simon Henderson to appear before education committee after Guardian reported exam questions had been leaked. This is a placeholder text to know how the UI will change according to the change in text." />
+                tools:text="Simon Henderson to appear before education committee after Guardian reported exam questions had been leaked. This is a placeholder text to know how the UI will change according to the change in text.Simon Henderson to appear before education committee after Guardian reported exam questions had been leaked. This is a placeholder text to know how the UI will change according to the change in text.Simon Henderson to appear before education committee after Guardian reported exam questions had been leaked. This is a placeholder text to know how the UI will change according to the change in text.Simon Henderson to appear before education committee after Guardian reported exam questions had been leaked. This is a placeholder text to know how the UI will change according to the change in text." />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/startGuideline"
@@ -72,21 +73,13 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="16dp" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/bottomGuideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_end="16dp" />
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/goToWebsiteButton"
                 style="?materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="@string/go_to_website_string"
-                app:layout_constraintBottom_toTopOf="@+id/bottomGuideline"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/endGuideline"
                 app:layout_constraintStart_toStartOf="@+id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/newsDetailBodyTextView" />
@@ -96,15 +89,20 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        android:layout_height="300dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+            android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
 
             <ImageView
                 android:id="@+id/detail_image_view"
@@ -112,14 +110,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/article_poster_cd"
                 android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"
                 tools:srcCompat="@tools:sample/backgrounds/scenic[7]" />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                tools:navigationIcon="?attr/homeAsUpIndicator" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
