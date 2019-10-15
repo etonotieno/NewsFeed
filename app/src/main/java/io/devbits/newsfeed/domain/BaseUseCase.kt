@@ -14,14 +14,11 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data.source
+package io.devbits.newsfeed.domain
 
-import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.data.Result
 
-interface NewsDataSource {
+abstract class BaseUseCase<in Params, out Value> {
 
-    suspend fun getNewsResults(): Result<List<News>>
-
-    suspend fun getNewsById(newsId: String): Result<News>
+    abstract suspend operator fun invoke(params: Params): Result<Value>
 }

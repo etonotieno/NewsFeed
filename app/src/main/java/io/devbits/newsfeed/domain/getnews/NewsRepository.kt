@@ -14,10 +14,14 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data
+package io.devbits.newsfeed.domain.getnews
 
-sealed class Result<out T> {
-    data class Success<out T>(val data: T) : Result<T>()
-    data class Error(val exception: Exception) : Result<Nothing>()
-    object Loading : Result<Nothing>()
+import io.devbits.newsfeed.data.News
+import io.devbits.newsfeed.data.Result
+
+interface NewsRepository {
+
+    suspend fun getNewsResults(section: String): Result<List<News>>
+
+    suspend fun getNewsById(newsId: String): Result<News>
 }

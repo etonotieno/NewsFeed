@@ -21,11 +21,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.data.repository.NewsRepositoryImpl
 import io.devbits.newsfeed.data.Result
+import io.devbits.newsfeed.domain.getnews.GetNewsUseCase
+import io.devbits.newsfeed.domain.getnews.GuardianNewsParams
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NewsViewModel(private val newsRepository: NewsRepositoryImpl) : ViewModel() {
+class NewsViewModel @Inject constructor(
+    val getGuardianNewsUseCase: GetNewsUseCase
+) : ViewModel() {
 
     private val _newsLiveData = MutableLiveData<Result<List<News>>>()
     val newsLiveData: LiveData<Result<List<News>>>
@@ -33,7 +37,7 @@ class NewsViewModel(private val newsRepository: NewsRepositoryImpl) : ViewModel(
 
     init {
         viewModelScope.launch {
-            val guardianNews = newsRepository.getNewsResults()
+            val guardianNews = getGuardianNewsUseCase.invoke(GuardianNewsParams("technology"))
             _newsLiveData.postValue(guardianNews)
         }
     }

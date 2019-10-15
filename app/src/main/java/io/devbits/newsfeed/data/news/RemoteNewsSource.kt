@@ -14,25 +14,25 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data.remote
+package io.devbits.newsfeed.data.news
 
 import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.data.Result
-import io.devbits.newsfeed.data.remote.guardian.GuardianApiService
-import io.devbits.newsfeed.data.remote.guardian.mapToNews
-import io.devbits.newsfeed.data.remote.news.NewsApiService
-import io.devbits.newsfeed.data.remote.news.mapToNews
-import io.devbits.newsfeed.data.source.NewsDataSource
+import io.devbits.newsfeed.data.remote.guardianapi.GuardianApiService
+import io.devbits.newsfeed.data.remote.guardianapi.mapToNews
+import io.devbits.newsfeed.data.remote.newsapi.NewsApiService
+import io.devbits.newsfeed.data.remote.newsapi.mapToNews
+import javax.inject.Inject
 
-class NewsRemoteDataSource(
+class RemoteNewsSource @Inject constructor(
     private val guardianApiService: GuardianApiService,
     private val newsApiService: NewsApiService
-) : NewsDataSource {
+) : NewsSource {
 
-    override suspend fun getNewsResults(): Result<List<News>> {
+    override suspend fun getNewsResults(section: String): Result<List<News>> {
         return try {
             Result.Loading
-            val guardianApiArticles = guardianApiService.getNewsResponse("technology")
+            val guardianApiArticles = guardianApiService.getNewsResponse(section)
                 .mapToNews()
             val newsApiArticles = newsApiService.getNewsResponse()
                 .mapToNews()
@@ -48,6 +48,7 @@ class NewsRemoteDataSource(
 
     // This functionality is not supported for a remote data source
     override suspend fun getNewsById(newsId: String): Result<News> {
-        TODO("This functionality is not supported for a remote data source")
+        throw IllegalStateException("getNewsById is not supported for a remote NewsSource")
     }
+
 }

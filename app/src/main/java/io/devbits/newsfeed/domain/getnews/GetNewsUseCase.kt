@@ -14,24 +14,28 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data.repository
+package io.devbits.newsfeed.domain.getnews
 
 import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.data.Result
-import io.devbits.newsfeed.data.remote.NewsRemoteDataSource
+import io.devbits.newsfeed.domain.BaseUseCase
+import javax.inject.Inject
 
-/**
- * This class loads news articles from the remote data source.
- *
- * In the future this class will load data from the cache and the network.
- */
-class NewsRepositoryImpl(
-    // TODO: Inject the interface version
-    private val newsRemoteDataSource: NewsRemoteDataSource
-) : NewsRepository {
+class GetNewsUseCase @Inject constructor(
+    private val repository: NewsRepository
+) : BaseUseCase<GuardianNewsParams, List<News>>() {
 
-    override suspend fun getNewsResults(): Result<List<News>> {
-        return newsRemoteDataSource.getNewsResults()
+    override suspend fun invoke(params: GuardianNewsParams): Result<List<News>> {
+        return repository.getNewsResults(params.section)
+    }
+}
+
+class GetGuardianNewsById @Inject constructor(
+    private val repository: NewsRepository
+) : BaseUseCase<String, News>() {
+
+    override suspend fun invoke(params: String): Result<News> {
+        return repository.getNewsById(params)
     }
 
 }

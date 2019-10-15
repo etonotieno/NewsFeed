@@ -14,25 +14,14 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data.remote.guardian
+package io.devbits.newsfeed.di
 
-import io.devbits.newsfeed.BuildConfig
-import retrofit2.http.GET
-import retrofit2.http.Query
+import javax.inject.Qualifier
 
-/**
- * Created by EtonOtieno on 3/2/2018
- */
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class DataSource(val source: Source)
 
-interface GuardianApiService {
-
-    @GET("search")
-   suspend fun getNewsResponse(
-        @Query("section") category: String?,
-        @Query("page-size") pageSize: String = "20",
-        @Query("show-fields") fields: String = "all",
-        @Query("format") format: String = "json",
-        @Query("api-key") apiKey: String = BuildConfig.GUARDIAN_API_KEY
-    ): GuardianMain
-
+enum class Source {
+    REMOTE, LOCAL
 }

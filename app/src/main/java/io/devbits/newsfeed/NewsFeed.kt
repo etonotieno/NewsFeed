@@ -17,21 +17,22 @@
 package io.devbits.newsfeed
 
 import androidx.multidex.MultiDexApplication
-import io.devbits.newsfeed.di.appModule
+import io.devbits.newsfeed.di.AppComponent
+import io.devbits.newsfeed.di.DaggerAppComponent
 import net.danlew.android.joda.JodaTimeAndroid
-import org.koin.core.context.startKoin
-
-/**
- * Created by EtonOtieno on 3/13/2018
- */
 
 class NewsFeed : MultiDexApplication() {
 
+    private lateinit var appComponent: AppComponent
+
     override fun onCreate() {
         super.onCreate()
-        startKoin {
-            modules(appModule)
-        }
+
+        appComponent = DaggerAppComponent.create()
+
         JodaTimeAndroid.init(this)
     }
+
+    fun getAppComponent(): AppComponent = appComponent
+
 }

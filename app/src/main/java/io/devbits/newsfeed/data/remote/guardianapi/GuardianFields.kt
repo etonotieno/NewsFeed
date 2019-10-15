@@ -14,10 +14,15 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data
+package io.devbits.newsfeed.data.remote.guardianapi
 
-sealed class Result<out T> {
-    data class Success<out T>(val data: T) : Result<T>()
-    data class Error(val exception: Exception) : Result<Nothing>()
-    object Loading : Result<Nothing>()
-}
+import com.google.gson.annotations.SerializedName
+
+class GuardianFields(
+    @field:SerializedName("thumbnail") val thumbnail: String,
+    @field:SerializedName("headline") val headline: String,
+    @field:SerializedName("body") val htmlBody: String,
+    @field:SerializedName("bodyText") val textBody: String,
+    @field:SerializedName("trailText") val trailText: String,
+    @field:SerializedName("publication") val publication: String
+)

@@ -14,27 +14,25 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data.remote.news
+package io.devbits.newsfeed.data.remote.guardianapi
 
 import io.devbits.newsfeed.BuildConfig
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
-interface NewsApiService {
+/**
+ * Created by EtonOtieno on 3/2/2018
+ */
 
-    @Headers("X-Api-Key: ${BuildConfig.NEWS_API_KEY}")
-    @GET("v2/everything")
-    suspend fun getNewsResponse(
-        @Query("sources") sources: String = "techcrunch,techradar,the-verge,wired",
-        @Query("language") language: String = "en"
-    ): NewsApiResponse
+interface GuardianApiService {
 
-    @Headers("X-Api-Key: ${BuildConfig.NEWS_API_KEY}")
-    @GET("v2/top-headlines")
-    suspend fun getTopHeadlines(
-        @Query("category") category: String = "technology",
-        @Query("language") language: String = "en"
-    ): NewsApiResponse
+    @GET("search")
+   suspend fun getNewsResponse(
+        @Query("section") category: String?,
+        @Query("page-size") pageSize: String = "20",
+        @Query("show-fields") fields: String = "all",
+        @Query("format") format: String = "json",
+        @Query("api-key") apiKey: String = BuildConfig.GUARDIAN_API_KEY
+    ): GuardianMain
 
 }

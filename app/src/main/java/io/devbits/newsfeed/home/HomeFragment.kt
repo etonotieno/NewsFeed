@@ -21,22 +21,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import io.devbits.newsfeed.NewsFeed
 import io.devbits.newsfeed.R
 import io.devbits.newsfeed.SpaceItemDecoration
-import io.devbits.newsfeed.ViewModelFactory
 import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.data.Result
 import kotlinx.android.synthetic.main.fragment_home.homeEmptyView
 import kotlinx.android.synthetic.main.fragment_home.homeLoadingIndicator
 import kotlinx.android.synthetic.main.fragment_home.homeNewsRV
-import org.koin.android.ext.android.get
+import javax.inject.Inject
+
 
 class HomeFragment : Fragment() {
 
     private val newsAdapter = NewsAdapter()
-    private val viewModel by viewModels<NewsViewModel> { ViewModelFactory(get()) }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by activityViewModels<NewsViewModel> { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +58,11 @@ class HomeFragment : Fragment() {
         viewModel.newsLiveData.observe(viewLifecycleOwner, Observer {
             handleState(it)
         })
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        (requireActivity().application as NewsFeed).getAppComponent().inject(this)
     }
 
     private fun handleState(result: Result<List<News>>) {

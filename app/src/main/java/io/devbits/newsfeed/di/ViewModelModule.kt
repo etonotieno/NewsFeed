@@ -14,10 +14,25 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data
+package io.devbits.newsfeed.di
 
-sealed class Result<out T> {
-    data class Success<out T>(val data: T) : Result<T>()
-    data class Error(val exception: Exception) : Result<Nothing>()
-    object Loading : Result<Nothing>()
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoMap
+import io.devbits.newsfeed.ViewModelFactory
+import io.devbits.newsfeed.home.NewsViewModel
+
+@Module
+interface ViewModelModule {
+
+    @Binds
+    fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NewsViewModel::class)
+    fun bindNewsViewModel(newsViewModel: NewsViewModel): ViewModel
+
 }

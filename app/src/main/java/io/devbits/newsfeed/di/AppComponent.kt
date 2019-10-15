@@ -14,15 +14,22 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data.remote.guardian
+package io.devbits.newsfeed.di
 
-import com.google.gson.annotations.SerializedName
+import dagger.Component
+import io.devbits.newsfeed.MainActivity
+import io.devbits.newsfeed.home.HomeFragment
+import javax.inject.Singleton
 
-class GuardianFields(
-    @field:SerializedName("thumbnail") val thumbnail: String,
-    @field:SerializedName("headline") val headline: String,
-    @field:SerializedName("body") val htmlBody: String,
-    @field:SerializedName("bodyText") val textBody: String,
-    @field:SerializedName("trailText") val trailText: String,
-    @field:SerializedName("publication") val publication: String
-)
+@Singleton
+@Component(modules = [AppModule::class])
+interface AppComponent {
+
+    fun inject(homeFragment: HomeFragment)
+    fun inject(mainActivity: MainActivity)
+
+    @Component.Builder
+    interface Builder {
+        fun build(): AppComponent
+    }
+}

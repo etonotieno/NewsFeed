@@ -14,12 +14,9 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data.repository
+package io.devbits.newsfeed.domain.getnews
 
-import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.data.Result
-
-interface NewsRepository {
-
-    suspend fun getNewsResults(): Result<List<News>>
-}
+data class GuardianNewsParams(
+    val section: String,
+    val pageSize: String = "20"
+)
