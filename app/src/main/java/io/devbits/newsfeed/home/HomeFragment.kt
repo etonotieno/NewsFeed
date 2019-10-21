@@ -16,6 +16,7 @@
 
 package io.devbits.newsfeed.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +34,6 @@ import kotlinx.android.synthetic.main.fragment_home.homeEmptyView
 import kotlinx.android.synthetic.main.fragment_home.homeLoadingIndicator
 import kotlinx.android.synthetic.main.fragment_home.homeNewsRV
 import javax.inject.Inject
-
 
 class HomeFragment : Fragment() {
 
@@ -60,8 +60,8 @@ class HomeFragment : Fragment() {
         })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         (requireActivity().application as NewsFeed).getAppComponent().inject(this)
     }
 

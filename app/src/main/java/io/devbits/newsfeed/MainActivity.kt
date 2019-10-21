@@ -17,25 +17,15 @@
 package io.devbits.newsfeed
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import io.devbits.newsfeed.home.NewsViewModel
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val newsViewModel: NewsViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         (application as NewsFeed).getAppComponent().inject(this)
-
     }
 
     override fun onSupportNavigateUp(): Boolean =

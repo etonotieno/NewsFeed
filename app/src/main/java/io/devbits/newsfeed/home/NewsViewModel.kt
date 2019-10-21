@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NewsViewModel @Inject constructor(
-    val getGuardianNewsUseCase: GetNewsUseCase
+    private val getGuardianNewsUseCase: GetNewsUseCase
 ) : ViewModel() {
 
     private val _newsLiveData = MutableLiveData<Result<List<News>>>()
