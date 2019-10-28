@@ -57,11 +57,13 @@ class HomeFragment : Fragment() {
         homeNewsRV.adapter = newsAdapter
 
         val manager = GridLayoutManager(requireContext(), 2)
-        // TODO: Once Top Headlines is integrated, change the span size
+
         manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int) = when (position) {
-                0 -> 2
-                else -> 2
+            override fun getSpanSize(position: Int): Int {
+                return when (newsAdapter.getItemViewType(position)) {
+                    ITEM_VIEW_TYPE_HEADLINE_ITEM -> 1
+                    else -> 2
+                }
             }
         }
         homeNewsRV.layoutManager = manager

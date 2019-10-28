@@ -32,7 +32,11 @@ class NewsAdapter : ListAdapter<DataItem, RecyclerView.ViewHolder>(COMPARATOR) {
 
     fun addHeaderAndSubmitList(list: List<News>) {
         adapterScope.launch {
-            val items = listOf(DataItem.Header) + list.map { DataItem.TopStoryItem(it) }
+            val items = mutableListOf<DataItem>()
+            items.add(DataItem.HeadlineHeader)
+            items.addAll(list.map { DataItem.HeadlineItem(it) }.take(4))
+            items.add(DataItem.TopStoryHeader)
+            items.addAll(list.map { DataItem.TopStoryItem(it) })
             withContext(Dispatchers.Main) {
                 submitList(items)
             }
@@ -41,15 +45,19 @@ class NewsAdapter : ListAdapter<DataItem, RecyclerView.ViewHolder>(COMPARATOR) {
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            DataItem.Header -> ITEM_VIEW_TYPE_HEADER
-            is DataItem.TopStoryItem -> ITEM_VIEW_TYPE_NEWS
+            DataItem.TopStoryHeader -> ITEM_VIEW_TYPE_TOP_STORY_HEADER
+            is DataItem.TopStoryItem -> ITEM_VIEW_TYPE_TOP_STORY_ITEM
+            DataItem.HeadlineHeader -> ITEM_VIEW_TYPE_HEADLINE_HEADER
+            is DataItem.HeadlineItem -> ITEM_VIEW_TYPE_HEADLINE_ITEM
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            ITEM_VIEW_TYPE_HEADER -> TopStoriesHeaderViewHolder.create(parent)
-            ITEM_VIEW_TYPE_NEWS -> NewsViewHolder.create(parent)
+            ITEM_VIEW_TYPE_TOP_STORY_HEADER -> TopStoriesHeaderViewHolder.create(parent)
+            ITEM_VIEW_TYPE_TOP_STORY_ITEM -> NewsViewHolder.create(parent)
+            ITEM_VIEW_TYPE_HEADLINE_HEADER -> HeadlinesHeaderViewHolder.create(parent)
+            ITEM_VIEW_TYPE_HEADLINE_ITEM -> HeadlinesViewHolder.create(parent)
             else -> throw ClassCastException("Uknown viewType $viewType")
         }
     }
@@ -57,8 +65,12 @@ class NewsAdapter : ListAdapter<DataItem, RecyclerView.ViewHolder>(COMPARATOR) {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is NewsViewHolder -> {
-                val newsItem = getItem(position) as DataItem.TopStoryItem
-                holder.bind(newsItem.news)
+                val topStory = getItem(position) as DataItem.TopStoryItem
+                holder.bind(topStory.news)
+            }
+            is HeadlinesViewHolder -> {
+                val headline = getItem(position) as DataItem.HeadlineItem
+                holder.bind(headline.news)
             }
         }
     }
@@ -78,14 +90,24 @@ class NewsAdapter : ListAdapter<DataItem, RecyclerView.ViewHolder>(COMPARATOR) {
 sealed class DataItem {
     abstract val id: String
 
-    object Header : DataItem() {
-        override val id: String = "HEADER_ITEM"
+    object TopStoryHeader : DataItem() {
+        override val id: String = "TOP_STORY_HEADER_ITEM"
     }
 
     data class TopStoryItem(val news: News) : DataItem() {
         override val id: String = news.id
     }
+
+    object HeadlineHeader : DataItem() {
+        override val id: String = "HEADLINES_HEADER_ITEM"
+    }
+
+    data class HeadlineItem(val news: News) : DataItem() {
+        override val id: String = news.id
+    }
 }
 
-private const val ITEM_VIEW_TYPE_HEADER = 0
-private const val ITEM_VIEW_TYPE_NEWS = 1
+const val ITEM_VIEW_TYPE_TOP_STORY_HEADER = 0
+const val ITEM_VIEW_TYPE_TOP_STORY_ITEM = 1
+const val ITEM_VIEW_TYPE_HEADLINE_HEADER = 2
+const val ITEM_VIEW_TYPE_HEADLINE_ITEM = 3

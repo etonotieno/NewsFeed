@@ -33,7 +33,7 @@ class HeadlinesViewHolder private constructor(
 
     fun bind(news: News) {
         headlinesItemView.headlineNewsImageView.load(news.imageUrl) {
-            transformations(RoundedCornersTransformation(8.0F))
+            transformations(RoundedCornersTransformation(16F))
             crossfade(true)
         }
 
@@ -52,17 +52,8 @@ class HeadlinesViewHolder private constructor(
 }
 
 class HeadlinesHeaderViewHolder private constructor(
-    private val header: View
+    header: View
 ) : RecyclerView.ViewHolder(header) {
-
-    fun bind(news: News) {
-        header.headlineNewsImageView.load(news.imageUrl) {
-            transformations(RoundedCornersTransformation(8.0F))
-            crossfade(true)
-        }
-
-        header.headlineTitleTextView.text = news.title
-    }
 
     companion object {
 
