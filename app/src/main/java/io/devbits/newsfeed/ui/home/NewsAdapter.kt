@@ -19,27 +19,73 @@ package io.devbits.newsfeed.ui.home
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import io.devbits.newsfeed.data.News
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class NewsAdapter : ListAdapter<News, NewsViewHolder>(COMPARATOR) {
+class NewsAdapter : ListAdapter<DataItem, RecyclerView.ViewHolder>(COMPARATOR) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        return NewsViewHolder.create(parent)
+    private val adapterScope = CoroutineScope(Dispatchers.Default)
+
+    fun addHeaderAndSubmitList(list: List<News>) {
+        adapterScope.launch {
+            val items = listOf(DataItem.Header) + list.map { DataItem.TopStoryItem(it) }
+            withContext(Dispatchers.Main) {
+                submitList(items)
+            }
+        }
     }
 
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val currentNews = getItem(position)
-        holder.bind(currentNews)
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)) {
+            DataItem.Header -> ITEM_VIEW_TYPE_HEADER
+            is DataItem.TopStoryItem -> ITEM_VIEW_TYPE_NEWS
+        }
     }
 
-    companion object COMPARATOR : DiffUtil.ItemCallback<News>() {
-        override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            ITEM_VIEW_TYPE_HEADER -> TopStoriesHeaderViewHolder.create(parent)
+            ITEM_VIEW_TYPE_NEWS -> NewsViewHolder.create(parent)
+            else -> throw ClassCastException("Uknown viewType $viewType")
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is NewsViewHolder -> {
+                val newsItem = getItem(position) as DataItem.TopStoryItem
+                holder.bind(newsItem.news)
+            }
+        }
+    }
+
+    companion object COMPARATOR : DiffUtil.ItemCallback<DataItem>() {
+        override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
+        override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
             return oldItem == newItem
         }
     }
 
 }
+
+sealed class DataItem {
+    abstract val id: String
+
+    object Header : DataItem() {
+        override val id: String = "HEADER_ITEM"
+    }
+
+    data class TopStoryItem(val news: News) : DataItem() {
+        override val id: String = news.id
+    }
+}
+
+private const val ITEM_VIEW_TYPE_HEADER = 0
+private const val ITEM_VIEW_TYPE_NEWS = 1

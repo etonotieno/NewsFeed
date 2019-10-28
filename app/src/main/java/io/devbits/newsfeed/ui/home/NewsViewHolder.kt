@@ -75,3 +75,18 @@ class NewsViewHolder private constructor(
         return simpleDateFormat.format(time)
     }
 }
+
+class TopStoriesHeaderViewHolder private constructor(
+    header: View
+) : RecyclerView.ViewHolder(header) {
+
+    companion object {
+
+        fun create(parent: ViewGroup): TopStoriesHeaderViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.top_stories_header, parent, false)
+
+            return TopStoriesHeaderViewHolder(view)
+        }
+    }
+}

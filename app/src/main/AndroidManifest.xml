@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~  Copyright (C) 2019 Eton Otieno
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,7 +38,8 @@
         </activity>
         <activity
             android:name="io.devbits.newsfeed.ui.newsdetail.DetailActivity"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/NewsFeed.DetailsTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />

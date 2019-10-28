@@ -61,5 +61,9 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="go_to_website_string">Go to Website</string>
     <string name="article_poster_cd">Article Poster</string>
+    <string name="top_headlines_label">Top Headlines</string>
+    <string name="show_all_label">Show All</string>
+    <string name="news_headline_image">News Headline Image</string>
+    <string name="top_stories_label">Top Stories</string>
 
 </resources>

@@ -18,7 +18,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="NewsFeed" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="NewsFeed" parent="Theme.MaterialComponents.Light.DarkActionBar">
 
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
@@ -38,4 +38,8 @@
         <item name="colorAccent">?colorSecondary</item>
     </style>
 
+    <style name="NewsFeed.DetailsTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import io.devbits.newsfeed.NewsFeed
 import io.devbits.newsfeed.R
 import io.devbits.newsfeed.SpaceItemDecoration
@@ -54,6 +55,16 @@ class HomeFragment : Fragment() {
         val spaceItemDecoration = SpaceItemDecoration()
         homeNewsRV.addItemDecoration(spaceItemDecoration)
         homeNewsRV.adapter = newsAdapter
+
+        val manager = GridLayoutManager(requireContext(), 2)
+        // TODO: Once Top Headlines is integrated, change the span size
+        manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int) = when (position) {
+                0 -> 2
+                else -> 2
+            }
+        }
+        homeNewsRV.layoutManager = manager
 
         viewModel.newsLiveData.observe(viewLifecycleOwner, Observer {
             handleState(it)
@@ -88,7 +99,7 @@ class HomeFragment : Fragment() {
             homeEmptyView.text = "No Data was found 😑😑"
         } else {
             homeNewsRV.visibility = View.VISIBLE
-            newsAdapter.submitList(data)
+            newsAdapter.addHeaderAndSubmitList(data)
         }
     }
 
