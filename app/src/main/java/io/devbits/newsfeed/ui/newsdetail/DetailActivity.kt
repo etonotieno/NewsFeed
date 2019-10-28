@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.newsdetail
+package io.devbits.newsfeed.ui.newsdetail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

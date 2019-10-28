@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.home
+package io.devbits.newsfeed.ui.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +36,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class NewsViewHolder private constructor(
-    newsItemView: View
+    private val newsItemView: View
 ) : RecyclerView.ViewHolder(newsItemView) {
 
     fun bind(news: News) {
@@ -47,12 +47,12 @@ class NewsViewHolder private constructor(
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(itemView.thumbnailImageView)
 
-        itemView.newsSourceTextView.text = news.source
-        itemView.titleTextView.text = news.title
+        newsItemView.newsSourceTextView.text = news.source
+        newsItemView.titleTextView.text = news.title
 
-        itemView.dateTextView.text = getFormattedDate(news.publicationDate)
+        newsItemView.dateTextView.text = getFormattedDate(news.publicationDate)
 
-        itemView.setOnClickListener {
+        newsItemView.setOnClickListener {
             val navController = it.findNavController()
             val directions = HomeFragmentDirections.actionHomeToDetail(news)
             navController.navigate(directions)

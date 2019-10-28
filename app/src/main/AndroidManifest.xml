@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".newsdetail.DetailActivity"
+            android:name="io.devbits.newsfeed.ui.newsdetail.DetailActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

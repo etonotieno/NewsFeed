@@ -22,7 +22,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import io.devbits.newsfeed.ViewModelFactory
-import io.devbits.newsfeed.home.NewsViewModel
+import io.devbits.newsfeed.ui.home.NewsViewModel
 
 @Module
 interface ViewModelModule {

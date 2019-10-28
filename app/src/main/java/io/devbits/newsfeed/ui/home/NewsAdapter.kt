@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.home
+package io.devbits.newsfeed.ui.home
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
