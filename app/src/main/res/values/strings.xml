@@ -16,7 +16,7 @@
 
 <resources>
 
-    <string name="app_name">NewsFeed</string>
+    <string name="app_name">News Feed</string>
 
     <string name="about_app">About App</string>
     <string name="settings">Settings</string>

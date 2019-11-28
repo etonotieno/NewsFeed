@@ -30,19 +30,18 @@
         android:supportsRtl="true"
         android:theme="@style/NewsFeed"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".LauncherActivity"
+            android:theme="@style/NewsFeed.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name="io.devbits.newsfeed.ui.newsdetail.DetailActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/NewsFeed.DetailsTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
+            android:theme="@style/NewsFeed.DetailsTheme" />
     </application>
 </manifest>

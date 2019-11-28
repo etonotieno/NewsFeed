@@ -1,0 +1,45 @@
+<!--
+  ~  Copyright (C) 2019 Eton Otieno
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="251.885dp"
+    android:height="251.885dp"
+    android:viewportWidth="251.885"
+    android:viewportHeight="251.885">
+    <path android:pathData="M125.942,125.942m-52.292,0a52.292,52.292 0,1 1,104.584 0a52.292,52.292 0,1 1,-104.584 0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="160.05928"
+                android:endY="196.01353"
+                android:startX="112.650925"
+                android:startY="100.62647"
+                android:type="linear">
+                <item
+                    android:color="#FFF5F5F5"
+                    android:offset="0" />
+                <item
+                    android:color="#FFDBDBDB"
+                    android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M125.942,125.942m-105.942,0a105.942,105.942 0,1 1,211.884 0a105.942,105.942 0,1 1,-211.884 0"
+        android:strokeWidth="40"
+        android:strokeColor="#f7f7f7" />
+</vector>
