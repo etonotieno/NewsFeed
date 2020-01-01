@@ -17,7 +17,7 @@
 package io.devbits.newsfeed.di
 
 import dagger.Component
-import io.devbits.newsfeed.MainActivity
+import io.devbits.newsfeed.ui.MainActivity
 import io.devbits.newsfeed.ui.home.HomeFragment
 import javax.inject.Singleton
 

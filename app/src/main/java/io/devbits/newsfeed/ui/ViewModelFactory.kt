@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed
+package io.devbits.newsfeed.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

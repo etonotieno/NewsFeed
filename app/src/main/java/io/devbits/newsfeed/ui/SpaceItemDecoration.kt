@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed
+package io.devbits.newsfeed.ui
 
 import android.graphics.Rect
 import android.view.View

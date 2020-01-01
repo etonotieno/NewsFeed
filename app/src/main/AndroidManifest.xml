@@ -31,17 +31,17 @@
         android:theme="@style/NewsFeed"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name=".LauncherActivity"
+            android:name=".ui.LauncherActivity"
             android:theme="@style/NewsFeed.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.MainActivity" />
         <activity
-            android:name="io.devbits.newsfeed.ui.newsdetail.DetailActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".ui.newsdetail.DetailActivity"
+            android:parentActivityName=".ui.MainActivity"
             android:theme="@style/NewsFeed.DetailsTheme" />
     </application>
 </manifest>

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2019 Eton Otieno
+ *  Copyright (C) 2020 Eton Otieno
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,20 +14,27 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed
+package io.devbits.newsfeed.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
+import androidx.lifecycle.lifecycleScope
+import io.devbits.newsfeed.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class LauncherActivity : AppCompatActivity(R.layout.activity_launcher) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        (application as NewsFeed).getAppComponent().inject(this)
+
+        lifecycleScope.launch {
+            delay(1_500L)
+            startActivity(Intent(this@LauncherActivity, MainActivity::class.java))
+            finish()
+        }
+
     }
 
-    override fun onSupportNavigateUp(): Boolean =
-        findNavController(R.id.fragment_container).navigateUp()
 }

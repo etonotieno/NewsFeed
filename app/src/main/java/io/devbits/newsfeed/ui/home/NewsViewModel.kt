@@ -37,7 +37,7 @@ class NewsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val guardianNews = getGuardianNewsUseCase.invoke(GuardianNewsParams("technology"))
+            val guardianNews = getGuardianNewsUseCase(GuardianNewsParams("technology"))
             _newsLiveData.postValue(guardianNews)
         }
     }

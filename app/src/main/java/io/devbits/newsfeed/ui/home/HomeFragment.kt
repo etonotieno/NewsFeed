@@ -28,9 +28,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import io.devbits.newsfeed.NewsFeed
 import io.devbits.newsfeed.R
-import io.devbits.newsfeed.SpaceItemDecoration
 import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.data.Result
+import io.devbits.newsfeed.ui.SpaceItemDecoration
 import kotlinx.android.synthetic.main.fragment_home.homeEmptyView
 import kotlinx.android.synthetic.main.fragment_home.homeLoadingIndicator
 import kotlinx.android.synthetic.main.fragment_home.homeNewsRV
