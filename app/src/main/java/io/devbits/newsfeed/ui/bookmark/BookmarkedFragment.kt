@@ -14,10 +14,20 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data
+package io.devbits.newsfeed.ui.bookmark
 
-sealed class Result<out T> {
-    data class Success<out T>(val data: T) : Result<T>()
-    data class Error(val exception: Exception) : Result<Nothing>()
-    object Loading : Result<Nothing>()
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import io.devbits.newsfeed.R
+
+class BookmarkedFragment : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_bookmarked, container, false)
 }

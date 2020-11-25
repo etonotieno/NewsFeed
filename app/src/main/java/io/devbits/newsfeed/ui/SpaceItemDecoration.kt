@@ -14,10 +14,20 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data
+package io.devbits.newsfeed.ui
 
-sealed class Result<out T> {
-    data class Success<out T>(val data: T) : Result<T>()
-    data class Error(val exception: Exception) : Result<Nothing>()
-    object Loading : Result<Nothing>()
+import android.graphics.Rect
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+
+class SpaceItemDecoration : RecyclerView.ItemDecoration() {
+
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        outRect.set(16, 8, 16, 8)
+    }
 }

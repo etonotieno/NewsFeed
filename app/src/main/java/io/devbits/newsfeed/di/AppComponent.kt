@@ -1,5 +1,5 @@
 /*
- *  Copyright 2019 Eton Otieno
+ *  Copyright (C) 2019 Eton Otieno
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,10 +14,22 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data
+package io.devbits.newsfeed.di
 
-sealed class Result<out T> {
-    data class Success<out T>(val data: T) : Result<T>()
-    data class Error(val exception: Exception) : Result<Nothing>()
-    object Loading : Result<Nothing>()
+import dagger.Component
+import io.devbits.newsfeed.ui.MainActivity
+import io.devbits.newsfeed.ui.home.HomeFragment
+import javax.inject.Singleton
+
+@Singleton
+@Component(modules = [AppModule::class])
+interface AppComponent {
+
+    fun inject(homeFragment: HomeFragment)
+    fun inject(mainActivity: MainActivity)
+
+    @Component.Builder
+    interface Builder {
+        fun build(): AppComponent
+    }
 }

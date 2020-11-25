@@ -1,5 +1,5 @@
 /*
- *  Copyright 2019 Eton Otieno
+ *  Copyright (C) 2019 Eton Otieno
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,25 +14,25 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed
+package io.devbits.newsfeed.di
 
-import androidx.multidex.MultiDexApplication
-import io.devbits.newsfeed.di.AppComponent
-import io.devbits.newsfeed.di.DaggerAppComponent
-import net.danlew.android.joda.JodaTimeAndroid
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoMap
+import io.devbits.newsfeed.ui.ViewModelFactory
+import io.devbits.newsfeed.ui.home.NewsViewModel
 
-class NewsFeed : MultiDexApplication() {
+@Module
+interface ViewModelModule {
 
-    private lateinit var appComponent: AppComponent
+    @Binds
+    fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
-    override fun onCreate() {
-        super.onCreate()
-
-        appComponent = DaggerAppComponent.create()
-
-        JodaTimeAndroid.init(this)
-    }
-
-    fun getAppComponent(): AppComponent = appComponent
+    @Binds
+    @IntoMap
+    @ViewModelKey(NewsViewModel::class)
+    fun bindNewsViewModel(newsViewModel: NewsViewModel): ViewModel
 
 }

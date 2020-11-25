@@ -18,7 +18,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="NewsFeed" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="NewsFeed" parent="Theme.MaterialComponents.Light.DarkActionBar">
 
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
@@ -32,10 +32,20 @@
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
         <item name="colorOnError">@color/colorOnError</item>
 
-        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:fontFamily">@font/raleway_regular</item>
         <!--Remap legacy AppCompat attributes to MaterialComponent attributes-->
         <item name="colorPrimaryDark">?colorPrimaryVariant</item>
         <item name="colorAccent">?colorSecondary</item>
     </style>
 
+    <style name="NewsFeed.DetailsTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="NewsFeed.Launcher">
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2019 Eton Otieno
+ *  Copyright (C) 2019 Eton Otieno
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,10 +14,9 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data
+package io.devbits.newsfeed.domain.getnews
 
-sealed class Result<out T> {
-    data class Success<out T>(val data: T) : Result<T>()
-    data class Error(val exception: Exception) : Result<Nothing>()
-    object Loading : Result<Nothing>()
-}
+data class GuardianNewsParams(
+    val section: String,
+    val pageSize: String = "20"
+)

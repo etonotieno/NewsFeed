@@ -22,7 +22,7 @@
 
     <activity
         android:id="@+id/detailActivity"
-        android:name="io.devbits.newsfeed.newsdetail.DetailActivity"
+        android:name="io.devbits.newsfeed.ui.newsdetail.DetailActivity"
         android:label="Details"
         tools:layout="@layout/activity_detail" >
         <argument
@@ -31,7 +31,7 @@
     </activity>
     <fragment
         android:id="@+id/destination_home"
-        android:name="io.devbits.newsfeed.home.HomeFragment"
+        android:name="io.devbits.newsfeed.ui.home.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
@@ -40,12 +40,12 @@
     </fragment>
     <fragment
         android:id="@+id/destination_category"
-        android:name="io.devbits.newsfeed.category.CategoryFragment"
+        android:name="io.devbits.newsfeed.ui.category.CategoryFragment"
         android:label="Categories"
         tools:layout="@layout/fragment_category" />
     <fragment
         android:id="@+id/destination_bookmarked"
-        android:name="io.devbits.newsfeed.bookmark.BookmarkedFragment"
+        android:name="io.devbits.newsfeed.ui.bookmark.BookmarkedFragment"
         android:label="Bookmarked"
         tools:layout="@layout/fragment_bookmarked" />
 </navigation>
