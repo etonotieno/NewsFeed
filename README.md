@@ -1,5 +1,3 @@
-This current version does not work as expected. I'm currently debugging the issue and working out a fix.
-
 # News-Feed [![CircleCI](https://circleci.com/gh/etonotieno/NewsFeed.svg?style=svg)](https://circleci.com/gh/etonotieno/NewsFeed)
 
 This is a Kotlin app that fetches data from two news sources, the
