@@ -1,17 +1,17 @@
 <!--
-  ~  Copyright (C) 2019 Eton Otieno
+  ~ Copyright 2020 Eton Otieno
   ~
-  ~  Licensed under the Apache License, Version 2.0 (the "License");
-  ~  you may not use this file except in compliance with the License.
-  ~  You may obtain a copy of the License at
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
   ~
-  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~     http://www.apache.org/licenses/LICENSE-2.0
   ~
-  ~  Unless required by applicable law or agreed to in writing, software
-  ~  distributed under the License is distributed on an "AS IS" BASIS,
-  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~  See the License for the specific language governing permissions and
-  ~  limitations under the License.
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
   -->
 
 <resources>
@@ -66,4 +66,16 @@
     <string name="news_headline_image">News Headline Image</string>
     <string name="top_stories_label">Top Stories</string>
 
+    <string name="now">now</string>
+    <string name="a_minute_ago">a minute ago</string>
+    <string name="a_minute_ago_abbreviate">1 min</string>
+    <string name="minutes_ago">minutes ago</string>
+    <string name="minutes_ago_abbreviate">min</string>
+    <string name="an_hour_ago">an hour ago</string>
+    <string name="an_hour_ago_abbreviate">1 hr</string>
+    <string name="hours_ago">hours ago</string>
+    <string name="hours_ago_abbreviate">hrs</string>
+    <string name="yesterday">yesterday</string>
+    <string name="days_ago">days ago</string>
+    <string name="days_ago_abbreviate">days</string>
 </resources>

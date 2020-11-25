@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2019 Eton Otieno
+ *  Copyright 2019 Eton Otieno
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,11 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    id("kotlin-android-extensions")
+    id("kotlin-kapt")
+    id("androidx.navigation.safeargs.kotlin")
+}
 
 def getProperties(String fileName) {
     final Properties properties = new Properties()
@@ -38,11 +41,11 @@ def NEWS_API_KEY = getFromProperties(SECRETS_FILE, "NEWS_API_KEY")
 
 android {
     compileSdkVersion 29
-    buildToolsVersion = "29.0.2"
+    buildToolsVersion = "29.0.3"
     defaultConfig {
         applicationId = "io.devbits.newsfeed"
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion(21)
+        targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -53,8 +56,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
@@ -63,9 +66,6 @@ android {
     }
     dataBinding {
         enabled = true
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
     }
 }
 
