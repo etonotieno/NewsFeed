@@ -22,21 +22,20 @@ import androidx.core.text.HtmlCompat
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.Origin
-import kotlinx.android.synthetic.main.activity_detail.detail_image_view
-import kotlinx.android.synthetic.main.activity_detail.newsDetailBodyTextView
-import kotlinx.android.synthetic.main.activity_detail.newsDetailTitleTextView
-import kotlinx.android.synthetic.main.activity_detail.toolbar
+import io.devbits.newsfeed.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
 
     private val args by navArgs<DetailActivityArgs>()
 
+    private lateinit var binding: ActivityDetailBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
-        setSupportActionBar(toolbar)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowTitleEnabled(false)
@@ -47,7 +46,7 @@ class DetailActivity : AppCompatActivity() {
             .load(newsItem.imageUrl)
             .centerCrop()
             .transition(DrawableTransitionOptions.withCrossFade())
-            .into(detail_image_view)
+            .into(binding.detailImageView)
 
         val body = when (newsItem.origin) {
             Origin.GUARDIAN_API -> newsItem.body?.let {
@@ -58,8 +57,9 @@ class DetailActivity : AppCompatActivity() {
             }
             Origin.NEWS_API -> newsItem.body
         }
-        newsDetailBodyTextView.text = body
-        newsDetailTitleTextView.text = newsItem.title
+
+        binding.newsDetailBodyTextView.text = body
+        binding.newsDetailTitleTextView.text = newsItem.title
     }
 
 }

@@ -27,13 +27,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import io.devbits.newsfeed.NewsFeed
-import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.News
 import io.devbits.newsfeed.data.Result
+import io.devbits.newsfeed.databinding.FragmentHomeBinding
 import io.devbits.newsfeed.ui.SpaceItemDecoration
-import kotlinx.android.synthetic.main.fragment_home.homeEmptyView
-import kotlinx.android.synthetic.main.fragment_home.homeLoadingIndicator
-import kotlinx.android.synthetic.main.fragment_home.homeNewsRV
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -45,16 +42,21 @@ class HomeFragment : Fragment() {
 
     private val viewModel by activityViewModels<NewsViewModel> { viewModelFactory }
 
+    private lateinit var binding: FragmentHomeBinding
+
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_home, container, false)
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val spaceItemDecoration = SpaceItemDecoration()
-        homeNewsRV.addItemDecoration(spaceItemDecoration)
-        homeNewsRV.adapter = newsAdapter
+        binding.homeNewsRV.addItemDecoration(spaceItemDecoration)
+        binding.homeNewsRV.adapter = newsAdapter
 
         val manager = GridLayoutManager(requireContext(), 2)
 
@@ -66,7 +68,7 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        homeNewsRV.layoutManager = manager
+        binding.homeNewsRV.layoutManager = manager
 
         viewModel.newsLiveData.observe(viewLifecycleOwner, Observer(::handleState))
     }
@@ -85,28 +87,28 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpScreenForLoadingState() {
-        homeLoadingIndicator.visibility = View.VISIBLE
-        homeNewsRV.visibility = View.GONE
-        homeEmptyView.visibility = View.GONE
+        binding.homeLoadingIndicator.visibility = View.VISIBLE
+        binding.homeNewsRV.visibility = View.GONE
+        binding.homeEmptyView.visibility = View.GONE
     }
 
     private fun setUpScreenForSuccess(data: List<News>) {
-        homeEmptyView.visibility = View.GONE
-        homeLoadingIndicator.visibility = View.GONE
+        binding.homeEmptyView.visibility = View.GONE
+        binding.homeLoadingIndicator.visibility = View.GONE
 
         if (data.isNullOrEmpty()) {
-            homeEmptyView.visibility = View.VISIBLE
-            homeEmptyView.text = "No Data was found 😑😑"
+            binding.homeEmptyView.visibility = View.VISIBLE
+            binding.homeEmptyView.text = "No Data was found 😑😑"
         } else {
-            homeNewsRV.visibility = View.VISIBLE
+            binding.homeNewsRV.visibility = View.VISIBLE
             newsAdapter.addHeaderAndSubmitList(data)
         }
     }
 
     private fun setUpScreenForError(exception: Exception) {
-        homeLoadingIndicator.visibility = View.GONE
-        homeNewsRV.visibility = View.GONE
-        homeEmptyView.visibility = View.VISIBLE
-        homeEmptyView.text = exception.localizedMessage
+        binding.homeLoadingIndicator.visibility = View.GONE
+        binding.homeNewsRV.visibility = View.GONE
+        binding.homeEmptyView.visibility = View.VISIBLE
+        binding.homeEmptyView.text = exception.localizedMessage
     }
 }

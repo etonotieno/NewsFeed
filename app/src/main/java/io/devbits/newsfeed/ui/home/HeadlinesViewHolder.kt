@@ -17,51 +17,47 @@
 package io.devbits.newsfeed.ui.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
+import coil.load
 import coil.transform.RoundedCornersTransformation
-import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.News
-import kotlinx.android.synthetic.main.headlines_news_item.view.headlineNewsImageView
-import kotlinx.android.synthetic.main.headlines_news_item.view.headlineTitleTextView
+import io.devbits.newsfeed.databinding.HeadlinesNewsItemBinding
+import io.devbits.newsfeed.databinding.NewsHeadlineHeaderBinding
 
 class HeadlinesViewHolder private constructor(
-    private val headlinesItemView: View
-) : RecyclerView.ViewHolder(headlinesItemView) {
+    private val binding: HeadlinesNewsItemBinding
+) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(news: News) {
-        headlinesItemView.headlineNewsImageView.load(news.imageUrl) {
+        binding.headlineNewsImageView.load(news.imageUrl) {
             transformations(RoundedCornersTransformation(16F))
             crossfade(true)
         }
 
-        headlinesItemView.headlineTitleTextView.text = news.title
+        binding.headlineTitleTextView.text = news.title
     }
 
     companion object {
 
         fun create(parent: ViewGroup): HeadlinesViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.headlines_news_item, parent, false)
-
-            return HeadlinesViewHolder(view)
+            val inflater = LayoutInflater.from(parent.context)
+            val binding = HeadlinesNewsItemBinding.inflate(inflater, parent, false)
+            return HeadlinesViewHolder(binding)
         }
     }
 }
 
 class HeadlinesHeaderViewHolder private constructor(
-    header: View
-) : RecyclerView.ViewHolder(header) {
+    binding: NewsHeadlineHeaderBinding
+) : RecyclerView.ViewHolder(binding.root) {
 
     companion object {
 
         fun create(parent: ViewGroup): HeadlinesHeaderViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.news_headline_header, parent, false)
-
-            return HeadlinesHeaderViewHolder(view)
+            val inflater = LayoutInflater.from(parent.context)
+            val binding = NewsHeadlineHeaderBinding.inflate(inflater, parent, false)
+            return HeadlinesHeaderViewHolder(binding)
         }
     }
 }

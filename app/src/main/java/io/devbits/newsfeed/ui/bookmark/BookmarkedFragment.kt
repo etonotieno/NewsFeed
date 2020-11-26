@@ -21,13 +21,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import io.devbits.newsfeed.R
+import io.devbits.newsfeed.databinding.FragmentBookmarkedBinding
 
 class BookmarkedFragment : Fragment() {
+
+    private lateinit var binding: FragmentBookmarkedBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_bookmarked, container, false)
+    ): View? {
+        binding = FragmentBookmarkedBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 }
