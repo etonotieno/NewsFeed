@@ -40,12 +40,12 @@ def GUARDIAN_API_KEY = getFromProperties(SECRETS_FILE, "GUARDIAN_API_KEY")
 def NEWS_API_KEY = getFromProperties(SECRETS_FILE, "NEWS_API_KEY")
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion = "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion = "30.0.2"
     defaultConfig {
         applicationId = "io.devbits.newsfeed"
         minSdkVersion(21)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -64,40 +64,43 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
         sourceCompatibility = JavaVersion.VERSION_1_8
     }
-    dataBinding {
-        enabled = true
+    kotlinOptions{
+        jvmTarget = "1.8"
+    }
+    buildFeatures{
+        viewBinding = true
+        dataBinding = true
     }
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
-    implementation("com.google.dagger:dagger:2.25.2")
-    kapt("com.google.dagger:dagger-compiler:2.25.2")
-    implementation("androidx.activity:activity-ktx:1.1.0-rc03")
-    implementation("androidx.fragment:fragment-ktx:1.2.0-rc03")
-    implementation("com.google.android.material:material:1.2.0-alpha02")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
+    implementation("com.google.dagger:dagger:2.29.1")
+    kapt("com.google.dagger:dagger-compiler:2.29.1")
+    implementation("androidx.activity:activity-ktx:1.2.0-beta01")
+    implementation("androidx.fragment:fragment-ktx:1.3.0-beta01")
+    implementation("com.google.android.material:material:1.3.0-alpha03")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
-    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0-rc03")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-rc03")
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.2.0-rc03")
-    implementation("androidx.room:room-runtime:2.2.2")
-    implementation("androidx.room:room-ktx:2.2.2")
-    kapt("androidx.room:room-compiler:2.2.2")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.2.0-rc03")
-    implementation("androidx.navigation:navigation-ui-ktx:2.2.0-rc03")
-    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-beta01")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.3.0-beta01")
+    implementation("androidx.room:room-runtime:2.2.5")
+    implementation("androidx.room:room-ktx:2.2.5")
+    kapt("androidx.room:room-compiler:2.2.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.1")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
-    implementation("com.github.bumptech.glide:glide:4.10.0")
+    implementation("com.github.bumptech.glide:glide:4.11.0")
     kapt("com.github.bumptech.glide:compiler:4.10.0")
-    implementation("io.coil-kt:coil:0.8.0")
-    implementation("com.squareup.retrofit2:retrofit:2.7.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.7.0")
-    implementation("com.squareup.okhttp3:okhttp:4.2.2")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.2.2")
-    implementation("net.danlew:android.joda:2.10.2")
+    implementation("io.coil-kt:coil:1.1.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation("net.danlew:android.joda:2.10.7.2")
     implementation("com.android.support:multidex:1.0.3")
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.0")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.2.2")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.5")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.7.2")
 }
