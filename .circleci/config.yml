@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/News-Feed
     docker:
-      - image: circleci/android@sha256:b6646fdf7457f61825526e7bfce364d8e533da6ceb1cdb98e371e94348ecc834
+      - image: circleci/android:api-30
     environment:
       JVM_OPTS: -Xmx2g
     steps:
