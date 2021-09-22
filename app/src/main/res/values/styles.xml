@@ -36,33 +36,18 @@
         <!--Remap legacy AppCompat attributes to MaterialComponent attributes-->
         <item name="colorPrimaryDark">?colorPrimaryVariant</item>
         <item name="colorAccent">?colorSecondary</item>
-    </style>
 
-    <style name="Theme.NewsFeed.DetailsTheme">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
     </style>
 
     <style name="Theme.NewsFeed.NoActionBar">
         <!-- No action bar -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <!-- System bar attributes -->
-        <item name="android:windowLightStatusBar" tools:targetApi="M">
-            @bool/window_light_system_bar
-        </item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">?attr/colorPrimary</item>
     </style>
 
     <style name="Theme.NewsFeed.NoActionBar.Launcher">
         <!-- Launcher window background -->
         <item name="android:windowBackground">@drawable/bg_launcher</item>
-        <!-- System bar attributes -->
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">
-            @color/color_navigation_bar_launcher
-        </item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">
-            @bool/window_light_system_bar
-        </item>
     </style>
 </resources>

@@ -19,6 +19,7 @@ package io.devbits.newsfeed.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import io.devbits.newsfeed.R
 import kotlinx.coroutines.delay
@@ -28,6 +29,7 @@ class LauncherActivity : AppCompatActivity(R.layout.activity_launcher) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         lifecycleScope.launch {
             delay(2_500L)
             startActivity(Intent(this@LauncherActivity, MainActivity::class.java))
