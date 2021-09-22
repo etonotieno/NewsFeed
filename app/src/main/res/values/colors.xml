@@ -29,4 +29,6 @@
     <color name="colorSurface">#FFFFFF</color>
 
     <color name="ic_launcher_background">@color/secondaryColor</color>
+
+    <color name="color_navigation_bar_launcher">@color/color_on_background_alpha_32</color>
 </resources>

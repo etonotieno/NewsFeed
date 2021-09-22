@@ -15,10 +15,10 @@
   ~  See the License for the specific language governing permissions and
   ~  limitations under the License.
   -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="NewsFeed" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.NewsFeed" parent="Theme.MaterialComponents.Light.DarkActionBar">
 
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
@@ -38,14 +38,31 @@
         <item name="colorAccent">?colorSecondary</item>
     </style>
 
-    <style name="NewsFeed.DetailsTheme">
+    <style name="Theme.NewsFeed.DetailsTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="NewsFeed.Launcher">
-        <item name="android:windowFullscreen">true</item>
+    <style name="Theme.NewsFeed.NoActionBar">
+        <!-- No action bar -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <!-- System bar attributes -->
+        <item name="android:windowLightStatusBar" tools:targetApi="M">
+            @bool/window_light_system_bar
+        </item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Theme.NewsFeed.NoActionBar.Launcher">
+        <!-- Launcher window background -->
+        <item name="android:windowBackground">@drawable/bg_launcher</item>
+        <!-- System bar attributes -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/color_navigation_bar_launcher
+        </item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">
+            @bool/window_light_system_bar
+        </item>
     </style>
 </resources>

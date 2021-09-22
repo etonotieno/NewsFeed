@@ -54,23 +54,24 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val spaceItemDecoration = SpaceItemDecoration()
-        binding.homeNewsRV.addItemDecoration(spaceItemDecoration)
-        binding.homeNewsRV.adapter = newsAdapter
+        super.onViewCreated(view, savedInstanceState)
+            val spaceItemDecoration = SpaceItemDecoration()
+            binding.homeNewsRV.addItemDecoration(spaceItemDecoration)
+            binding.homeNewsRV.adapter = newsAdapter
 
-        val manager = GridLayoutManager(requireContext(), 2)
+            val manager = GridLayoutManager(requireContext(), 2)
 
-        manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return when (newsAdapter.getItemViewType(position)) {
-                    ITEM_VIEW_TYPE_HEADLINE_ITEM -> 1
-                    else -> 2
+            manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return when (newsAdapter.getItemViewType(position)) {
+                        ITEM_VIEW_TYPE_HEADLINE_ITEM -> 1
+                        else -> 2
+                    }
                 }
             }
-        }
-        binding.homeNewsRV.layoutManager = manager
+            binding.homeNewsRV.layoutManager = manager
 
-        viewModel.newsLiveData.observe(viewLifecycleOwner, Observer(::handleState))
+            viewModel.newsLiveData.observe(viewLifecycleOwner, Observer(::handleState))
     }
 
     override fun onAttach(context: Context) {

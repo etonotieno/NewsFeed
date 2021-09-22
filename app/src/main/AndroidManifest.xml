@@ -29,11 +29,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/NewsFeed"
+        android:theme="@style/Theme.NewsFeed"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
             android:name=".ui.LauncherActivity"
-            android:theme="@style/NewsFeed.Launcher">
+            android:theme="@style/Theme.NewsFeed.NoActionBar.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -43,6 +43,6 @@
         <activity
             android:name=".ui.newsdetail.DetailActivity"
             android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/NewsFeed.DetailsTheme" />
+            android:theme="@style/Theme.NewsFeed.DetailsTheme" />
     </application>
 </manifest>

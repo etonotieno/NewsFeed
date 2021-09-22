@@ -28,13 +28,11 @@ class LauncherActivity : AppCompatActivity(R.layout.activity_launcher) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         lifecycleScope.launch {
-            delay(1_500L)
+            delay(2_500L)
             startActivity(Intent(this@LauncherActivity, MainActivity::class.java))
             finish()
         }
-
     }
 
 }
