@@ -40,16 +40,16 @@ def GUARDIAN_API_KEY = getFromProperties(SECRETS_FILE, "GUARDIAN_API_KEY")
 def NEWS_API_KEY = getFromProperties(SECRETS_FILE, "NEWS_API_KEY")
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion = "30.0.3"
+    compileSdkVersion = 33
+    namespace = "io.devbits.newsfeed"
+
     defaultConfig {
         applicationId = "io.devbits.newsfeed"
         minSdkVersion(21)
-        targetSdkVersion(30)
+        targetSdkVersion(33)
         versionCode = 1
         versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
         buildConfigField("String", "GUARDIAN_API_KEY", GUARDIAN_API_KEY)
         buildConfigField("String", "NEWS_API_KEY", NEWS_API_KEY)
@@ -61,71 +61,70 @@ android {
         }
     }
     compileOptions {
-        targetCompatibility = JavaVersion.VERSION_1_8
-        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
 dependencies {
-    implementation("androidx.activity:activity-ktx:1.3.1")
-    implementation("androidx.fragment:fragment-ktx:1.3.6")
+    implementation("androidx.activity:activity-ktx:1.7.1")
+    implementation("androidx.fragment:fragment-ktx:1.5.7")
 
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
     implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
 
-    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("androidx.core:core-ktx:1.10.0")
 
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.appcompat:appcompat-resources:1.3.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.appcompat:appcompat-resources:1.6.1")
 
-    implementation("com.google.android.material:material:1.4.0")
+    implementation("com.google.android.material:material:1.9.0")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
-    implementation("com.google.dagger:dagger:2.38.1")
-    kapt("com.google.dagger:dagger-compiler:2.38.1")
+    implementation("com.google.dagger:dagger:2.45")
+    kapt("com.google.dagger:dagger-compiler:2.45")
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.6.1")
 
-    implementation("androidx.room:room-runtime:2.4.0-alpha04")
-    implementation("androidx.room:room-ktx:2.4.0-alpha04")
-    implementation("androidx.room:room-paging:2.4.0-alpha04")
-    kapt("androidx.room:room-compiler:2.4.0-alpha04")
+    implementation("androidx.room:room-runtime:2.5.1")
+    implementation("androidx.room:room-ktx:2.5.1")
+    implementation("androidx.room:room-paging:2.5.1")
+    kapt("androidx.room:room-compiler:2.5.1")
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
     implementation("androidx.viewpager2:viewpager2:1.1.0-beta01")
 
-    implementation("com.github.bumptech.glide:glide:4.12.0")
-    kapt("com.github.bumptech.glide:compiler:4.12.0")
+    implementation("com.github.bumptech.glide:glide:4.13.2")
+    kapt("com.github.bumptech.glide:compiler:4.13.2")
 
-    implementation("io.coil-kt:coil:1.3.2")
+    implementation("io.coil-kt:coil:2.3.0")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.7.2")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
 
-    implementation("net.danlew:android.joda:2.10.9.1")
+    implementation("net.danlew:android.joda:2.12.5")
 
-    implementation("com.android.support:multidex:1.0.3")
-
-    implementation("com.squareup.leakcanary:plumber-android:2.7")
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
+    implementation("com.squareup.leakcanary:plumber-android:2.10")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.10")
 }

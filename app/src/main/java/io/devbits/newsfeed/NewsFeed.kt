@@ -16,12 +16,12 @@
 
 package io.devbits.newsfeed
 
-import androidx.multidex.MultiDexApplication
+import android.app.Application
 import io.devbits.newsfeed.di.AppComponent
 import io.devbits.newsfeed.di.DaggerAppComponent
 import net.danlew.android.joda.JodaTimeAndroid
 
-class NewsFeed : MultiDexApplication() {
+class NewsFeed : Application() {
 
     private lateinit var appComponent: AppComponent
 
@@ -29,8 +29,6 @@ class NewsFeed : MultiDexApplication() {
         super.onCreate()
 
         appComponent = DaggerAppComponent.create()
-
-        JodaTimeAndroid.init(this)
     }
 
     fun getAppComponent(): AppComponent = appComponent
