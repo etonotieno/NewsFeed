@@ -22,7 +22,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class News(
     val id: String,
-    val imageUrl: String,
+    val imageUrl: String?,
     val webUrl: String,
     val sectionName: String,
     val title: String,
