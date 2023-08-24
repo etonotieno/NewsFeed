@@ -35,6 +35,7 @@ import androidx.core.text.HtmlCompat
 import coil.compose.AsyncImage
 import io.devbits.newsfeed.R
 import io.devbits.newsfeed.data.News
+import io.devbits.newsfeed.data.NewsFeedSampleData
 import io.devbits.newsfeed.data.Origin
 import io.devbits.newsfeed.ui.settings.ui.theme.NewsFeedTheme
 
@@ -86,19 +87,6 @@ fun NewsDetailScreen(
 @Composable
 fun NewsDetailScreenPreview() {
     NewsFeedTheme {
-        NewsDetailScreen(
-            News(
-                id = "1234",
-                imageUrl = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNvGkqpl70Z4ObkPIVxV9P7yny2cBrCtSEUHQF5sLdIPipymfq4rWKGQea7zr5ky9IbBX3seWci1GVkV_iO-2r2d66tl0ISAeju7GXXMOE1KklJMLNZzQTHC-L4zHZK5lYqEAf0_ki1B2ECMI-VfzCeJ3aTAIGAOjGgF1UHsCM2RibfrZggQlF3_3z/s1600/image1.gif",
-                webUrl = "https://android-developers.googleblog.com/",
-                sectionName = "Android Developers",
-                title = "This is the first phone with a 64-megapixel camera",
-                body = "Simon Henderson to appear before education committee after Guardian reported exam questions had been leaked. This is a placeholder text to know how the UI will change according to the change in text.Simon Henderson to appear before education committee after Guardian reported exam questions had been leaked. This is a placeholder text to know how the UI will change according to the change in text.Simon Henderson to appear before education committee after Guardian reported exam questions had been leaked. This is a placeholder text to know how the UI will change according to the change in text.Simon Henderson to appear before education committee after Guardian reported exam questions had been leaked. This is a placeholder text to know how the UI will change according to the change in text.",
-                publicationDate = "22/10/2019",
-                source = "Tech News",
-                summary = "This is the first phone with a 64-megapixel camera",
-                origin = Origin.NEWS_API,
-            )
-        )
+        NewsDetailScreen(NewsFeedSampleData[0])
     }
 }

@@ -28,7 +28,7 @@ data class NewsApiArticle(
     @field:SerializedName("source") val source: NewsApiSource,
     @field:SerializedName("author") val author: String,
     @field:SerializedName("title") val title: String,
-    @field:SerializedName("description") val description: String,
+    @field:SerializedName("description") val description: String?,
     @field:SerializedName("url") val url: String,
     @field:SerializedName("urlToImage") val imageUrl: String,
     @field:SerializedName("publishedAt") val publicationTime: String,
@@ -56,7 +56,7 @@ fun NewsApiResponse.mapToNews(): List<News> {
                 body = article.content,
                 publicationDate = article.publicationTime,
                 source = article.source.name,
-                summary = article.description,
+                summary = article.description.orEmpty(),
                 origin = Origin.NEWS_API
             )
         )
