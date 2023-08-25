@@ -16,13 +16,15 @@
 
 package io.devbits.newsfeed.di
 
+import android.app.Application
+import dagger.BindsInstance
 import dagger.Component
 import io.devbits.newsfeed.ui.MainActivity
 import io.devbits.newsfeed.ui.home.HomeFragment
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class])
+@Component(modules = [AppModule::class, ContextModule::class, AppContextModule::class])
 interface AppComponent {
 
     fun inject(homeFragment: HomeFragment)
@@ -30,6 +32,10 @@ interface AppComponent {
 
     @Component.Builder
     interface Builder {
+        fun app(@BindsInstance app: Application): Builder
+
+        fun appModule(module: AppContextModule): Builder
+
         fun build(): AppComponent
     }
 }

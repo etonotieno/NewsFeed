@@ -16,13 +16,21 @@
 
 package io.devbits.newsfeed.di
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import io.devbits.newsfeed.BuildConfig
 import io.devbits.newsfeed.data.remote.guardianapi.GuardianApiService
 import io.devbits.newsfeed.data.remote.newsapi.NewsApiService
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module(includes = [DataModule::class, ViewModelModule::class])
@@ -30,30 +38,66 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRetrofitBuilder(): Retrofit.Builder {
+    fun provideOkhttp(context: Context): OkHttpClient {
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpLoggingInterceptor.level = when (BuildConfig.BUILD_TYPE) {
+            "release" -> HttpLoggingInterceptor.Level.NONE
+            else -> HttpLoggingInterceptor.Level.BASIC
+        }
+
+        val chuckerInterceptor = ChuckerInterceptor.Builder(context)
+            .collector(ChuckerCollector(context))
+            .alwaysReadResponseBody(true)
+            .apply { if (!BuildConfig.DEBUG) redactHeaders("X-Api-Key") }
+            .build()
+
+        return OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(chuckerInterceptor)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofitBuilder(client: OkHttpClient): Retrofit.Builder {
+        val gson = GsonBuilder()
+            .serializeNulls()
+            .create()
+
         return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(client)
     }
 
     @Provides
     @Singleton
-    fun provideGuardianApiService(builder: Retrofit.Builder): GuardianApiService {
-        return builder
-            .baseUrl(Companion.GUARDIAN_BASE_URL)
-            .build()
-            .create()
+    @Named(GUARDIAN_API)
+    fun provideGuardianApiRetrofit(builder: Retrofit.Builder): Retrofit {
+        return builder.baseUrl(GUARDIAN_BASE_URL).build()
     }
 
     @Provides
     @Singleton
-    fun provideNewsApiService(builder: Retrofit.Builder): NewsApiService {
-        return builder
-            .baseUrl(Companion.NEWS_API_BASE_URL)
-            .build()
-            .create()
+    @Named(NEWS_API)
+    fun provideNewsApiRetrofit(builder: Retrofit.Builder): Retrofit {
+        return builder.baseUrl(NEWS_API_BASE_URL).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGuardianApiService(@Named(GUARDIAN_API) retrofit: Retrofit): GuardianApiService {
+        return retrofit.create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsApiService(@Named(NEWS_API) retrofit: Retrofit): NewsApiService {
+        return retrofit.create()
     }
 
     companion object {
+        private const val NEWS_API = "news-api"
+        private const val GUARDIAN_API = "guardian-api"
         private const val NEWS_API_BASE_URL = "https://newsapi.org/"
         private const val GUARDIAN_BASE_URL = "https://content.guardianapis.com/"
     }

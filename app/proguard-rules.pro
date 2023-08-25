@@ -5,6 +5,9 @@
 # EnclosingMethod is required to use InnerClasses.
 -keepattributes Signature, InnerClasses, EnclosingMethod
 
+# Retrofit does reflection on method and parameter annotations.
+-keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
+
 # Retain service method parameters when optimizing.
 -keepclassmembers,allowshrinking,allowobfuscation interface * {
     @retrofit2.http.* <methods>;
@@ -20,7 +23,25 @@
 -dontwarn kotlin.Unit
 
 # Top-level functions that can only be used by Kotlin.
--dontwarn retrofit2.-KotlinExtensions
+-dontwarn retrofit2.KotlinExtensions
+-dontwarn retrofit2.KotlinExtensions$*
+
+# With R8 full mode, it sees no subtypes of Retrofit interfaces since they are created with a Proxy
+# and replaces all potential values with null. Explicitly keeping the interfaces prevents this.
+-if interface * { @retrofit2.http.* <methods>; }
+-keep,allowobfuscation interface <1>
+# https://github.com/square/okhttp/blob/339732e3a1b78be5d792860109047f68a011b5eb/okhttp/src/jvmMain/resources/META-INF/proguard/okhttp3.pro#L11-L14
+-dontwarn okhttp3.internal.platform.**
+-dontwarn org.conscrypt.**
+-dontwarn org.bouncycastle.**
+-dontwarn org.openjsse.**
+
+# TODO: Waiting for new retrofit release to remove these rules
+-keep,allowobfuscation,allowshrinking interface retrofit2.Call
+-keep,allowobfuscation,allowshrinking class retrofit2.Response
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+
+-keep,allowobfuscation,allowshrinking class com.your.company.YourCustomSealedClass
 
 ## OkHttp
 ## https://github.com/square/okhttp/blob/master/okhttp/src/main/resources/META-INF/proguard/okhttp3.pro
@@ -49,14 +70,19 @@
 
 # Gson specific classes
 -dontwarn sun.misc.**
-
-# Application classes that will be serialized/deserialized over Gson
+#-keep class com.google.gson.stream.** { *; }
 
 # Prevent proguard from stripping interface information from TypeAdapterFactory,
 # JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
+-keep class * implements com.google.gson.TypeAdapter
 -keep class * implements com.google.gson.TypeAdapterFactory
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
+
+# Prevent R8 from leaving Data object members always null
+-keepclassmembers,allowobfuscation class * {
+  @com.google.gson.annotations.SerializedName <fields>;
+}
 
 ## Dagger
 ## https://github.com/google/dagger/blob/master/java/dagger/android/proguard.cfg
@@ -69,11 +95,21 @@
 # ServiceLoader support
 -keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
 -keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+-keepnames class kotlinx.coroutines.android.AndroidExceptionPreHandler {}
+-keepnames class kotlinx.coroutines.android.AndroidDispatcherFactory {}
 
 # Most of volatile fields are updated with AFU and should not be mangled
 -keepclassmembernames class kotlinx.** {
     volatile <fields>;
 }
+
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
+
+## Jetpack Navigation
+-keepnames class androidx.navigation.fragment.NavHostFragment
+
+-optimizations !code/allocation/variable
 
 # Application classes that will be serialized/deserialized over Gson or passed as nav args
 -keep class io.devbits.newsfeed.data.remote.guardianapi.model.** { *; }

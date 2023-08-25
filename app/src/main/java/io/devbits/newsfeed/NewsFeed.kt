@@ -18,8 +18,8 @@ package io.devbits.newsfeed
 
 import android.app.Application
 import io.devbits.newsfeed.di.AppComponent
+import io.devbits.newsfeed.di.AppContextModule
 import io.devbits.newsfeed.di.DaggerAppComponent
-import net.danlew.android.joda.JodaTimeAndroid
 
 class NewsFeed : Application() {
 
@@ -28,7 +28,10 @@ class NewsFeed : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        appComponent = DaggerAppComponent.create()
+        appComponent = DaggerAppComponent.builder()
+            .app(this)
+            .appModule(AppContextModule(this))
+            .build()
     }
 
     fun getAppComponent(): AppComponent = appComponent

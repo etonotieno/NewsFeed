@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 class RemoteNewsSource @Inject constructor(
     private val guardianApiService: GuardianApiService,
-    private val newsApiService: NewsApiService
+    private val newsApiService: NewsApiService,
 ) : NewsSource {
 
     override suspend fun getNewsResults(section: String): Result<List<News>> {
@@ -34,7 +34,7 @@ class RemoteNewsSource @Inject constructor(
             Result.Loading
             val guardianApiArticles = guardianApiService.getNewsResponse(section)
                 .mapToNews()
-            val newsApiArticles = newsApiService.getNewsResponse()
+            val newsApiArticles = newsApiService.getNewsResponse(query = section)
                 .mapToNews()
 
             val finalList = guardianApiArticles.union(newsApiArticles)

@@ -27,15 +27,16 @@ interface NewsApiService {
     @Headers("X-Api-Key: ${BuildConfig.NEWS_API_KEY}")
     @GET("v2/everything")
     suspend fun getNewsResponse(
-        @Query("sources") sources: String = "techcrunch,techradar,the-verge,wired",
-        @Query("language") language: String = "en"
+        @Query("sources") sources: String? = "techcrunch,techradar,the-verge,wired",
+        @Query("q") query: String? = null,
+        @Query("language") language: String = "en",
     ): NewsApiResponse
 
     @Headers("X-Api-Key: ${BuildConfig.NEWS_API_KEY}")
     @GET("v2/top-headlines")
     suspend fun getTopHeadlines(
         @Query("category") category: String = "technology",
-        @Query("language") language: String = "en"
+        @Query("language") language: String = "en",
     ): NewsApiResponse
 
 }

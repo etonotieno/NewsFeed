@@ -24,7 +24,7 @@
         android:id="@+id/detailActivity"
         android:name="io.devbits.newsfeed.ui.newsdetail.DetailActivity"
         android:label="Details"
-        tools:layout="@layout/activity_detail" >
+        tools:layout="@layout/activity_detail">
         <argument
             android:name="newsItem"
             app:argType="io.devbits.newsfeed.data.model.News" />

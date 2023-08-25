@@ -163,4 +163,7 @@ dependencies {
 
     implementation("com.squareup.leakcanary:plumber-android:2.12")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
+
+    debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
 }
