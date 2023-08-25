@@ -17,6 +17,7 @@
 package io.devbits.newsfeed.data.remote.guardianapi
 
 import io.devbits.newsfeed.BuildConfig
+import io.devbits.newsfeed.data.remote.guardianapi.model.GuardianMain
 import retrofit2.http.GET
 import retrofit2.http.Query
 

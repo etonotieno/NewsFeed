@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import io.devbits.newsfeed.data.News
+import io.devbits.newsfeed.data.model.News
 import io.devbits.newsfeed.databinding.NewsItemBinding
 import io.devbits.newsfeed.databinding.TopStoriesHeaderBinding
 import java.text.SimpleDateFormat

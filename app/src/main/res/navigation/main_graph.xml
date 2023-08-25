@@ -27,7 +27,7 @@
         tools:layout="@layout/activity_detail" >
         <argument
             android:name="newsItem"
-            app:argType="io.devbits.newsfeed.data.News" />
+            app:argType="io.devbits.newsfeed.data.model.News" />
     </activity>
     <fragment
         android:id="@+id/destination_home"

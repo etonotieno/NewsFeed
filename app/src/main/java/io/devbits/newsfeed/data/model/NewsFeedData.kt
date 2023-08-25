@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.devbits.newsfeed.data
+package io.devbits.newsfeed.data.model
 
 val NewsFeedSampleData = listOf(
     News(

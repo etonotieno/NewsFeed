@@ -18,10 +18,10 @@ package io.devbits.newsfeed.di
 
 import dagger.Binds
 import dagger.Module
-import io.devbits.newsfeed.data.news.LocalNewsSource
-import io.devbits.newsfeed.data.news.NewsRepositoryImpl
-import io.devbits.newsfeed.data.news.NewsSource
-import io.devbits.newsfeed.data.news.RemoteNewsSource
+import io.devbits.newsfeed.data.repository.LocalNewsSource
+import io.devbits.newsfeed.data.repository.NewsRepositoryImpl
+import io.devbits.newsfeed.data.repository.NewsSource
+import io.devbits.newsfeed.data.repository.RemoteNewsSource
 import io.devbits.newsfeed.domain.getnews.NewsRepository
 
 @Module

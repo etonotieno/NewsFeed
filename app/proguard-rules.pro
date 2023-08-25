@@ -74,3 +74,8 @@
 -keepclassmembernames class kotlinx.** {
     volatile <fields>;
 }
+
+# Application classes that will be serialized/deserialized over Gson or passed as nav args
+-keep class io.devbits.newsfeed.data.remote.guardianapi.model.** { *; }
+-keep class io.devbits.newsfeed.data.remote.newsapi.model.** { *; }
+-keep class io.devbits.newsfeed.data.model.** { *; }

@@ -16,8 +16,8 @@
 
 package io.devbits.newsfeed.domain.getnews
 
-import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.data.Result
+import io.devbits.newsfeed.data.model.News
+import io.devbits.newsfeed.data.model.Result
 import io.devbits.newsfeed.domain.BaseUseCase
 import javax.inject.Inject
 

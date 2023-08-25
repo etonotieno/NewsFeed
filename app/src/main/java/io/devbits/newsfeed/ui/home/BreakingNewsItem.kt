@@ -29,14 +29,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.data.NewsFeedSampleData
+import io.devbits.newsfeed.data.model.News
+import io.devbits.newsfeed.data.model.NewsFeedSampleData
 import io.devbits.newsfeed.ui.settings.ui.theme.NewsFeedTheme
 
 @Composable

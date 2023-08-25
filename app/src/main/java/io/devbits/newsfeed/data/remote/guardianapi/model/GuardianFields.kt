@@ -14,18 +14,15 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data.remote.guardianapi
+package io.devbits.newsfeed.data.remote.guardianapi.model
 
 import com.google.gson.annotations.SerializedName
 
-class GuardianResult(
-    @field:SerializedName("id") val id: String,
-    @field:SerializedName("type") val type: String,
-    @field:SerializedName("sectionId") val sectionId: String,
-    @field:SerializedName("webTitle") val webTitle: String,
-    @field:SerializedName("webPublicationDate") val webPublicationDate: String,
-    @field:SerializedName("fields") val fields: GuardianFields,
-    @field:SerializedName("webUrl") val webUrl: String,
-    @field:SerializedName("apiUrl") val apiUrl: String,
-    @field:SerializedName("sectionName") val sectionName: String
+class GuardianFields(
+    @field:SerializedName("thumbnail") val thumbnail: String,
+    @field:SerializedName("headline") val headline: String,
+    @field:SerializedName("body") val htmlBody: String,
+    @field:SerializedName("bodyText") val textBody: String,
+    @field:SerializedName("trailText") val trailText: String,
+    @field:SerializedName("publication") val publication: String
 )

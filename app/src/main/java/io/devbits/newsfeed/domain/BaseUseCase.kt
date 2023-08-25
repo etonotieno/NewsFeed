@@ -16,7 +16,7 @@
 
 package io.devbits.newsfeed.domain
 
-import io.devbits.newsfeed.data.Result
+import io.devbits.newsfeed.data.model.Result
 
 abstract class BaseUseCase<in Params, out Value> {
 

@@ -14,23 +14,8 @@
  * limitations under the License.
  */
 
-package io.devbits.newsfeed.ui.home
+package io.devbits.newsfeed.data.model
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import io.devbits.newsfeed.data.model.News
-import io.devbits.newsfeed.data.model.NewsFeedSampleData
-import io.devbits.newsfeed.ui.settings.ui.theme.NewsFeedTheme
-
-@Composable
-fun NewsCard(newsModel: News) {
-
-}
-
-@Preview
-@Composable
-fun NewsCardPreview() {
-    NewsFeedTheme {
-        NewsCard(newsModel = NewsFeedSampleData[1])
-    }
+enum class Origin {
+    GUARDIAN_API, NEWS_API
 }

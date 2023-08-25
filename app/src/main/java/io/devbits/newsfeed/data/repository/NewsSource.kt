@@ -14,10 +14,10 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data.news
+package io.devbits.newsfeed.data.repository
 
-import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.data.Result
+import io.devbits.newsfeed.data.model.News
+import io.devbits.newsfeed.data.model.Result
 
 interface NewsSource {
 

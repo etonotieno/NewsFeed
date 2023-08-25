@@ -20,8 +20,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.data.Result
+import io.devbits.newsfeed.data.model.News
+import io.devbits.newsfeed.data.model.Result
 import io.devbits.newsfeed.domain.getnews.GetNewsUseCase
 import io.devbits.newsfeed.domain.getnews.GuardianNewsParams
 import kotlinx.coroutines.launch

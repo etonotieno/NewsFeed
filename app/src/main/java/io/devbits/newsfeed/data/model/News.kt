@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-package io.devbits.newsfeed.ui.home
+package io.devbits.newsfeed.data.model
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import io.devbits.newsfeed.data.model.News
-import io.devbits.newsfeed.data.model.NewsFeedSampleData
-import io.devbits.newsfeed.ui.settings.ui.theme.NewsFeedTheme
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-@Composable
-fun NewsCard(newsModel: News) {
-
-}
-
-@Preview
-@Composable
-fun NewsCardPreview() {
-    NewsFeedTheme {
-        NewsCard(newsModel = NewsFeedSampleData[1])
-    }
-}
+@Parcelize
+data class News(
+    val id: String,
+    val imageUrl: String?,
+    val webUrl: String,
+    val sectionName: String,
+    val title: String,
+    val body: String?,
+    val publicationDate: String,
+    val source: String,
+    val summary: String,
+    val origin: Origin,
+) : Parcelable

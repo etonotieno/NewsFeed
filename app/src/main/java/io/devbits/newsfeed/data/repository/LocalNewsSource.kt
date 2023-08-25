@@ -14,10 +14,22 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data
+package io.devbits.newsfeed.data.repository
 
-sealed class Result<out T> {
-    data class Success<out T>(val data: T) : Result<T>()
-    data class Error(val exception: Exception) : Result<Nothing>()
-    object Loading : Result<Nothing>()
+import io.devbits.newsfeed.data.model.News
+import io.devbits.newsfeed.data.model.Result
+import javax.inject.Inject
+
+class LocalNewsSource @Inject constructor(
+
+) : NewsSource {
+
+    override suspend fun getNewsResults(section: String): Result<List<News>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun getNewsById(newsId: String): Result<News> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

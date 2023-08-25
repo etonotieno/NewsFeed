@@ -22,7 +22,7 @@ import androidx.core.text.HtmlCompat
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import io.devbits.newsfeed.data.Origin
+import io.devbits.newsfeed.data.model.Origin
 import io.devbits.newsfeed.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {

@@ -14,23 +14,10 @@
  * limitations under the License.
  */
 
-package io.devbits.newsfeed.ui.home
+package io.devbits.newsfeed.data.model
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import io.devbits.newsfeed.data.model.News
-import io.devbits.newsfeed.data.model.NewsFeedSampleData
-import io.devbits.newsfeed.ui.settings.ui.theme.NewsFeedTheme
-
-@Composable
-fun NewsCard(newsModel: News) {
-
-}
-
-@Preview
-@Composable
-fun NewsCardPreview() {
-    NewsFeedTheme {
-        NewsCard(newsModel = NewsFeedSampleData[1])
-    }
+sealed class Result<out T> {
+    data class Success<out T>(val data: T) : Result<T>()
+    data class Error(val exception: Exception) : Result<Nothing>()
+    object Loading : Result<Nothing>()
 }

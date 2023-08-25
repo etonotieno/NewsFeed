@@ -1,5 +1,5 @@
 /*
- *  Copyright 2019 Eton Otieno
+ *  Copyright (C) 2019 Eton Otieno
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,22 +14,26 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data.news
+package io.devbits.newsfeed.data.repository
 
-import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.data.Result
+import io.devbits.newsfeed.data.model.News
+import io.devbits.newsfeed.data.model.Result
+import io.devbits.newsfeed.di.DataSource
+import io.devbits.newsfeed.di.Source
+import io.devbits.newsfeed.domain.getnews.NewsRepository
 import javax.inject.Inject
 
-class LocalNewsSource @Inject constructor(
-
-) : NewsSource {
+class NewsRepositoryImpl @Inject constructor(
+    @DataSource(Source.REMOTE) private val remoteNewsSource: NewsSource,
+    @DataSource(Source.LOCAL) private val localNewsSource: NewsSource
+) : NewsRepository {
 
     override suspend fun getNewsResults(section: String): Result<List<News>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return remoteNewsSource.getNewsResults(section)
     }
 
     override suspend fun getNewsById(newsId: String): Result<News> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return localNewsSource.getNewsById(newsId)
     }
 
 }

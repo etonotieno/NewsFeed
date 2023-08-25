@@ -14,14 +14,14 @@
  *  limitations under the License.
  */
 
-package io.devbits.newsfeed.data.news
+package io.devbits.newsfeed.data.repository
 
-import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.data.Result
+import io.devbits.newsfeed.data.model.News
+import io.devbits.newsfeed.data.model.Result
 import io.devbits.newsfeed.data.remote.guardianapi.GuardianApiService
-import io.devbits.newsfeed.data.remote.guardianapi.mapToNews
+import io.devbits.newsfeed.data.remote.guardianapi.model.mapToNews
 import io.devbits.newsfeed.data.remote.newsapi.NewsApiService
-import io.devbits.newsfeed.data.remote.newsapi.mapToNews
+import io.devbits.newsfeed.data.remote.newsapi.model.mapToNews
 import javax.inject.Inject
 
 class RemoteNewsSource @Inject constructor(

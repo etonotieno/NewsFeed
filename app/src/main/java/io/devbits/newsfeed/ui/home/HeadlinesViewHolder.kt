@@ -21,7 +21,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import io.devbits.newsfeed.data.News
+import io.devbits.newsfeed.data.model.News
 import io.devbits.newsfeed.databinding.HeadlinesNewsItemBinding
 import io.devbits.newsfeed.databinding.NewsHeadlineHeaderBinding
 

@@ -34,9 +34,9 @@ import androidx.compose.ui.unit.dp
 import androidx.core.text.HtmlCompat
 import coil.compose.AsyncImage
 import io.devbits.newsfeed.R
-import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.data.NewsFeedSampleData
-import io.devbits.newsfeed.data.Origin
+import io.devbits.newsfeed.data.model.News
+import io.devbits.newsfeed.data.model.NewsFeedSampleData
+import io.devbits.newsfeed.data.model.Origin
 import io.devbits.newsfeed.ui.settings.ui.theme.NewsFeedTheme
 
 @Composable

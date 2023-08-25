@@ -27,8 +27,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import io.devbits.newsfeed.NewsFeed
-import io.devbits.newsfeed.data.News
-import io.devbits.newsfeed.data.Result
+import io.devbits.newsfeed.data.model.News
+import io.devbits.newsfeed.data.model.Result
 import io.devbits.newsfeed.databinding.FragmentHomeBinding
 import io.devbits.newsfeed.ui.SpaceItemDecoration
 import javax.inject.Inject

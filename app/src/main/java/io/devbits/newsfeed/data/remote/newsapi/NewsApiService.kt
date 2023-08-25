@@ -17,6 +17,7 @@
 package io.devbits.newsfeed.data.remote.newsapi
 
 import io.devbits.newsfeed.BuildConfig
+import io.devbits.newsfeed.data.remote.newsapi.model.NewsApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
