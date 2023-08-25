@@ -35,7 +35,6 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowTitleEnabled(false)
@@ -55,11 +54,17 @@ class DetailActivity : AppCompatActivity() {
                     HtmlCompat.FROM_HTML_MODE_COMPACT
                 ).toString()
             }
+
             Origin.NEWS_API -> newsItem.body
         }
 
         binding.newsDetailBodyTextView.text = body
         binding.newsDetailTitleTextView.text = newsItem.title
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 
 }
